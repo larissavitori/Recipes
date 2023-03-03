@@ -1,21 +1,17 @@
 import React from 'react';
-import { RiErrorWarningLine } from 'react-icons';
 import PropTypes from 'prop-types';
-// test
+
 function Input(
   {
     iType, iName, iPlaceholder, iDataTestId, iValue, iOnChange,
     children,
-    validationError = false,
   },
 ) {
   return (
     <div
-      className={ validationError ? 'input-box warning' : 'input-box' }
+      className="input-box"
     >
-      <RiErrorWarningLine
-        className={ validationError ? 'input-warning' : 'input-warning-disabled' }
-      />
+      { children }
       <input
         className="input-item"
         data-testid={ iDataTestId }
@@ -25,7 +21,6 @@ function Input(
         onChange={ iOnChange }
         placeholder={ iPlaceholder }
       />
-      { children }
     </div>
   );
 }
@@ -41,7 +36,6 @@ Input.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  validationError: PropTypes.bool,
 };
 
 export default Input;
