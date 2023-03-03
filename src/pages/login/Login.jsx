@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import validator from 'validator';
 import { HiOutlineMail } from 'react-icons/hi';
 import { useHistory } from 'react-router-dom';
 import { Input } from '../../components';
 
 function Login() {
-  const history = useHistory();
   const [loginData, setLoginData] = useState({
     email: '',
-    emailValidation: false,
     password: '',
-    passwordValidation: false,
   });
+  const [validation, setValidation] = useState(false);
+  const history = useHistory();
 
   const handleChange = ({ target: { name, value } }) => {
-    const PASSWORD_LENGTH = 6;
-
-    setLoginData((state) => ({
+    setLoginData({
       ...loginData,
       [name]: value,
-      emailValidation: validator.isEmail(state.email),
-      passwordValidation: state.password.length >= PASSWORD_LENGTH,
-    }));
+    });
   };
+
+  useEffect(() => {
+    const PASSWORD_LENGTH = 6;
+    const isValid = !!(
+      validator.isEmail(loginData.email) && loginData.password.length >= PASSWORD_LENGTH
+    );
+
+    setValidation(isValid);
+  }, [loginData]);
 
   const handleClick = () => {
     localStorage.setItem('user', JSON.stringify({ email: loginData.email }));
@@ -54,9 +58,7 @@ function Login() {
       <button
         className="btn-enter"
         data-testid="login-submit-btn"
-        disabled={
-          !(loginData.emailValidation && loginData.passwordValidation)
-        }
+        disabled={ !validation }
         onClick={ handleClick }
       >
         Enter
