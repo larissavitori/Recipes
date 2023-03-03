@@ -8,7 +8,6 @@ function Routes() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/meals" component={ Meals } />
     </Switch>
-
   );
 }
 

@@ -11,7 +11,7 @@ function withRouter(component, history) {
   );
 }
 
-export function renderWithRouter(
+export default function renderWithRouter(
   component,
   {
     initialEntries = ['/'],
