@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Input } from '../../components';
 
 function Login() {
+  const history = useHistory();
   const [loginData, setLoginData] = useState({
     email: '',
     emailValidation: false,
@@ -23,7 +24,6 @@ function Login() {
     }));
   };
 
-  const history = useHistory();
   const handleClick = () => {
     localStorage.setItem('user', JSON.stringify({ email: loginData.email }));
     history.push('/meals');
