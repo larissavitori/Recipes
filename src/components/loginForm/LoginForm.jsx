@@ -1,45 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import validator from 'validator';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
 import { HiOutlineMail } from 'react-icons/hi';
 import { AiOutlineLock } from 'react-icons/ai';
 import Input from '../inputs/Input';
+import { LoginContext } from '../../context';
 
 function LoginForm() {
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  });
-  const [validation, setValidation] = useState(false);
-  const history = useHistory();
-
-  const handleChange = ({ target: { name, value } }) => {
-    setLoginData({
-      ...loginData,
-      [name]: value,
-    });
-  };
-
-  useEffect(() => {
-    const PASSWORD_LENGTH = 6;
-    const isValid = !!(
-      validator.isEmail(loginData.email) && loginData.password.length >= PASSWORD_LENGTH
-    );
-
-    setValidation(isValid);
-  }, [loginData]);
-
-  const handleClick = () => {
-    localStorage.setItem('user', JSON.stringify({ email: loginData.email }));
-    history.push('/meals');
-  };
+  const {
+    loginData: { password, email },
+    validation,
+    loginHandleChange,
+    loginHandleClick,
+  } = useContext(LoginContext);
 
   return (
     <div className="login-form">
       <Input
         iType="email"
         iName="email"
-        LoginForm
+        iPlaceholder="Email"
+        iDataTestId="email-input"
+        iValue={ email }
+        iOnChange={ loginHandleChange }
       >
         <HiOutlineMail className="i-icon" />
       </Input>
@@ -48,8 +29,8 @@ function LoginForm() {
         iName="password"
         iPlaceholder="Password"
         iDataTestId="password-input"
-        iValue={ loginData.password }
-        iOnChange={ handleChange }
+        iValue={ password }
+        iOnChange={ loginHandleChange }
       >
         <AiOutlineLock className="i-icon" />
       </Input>
@@ -57,7 +38,7 @@ function LoginForm() {
         className="btn-enter"
         data-testid="login-submit-btn"
         disabled={ !validation }
-        onClick={ handleClick }
+        onClick={ loginHandleClick }
       >
         Enter
       </button>

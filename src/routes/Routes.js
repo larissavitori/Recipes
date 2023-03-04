@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { LoginProvider } from '../context';
 import {
   Login, Meals, MealView, Drinks, DrinkView, Favorites, Profile, DoneRecipes,
 } from '../pages';
@@ -7,7 +8,9 @@ import {
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
+      <LoginProvider>
+        <Route exact path="/" component={ Login } />
+      </LoginProvider>
       <Route exact path="/meals" component={ Meals } />
       <Route
         exact
