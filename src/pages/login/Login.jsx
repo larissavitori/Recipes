@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import validator from 'validator';
 import { HiOutlineMail } from 'react-icons/hi';
+import { AiOutlineLock } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
 import { Input } from '../../components';
+import logo from '../../images/logo-recipes-app.png';
+
+import './login.css';
 
 function Login() {
   const [loginData, setLoginData] = useState({
@@ -34,36 +38,39 @@ function Login() {
   };
 
   return (
-    <div className="login-page">
-      <Input
-        iType="email"
-        iName="email"
-        iPlaceholder="Email"
-        iDataTestId="email-input"
-        iValue={ loginData.email }
-        iOnChange={ handleChange }
-      >
-        <HiOutlineMail />
-      </Input>
-      <Input
-        iType="password"
-        iName="password"
-        iPlaceholder="Password"
-        iDataTestId="password-input"
-        iValue={ loginData.password }
-        iOnChange={ handleChange }
-      >
-        <HiOutlineMail />
-      </Input>
-      <button
-        className="btn-enter"
-        data-testid="login-submit-btn"
-        disabled={ !validation }
-        onClick={ handleClick }
-      >
-        Enter
-      </button>
-    </div>
+    <main className="login-page">
+      <img className="logo-image" src={ logo } alt="logo recipes app" />
+      <div className="login-form">
+        <Input
+          iType="email"
+          iName="email"
+          iPlaceholder="Email"
+          iDataTestId="email-input"
+          iValue={ loginData.email }
+          iOnChange={ handleChange }
+        >
+          <HiOutlineMail className="i-icon" />
+        </Input>
+        <Input
+          iType="password"
+          iName="password"
+          iPlaceholder="Password"
+          iDataTestId="password-input"
+          iValue={ loginData.password }
+          iOnChange={ handleChange }
+        >
+          <AiOutlineLock className="i-icon" />
+        </Input>
+        <button
+          className="btn-enter"
+          data-testid="login-submit-btn"
+          disabled={ !validation }
+          onClick={ handleClick }
+        >
+          Enter
+        </button>
+      </div>
+    </main>
   );
 }
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './input.css';
+
 function Input(
   {
     iType, iName, iPlaceholder, iDataTestId, iValue, iOnChange,

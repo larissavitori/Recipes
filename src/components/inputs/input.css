@@ -1,12 +1,29 @@
-.input-box {
-  align-items: center;
-  border: 2px solid black;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 12px;
+:root {
+
+  --fontColor-primary: rgb(33, 37, 41);
+
+  --primary-color: rgb(65, 24, 127);
+
+  --secondary-color: rgb(252, 220, 54);
+
+  --shadow-color: rgba(0, 0, 0, 0.2);
+
 }
 
-.input-warning-disabled {
-  display: none;
+.input-box {
+  align-items: center;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px var(--shadow-color);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 6px 12px;
+  width: 85%;
+}
+
+.input-item {
+  margin-left: 10px;
+  width: 95%;
 }

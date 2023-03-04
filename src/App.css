@@ -1,4 +1,11 @@
+:root {
+
+  --color-background: rgb(248, 249, 250);
+
+}
+
 main {
-  height: 100%;
-  width: 100%;
+  background-color: var(--color-background);
+  height: 100vh;
+  width: 100vw;
 }
