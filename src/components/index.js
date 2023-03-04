@@ -1,5 +1,5 @@
-import Input from './inputs/Input';
+import LoginForm from './loginForm/LoginForm';
 
 export {
-  Input,
+  LoginForm,
 };
