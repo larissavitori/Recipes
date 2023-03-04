@@ -13,7 +13,7 @@ describe('Test Application Login', () => {
     const btnSubmit = screen.getByTestId('login-submit-btn');
 
     userEvent.type(emailInput, 'test@test.com');
-    userEvent.type(passwordInput, '123456');
+    userEvent.type(passwordInput, '1234567');
     userEvent.click(btnSubmit);
 
     const { pathname } = history.location;
