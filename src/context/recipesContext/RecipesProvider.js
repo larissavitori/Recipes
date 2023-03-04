@@ -4,7 +4,7 @@ import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
   return (
-    <RecipesContext.Provider value={ LoginState }>
+    <RecipesContext.Provider>
       {children}
     </RecipesContext.Provider>
   );
