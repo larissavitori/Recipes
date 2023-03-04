@@ -13,6 +13,7 @@ describe('Test Application Footer Component', () => {
       fireEvent.click(categoriesButton[7]);
       fireEvent.click(categoriesButton[2]);
       fireEvent.click(categoriesButton[2]);
+      expect(categoriesButton.length).toBe(9);
     }, { timeout: 4000 });
   });
   it('General tests', async () => {
@@ -24,6 +25,7 @@ describe('Test Application Footer Component', () => {
       fireEvent.click(categoriesButton[7]);
       fireEvent.click(categoriesButton[2]);
       fireEvent.click(categoriesButton[2]);
+      expect(categoriesButton.length).toBe(9);
     }, { timeout: 4000 });
   });
 });
