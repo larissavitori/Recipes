@@ -5,3 +5,9 @@ export const LOGIN_PAGE_DATA = {
   emailTest: 'test@test.com',
   passwordTest: '1234567',
 };
+
+export const HEADER_COMPONENT_DATA = {
+  profileIconDataTestID: 'profile-top-btn',
+  searchBtnDataTestID: 'search-top-btn',
+  pageTitleDataTestID: 'page-title',
+};
