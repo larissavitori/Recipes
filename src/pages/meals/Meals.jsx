@@ -8,6 +8,7 @@ function Meals() {
       <Header hTitle="Meals" />
       <RecipesGrid />
       <Footer />
+      <Footer />
     </main>
   );
 }

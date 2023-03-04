@@ -24,7 +24,6 @@ function Profile() {
           onClick={ () => history.push('/done-recipes') }
         >
           Done Recipes
-
         </button>
         <button
           data-testid="profile-favorite-btn"
@@ -32,7 +31,6 @@ function Profile() {
           onClick={ () => history.push('/favorite-recipes') }
         >
           Favorite Recipes
-
         </button>
         <button
           data-testid="profile-logout-btn"
@@ -44,10 +42,9 @@ function Profile() {
 
         >
           Logout
-
         </button>
-
       </div>
+      <Footer />
     </div>
   );
 }
