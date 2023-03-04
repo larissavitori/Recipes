@@ -6,6 +6,7 @@ import DrinkView from './drinkView/DrinkView';
 import Profile from './profile/Profile';
 import DoneRecipes from './doneRecipes/DoneRecipes';
 import Favorites from './favorites/Favorites';
+import RecipeInProgress from './recipeInProgress/RecipeInProgress';
 
 export {
   Login,
@@ -16,4 +17,5 @@ export {
   Profile,
   DoneRecipes,
   Favorites,
+  RecipeInProgress,
 };
