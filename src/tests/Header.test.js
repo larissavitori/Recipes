@@ -1,8 +1,9 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import { logInTheApplication, toBeInTheDocumentAll } from './helpers/helperFunctions';
+import { logInTheApplication, toBeInTheDocumentAll, navigateToProfile } from './helpers/helperFunctions';
 import { HEADER_COMPONENT_DATA } from './helpers/constants';
 
 describe('Test Application Header Component', () => {
@@ -24,7 +25,27 @@ describe('Test Application Header Component', () => {
     toBeInTheDocumentAll([profileIcon, searchBtn, pageTitle]);
   });
 
-  it('', () => {
+  it('Navigate to Profile', () => {
+    const { history } = renderWithRouter(<App />);
 
+    logInTheApplication();
+
+    navigateToProfile();
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/profile');
+  });
+
+  it('Open Search Button', () => {
+    const {
+      searchBtnDataTestID,
+    } = HEADER_COMPONENT_DATA;
+
+    renderWithRouter(<App />);
+
+    logInTheApplication();
+
+    const searchBtn = screen.getByTestId(searchBtnDataTestID);
+    userEvent.click(searchBtn);
   });
 });
