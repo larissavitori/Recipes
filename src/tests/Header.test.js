@@ -39,6 +39,8 @@ describe('Test Application Header Component', () => {
   it('Open Search Button', () => {
     const {
       searchBtnDataTestID,
+      searchInputDataTestID,
+      searchTextTest,
     } = HEADER_COMPONENT_DATA;
 
     renderWithRouter(<App />);
@@ -47,5 +49,9 @@ describe('Test Application Header Component', () => {
 
     const searchBtn = screen.getByTestId(searchBtnDataTestID);
     userEvent.click(searchBtn);
+
+    const searchInput = screen.getByTestId(searchInputDataTestID);
+    toBeInTheDocumentAll([searchInput]);
+    userEvent.type(searchInput, searchTextTest);
   });
 });

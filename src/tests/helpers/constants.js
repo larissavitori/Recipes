@@ -10,4 +10,7 @@ export const HEADER_COMPONENT_DATA = {
   profileIconDataTestID: 'profile-top-btn',
   searchBtnDataTestID: 'search-top-btn',
   pageTitleDataTestID: 'page-title',
+  searchInputDataTestID: 'search-input',
+
+  searchTextTest: 'test',
 };
