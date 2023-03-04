@@ -12,7 +12,6 @@ function Footer() {
         onClick={ () => {
           history.push('/drinks');
         } }
-
       >
         <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink-icon" />
       </button>
@@ -20,7 +19,6 @@ function Footer() {
         onClick={ () => {
           history.push('/meals');
         } }
-
       >
         <img src={ mealIcon } alt="meal-icon" data-testid="meals-bottom-btn" />
       </button>

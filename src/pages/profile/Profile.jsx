@@ -10,7 +10,6 @@ function Profile() {
   return (
     <div>
       <Header hTitle="Profile" hSearchDisabled />
-      <Footer />
       <div>
         <span
           data-testid="profile-email"
