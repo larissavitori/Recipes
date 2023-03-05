@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom';
 import './header.css';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
-import IconButton from '../iconButton/IconButton';
-import SearchInput from '../iconButton/SearchInput';
+import IconButton from '../buttons/IconButton';
+import SearchForm from '../searchForm/SearchForm';
 
 function Header({ hTitle, hSearchDisabled = false }) {
   const history = useHistory();
@@ -35,9 +35,7 @@ function Header({ hTitle, hSearchDisabled = false }) {
         />}
       </div>
 
-      {openSearchBar ? <SearchInput
-        className="research"
-      /> : ''}
+      {openSearchBar ? <SearchForm /> : ''}
 
     </header>
   );
