@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './iconButton.css';
+import './buttons.css';
 
 function IconButton({ hDataTestId, hIconSrc, hAltText, hOnClick }) {
   return (
