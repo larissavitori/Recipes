@@ -4,6 +4,8 @@ import { AiOutlineLock } from 'react-icons/ai';
 import Input from '../inputs/Input';
 import { LoginContext } from '../../context';
 
+import './loginForm.css';
+
 function LoginForm() {
   const {
     loginData: { password, email },
