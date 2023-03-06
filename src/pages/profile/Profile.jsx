@@ -6,7 +6,6 @@ function Profile() {
   const history = useHistory();
 
   const userEmail = JSON.stringify(localStorage.getItem('user'));
-  console.log(userEmail);
 
   return (
     <div>
