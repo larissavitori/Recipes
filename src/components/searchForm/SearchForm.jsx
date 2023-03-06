@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import SearchInput from '../inputs/SearchInput';
 import RadioInputs from '../inputs/RadioInputs';
 import Button from '../buttons/Button';
@@ -24,8 +25,13 @@ function SearchForm() {
       rValue: 'byFirstLetter',
     },
   ];
+  const { research, researchHandleChange, setDataBase } = useContext(RecipesContext);
+  const { location: { pathname } } = useHistory();
+  const dataBase = pathname.slice(1);
 
-  const { research, researchHandleChange } = useContext(RecipesContext);
+  useEffect(() => {
+    setDataBase(dataBase);
+  }, [dataBase]);
 
   return (
     <div className="research-form">
