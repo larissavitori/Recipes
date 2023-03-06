@@ -25,7 +25,10 @@ function SearchForm() {
       rValue: 'byFirstLetter',
     },
   ];
-  const { research, researchHandleChange, setDataBase } = useContext(RecipesContext);
+  const {
+    research: { search, searchOption },
+    researchHandleChange, setDataBase,
+  } = useContext(RecipesContext);
   const { location: { pathname } } = useHistory();
   const dataBase = pathname.slice(1);
 
@@ -36,18 +39,19 @@ function SearchForm() {
   return (
     <div className="research-form">
       <SearchInput
-        sValue={ research.search }
+        sValue={ search }
         sHandleChange={ researchHandleChange }
       />
       <RadioInputs
         rData={ rData }
         rName="searchOption"
         rHandleChange={ researchHandleChange }
+        rSelectedValue={ searchOption }
       />
       <Button
         bDataTestId="exec-search-btn"
-        bHandleClick={ () => global.alert('Searching...') }
         bTitle="Search"
+        bHandleClick={ () => global.alert('Searching...') }
       />
     </div>
   );

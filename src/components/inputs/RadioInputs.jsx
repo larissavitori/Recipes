@@ -3,7 +3,7 @@ import React from 'react';
 
 import './input.css';
 
-function RadioInputs({ rData, rName, rHandleChange }) {
+function RadioInputs({ rData, rName, rHandleChange, rSelectedValue }) {
   return (
     <div className="radio-box">
       {
@@ -16,6 +16,7 @@ function RadioInputs({ rData, rName, rHandleChange }) {
               data-testid={ rDataTestId }
               name={ rName }
               value={ rValue }
+              checked={ rValue === rSelectedValue }
               onChange={ rHandleChange }
             />
             {rTitle}
@@ -36,6 +37,7 @@ RadioInputs.propTypes = {
   ).isRequired,
   rName: PropTypes.string.isRequired,
   rHandleChange: PropTypes.func.isRequired,
+  rSelectedValue: PropTypes.string.isRequired,
 };
 
 export default RadioInputs;

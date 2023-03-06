@@ -6,8 +6,8 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   const [research, setResearch] = useState({
     search: '',
-    searchOption: '',
-    database: '',
+    searchOption: 'byIngredient',
+    dataBase: 'meals',
   });
 
   const researchHandleChange = ({ target: { name, value } }) => {
