@@ -1,22 +1,24 @@
+const TWELVE = 12;
+
 export const getDrinksByIngredient = async (ingredient) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const { drinks } = await (await fetch(URL)).json();
 
-  return drinks;
+  return drinks.slice(0, TWELVE);
 };
 
 export const getDrinksByName = async (name) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
   const { drinks } = await (await fetch(URL)).json();
 
-  return drinks;
+  return drinks.slice(0, TWELVE);
 };
 
 export const getDrinksByFirstLetter = async (firstLetter) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
   const { drinks } = await (await fetch(URL)).json();
 
-  return drinks;
+  return drinks.slice(0, TWELVE);
 };
 
 export const getDrinksCategoryList = async () => {
@@ -30,21 +32,21 @@ export const getMealsByIngredient = async (ingredient) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const { meals } = await (await fetch(URL)).json();
 
-  return meals;
+  return meals.slice(0, TWELVE);
 };
 
 export const getMealsByName = async (name) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
   const { meals } = await (await fetch(URL)).json();
 
-  return meals;
+  return meals.slice(0, TWELVE);
 };
 
 export const getMealsByFirstLetter = async (firstLetter) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
   const { meals } = await (await fetch(URL)).json();
 
-  return meals;
+  return meals.slice(0, TWELVE);
 };
 
 export const getMealsCategoryList = async () => {
