@@ -10,6 +10,8 @@ import Footer from '../../components/footer/Footer';
 function Meals() {
   const [meals, setMeals] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
+  const [mealCategorieFilter, setMealCategorieFilter] = useState([]);
+  const [mealsByCategory, setMealsByCategory] = useState([]);
 
   useEffect(() => {
     const twelve = 12;
@@ -32,6 +34,26 @@ function Meals() {
     fetchMealCategories();
   }, []);
 
+  const handleCategoriesClick = async ({ target: { name } }) => {
+    if (name === mealCategorieFilter) {
+      setMealsByCategory([]);
+    } else {
+      const twelve = 12;
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`);
+      const data = await response.json();
+      const twelveItensfromACategory = data.meals.slice(0, twelve);
+      setMealCategorieFilter(name);
+      setMealsByCategory(twelveItensfromACategory);
+    }
+  };
+
+  const filterByCategorie = () => {
+    if (mealsByCategory.length > 0) {
+      return mealsByCategory;
+    }
+    return meals;
+  };
+
   return (
     <div>
       <Header hTitle="Meals" />
@@ -42,6 +64,8 @@ function Meals() {
         <div>
           {mealsCategories.map((mcategorie) => (
             <button
+              onClick={ handleCategoriesClick }
+              name={ mcategorie.strCategory }
               data-testid={ `${mcategorie.strCategory}-category-filter` }
               key={ mcategorie.strCategory }
             >
@@ -49,15 +73,24 @@ function Meals() {
             </button>
           ))}
         </div>
+        <button
+          data-testid="All-category-filter"
+          onClick={ () => setMealsByCategory([]) }
+        >
+          All
+        </button>
         <div>
-          {meals.map((meal, index) => (
+          { filterByCategorie().map((meal, index) => (
             <div data-testid={ `${index}-recipe-card` } key={ meal.idMeal }>
               <h5 data-testid={ `${index}-card-name` }>{meal.strMeal}</h5>
-              <img
-                src={ meal.strMealThumb }
-                alt="meal-thumb"
-                data-testid={ `${index}-card-img` }
-              />
+              <a href={ `/meals/${meal.idMeal}` }>
+                <img
+                  src={ meal.strMealThumb }
+                  alt="meal-thumb"
+                  data-testid={ `${index}-card-img` }
+                />
+              </a>
+
             </div>
           ))}
         </div>
