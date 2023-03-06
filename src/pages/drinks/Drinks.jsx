@@ -5,6 +5,8 @@ import Footer from '../../components/footer/Footer';
 function Drinks() {
   const [drinks, setDrinks] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
+  const [drinkCategorieFilter, setDrinkCategorieFilter] = useState([]);
+  const [drinksByCategory, setDrinksByCategory] = useState([]);
 
   useEffect(() => {
     const twelve = 12;
@@ -26,12 +28,34 @@ function Drinks() {
     fetchDrinksCategories();
   }, []);
 
+  const handleCategoriesClick = async ({ target: { name } }) => {
+    if (name === drinkCategorieFilter) {
+      setDrinksByCategory([]);
+    } else {
+      const twelve = 12;
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`);
+      const data = await response.json();
+      const twelveItensfromACategory = data.drinks.slice(0, twelve);
+      setDrinkCategorieFilter(name);
+      setDrinksByCategory(twelveItensfromACategory);
+    }
+  };
+
+  const filterByCategorie = () => {
+    if (drinksByCategory.length > 0) {
+      return drinksByCategory;
+    }
+    return drinks;
+  };
+
   return (
     <div>
       <Header hTitle="Drinks" />
       <div>
         {drinksCategories.map((dCategorie) => (
           <button
+            onClick={ handleCategoriesClick }
+            name={ dCategorie.strCategory }
             data-testid={ `${dCategorie.strCategory}-category-filter` }
             key={ dCategorie.strCategory }
           >
@@ -39,15 +63,24 @@ function Drinks() {
           </button>
         ))}
       </div>
+      <button
+        data-testid="All-category-filter"
+        onClick={ () => setDrinksByCategory([]) }
+      >
+        All
+      </button>
       <main>
-        {drinks.map((drink, index) => (
+        {filterByCategorie().map((drink, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
             <h5 data-testid={ `${index}-card-name` }>{drink.strDrink}</h5>
-            <img
-              src={ drink.strDrinkThumb }
-              alt="drink-thumb"
-              data-testid={ `${index}-card-img` }
-            />
+            <a href={ `/drinks/${drink.idDrink}` }>
+              <img
+                src={ drink.strDrinkThumb }
+                alt="drink-thumb"
+                data-testid={ `${index}-card-img` }
+              />
+
+            </a>
           </div>
         ))}
       </main>
