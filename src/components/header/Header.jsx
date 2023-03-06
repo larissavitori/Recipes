@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { RecipesProvider } from '../../context';
+import { RecipesContext } from '../../context';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import IconButton from '../buttons/IconButton';
@@ -13,11 +13,12 @@ function Header({ hTitle, hSearchDisabled = false }) {
   const history = useHistory();
   const { pathname } = history.location;
   const [openSearchBar, setOpenSearchBar] = useState(false);
-  const { setDataBase } = useContext(RecipesProvider);
+  const { setDataBase } = useContext(RecipesContext);
+  const dataBase = pathname.slice(1);
 
   useEffect(() => {
-    setDataBase(pathname);
-  });
+    setDataBase(dataBase);
+  }, [dataBase]);
 
   const handleClick = () => {
     setOpenSearchBar(!openSearchBar);

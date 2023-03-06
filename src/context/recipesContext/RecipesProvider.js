@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React, { useState, useMemo } from 'react';
 
 import RecipesContext from './RecipesContext';
 
@@ -21,7 +22,7 @@ function RecipesProvider({ children }) {
     research,
     researchHandleChange,
     setDataBase,
-  }), [research]);
+  }), [research, setDataBase]);
 
   return (
     <RecipesContext.Provider value={ recipesState }>

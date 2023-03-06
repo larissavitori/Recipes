@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import SearchInput from '../inputs/SearchInput';
 import RadioInputs from '../inputs/RadioInputs';
 import Button from '../buttons/Button';
-import RecipesContext from '../../context';
+import { RecipesContext } from '../../context';
 
 import './searchForm.css';
 
@@ -11,15 +11,17 @@ function SearchForm() {
     {
       rDataTestId: 'ingredient-search-radio',
       rTitle: 'Ingredient',
+      rValue: 'byIngredient',
     },
     {
       rDataTestId: 'name-search-radio',
       rTitle: 'Name',
+      rValue: 'byName',
     },
     {
       rDataTestId: 'first-letter-search-radio',
       rTitle: 'First Letter',
-      RecipesProvider,
+      rValue: 'byFirstLetter',
     },
   ];
 
@@ -38,7 +40,7 @@ function SearchForm() {
       />
       <Button
         bDataTestId="exec-search-btn"
-        bHandleClick={ () => alert('Searching...') }
+        bHandleClick={ () => global.alert('Searching...') }
         bTitle="Search"
       />
     </div>
