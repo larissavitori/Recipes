@@ -1,11 +1,16 @@
 import React from 'react';
 import Routes from './routes/Routes';
+import { RecipesProvider, LoginProvider } from './context';
 
 import './App.css';
 
 function App() {
   return (
-    <Routes />
+    <LoginProvider>
+      <RecipesProvider>
+        <Routes />
+      </RecipesProvider>
+    </LoginProvider>
   );
 }
 

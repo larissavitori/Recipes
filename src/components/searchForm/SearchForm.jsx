@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import SearchInput from '../inputs/SearchInput';
 import RadioInputs from '../inputs/RadioInputs';
 import Button from '../buttons/Button';
+import RecipesContext from '../../context';
 
 import './searchForm.css';
 
 function SearchForm() {
-  const [research, setResearch] = useState({
-    search: '',
-    searchOption: '',
-  });
-
-  const handleChange = ({ target: { name, value } }) => {
-    setResearch({ [name]: value });
-  };
-
   const rData = [
     {
       rDataTestId: 'ingredient-search-radio',
@@ -27,13 +19,23 @@ function SearchForm() {
     {
       rDataTestId: 'first-letter-search-radio',
       rTitle: 'First Letter',
+      RecipesProvider,
     },
   ];
 
+  const { research, researchHandleChange } = useContext(RecipesContext);
+
   return (
     <div className="research-form">
-      <SearchInput sValue={ research.search } sHandleChange={ handleChange } />
-      <RadioInputs rData={ rData } rName="searchOption" rHandleChange={ handleChange } />
+      <SearchInput
+        sValue={ research.search }
+        sHandleChange={ researchHandleChange }
+      />
+      <RadioInputs
+        rData={ rData }
+        rName="searchOption"
+        rHandleChange={ researchHandleChange }
+      />
       <Button
         bDataTestId="exec-search-btn"
         bHandleClick={ () => alert('Searching...') }
