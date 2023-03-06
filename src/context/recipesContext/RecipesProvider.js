@@ -62,7 +62,7 @@ function RecipesProvider({ children }) {
       recipesData = await switchRecipesOpt(
         [getMealsByIngredient, getMealsByName, getMealsByFirstLetter],
         searchOption,
-        serch,
+        search,
       );
     } else {
       recipesData = await switchRecipesOpt(
@@ -73,8 +73,9 @@ function RecipesProvider({ children }) {
     }
     setRecipes(recipesData);
     if (recipesData.length === 1) {
-      const { idMeal } = recipesData[0];
-      history.push(`${dataBase}/${idMeal}`);
+      const { idMeal, idDrink } = recipesData[0];
+      if (dataBase === 'meals') history.push(`${dataBase}/${idMeal}`);
+      else history.push(`${dataBase}/${idDrink}`);
     }
   };
 
