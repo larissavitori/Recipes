@@ -4,11 +4,11 @@ import Footer from '../../components/footer/Footer';
 
 function Drinks() {
   return (
-    <div>
+    <main className="recipes-page">
       <Header hTitle="Drinks" />
       <RecipesGrid />
       <Footer />
-    </div>
+    </main>
   );
 }
 

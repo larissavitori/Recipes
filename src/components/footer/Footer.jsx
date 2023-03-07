@@ -7,7 +7,7 @@ import './footer.css';
 function Footer() {
   const history = useHistory();
   return (
-    <footer data-testid="footer">
+    <footer className="footer-component" data-testid="footer">
       <button
         onClick={ () => {
           history.push('/drinks');
