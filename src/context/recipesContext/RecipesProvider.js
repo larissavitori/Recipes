@@ -18,7 +18,13 @@ function RecipesProvider({ children }) {
     dataBase: 'meals',
   });
   const [recipes, setRecipes] = useState([]);
+  const [searchBarStatus, setSearchBarStatus] = useState(false);
+
   const history = useHistory();
+
+  const searchBarOnOff = () => {
+    setSearchBarStatus(!searchBarStatus);
+  };
 
   const researchHandleChange = ({ target: { name, value } }) => {
     setResearch({ ...research, [name]: value });
@@ -54,10 +60,23 @@ function RecipesProvider({ children }) {
     return recipesData;
   };
 
+  const formatRecipeData = (recipesData) => recipesData.map(({
+    idMeal,
+    idDrink,
+    strMeal,
+    strDrink,
+    strMealThumb,
+    strDrinkThumb,
+  }) => ({
+    recipeId: idMeal || idDrink,
+    recipeName: strMeal || strDrink,
+    recipeImgUrl: strMealThumb || strDrinkThumb,
+  }));
+
   const handleGetRecipes = async (e) => {
     e.preventDefault();
     const { search, dataBase, searchOption } = research;
-    let recipesData = recipes;
+    let recipesData = [];
     if (dataBase === 'meals') {
       recipesData = await switchRecipesOpt(
         [getMealsByIngredient, getMealsByName, getMealsByFirstLetter],
@@ -71,21 +90,26 @@ function RecipesProvider({ children }) {
         search,
       );
     }
-    setRecipes(recipesData);
     if (recipesData.length === 1) {
       const { idMeal, idDrink } = recipesData[0];
       if (dataBase === 'meals') history.push(`${dataBase}/${idMeal}`);
       else history.push(`${dataBase}/${idDrink}`);
     }
+    if (recipesData.length === 0) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (recipesData.length > 1) setRecipes(formatRecipeData(recipesData));
   };
 
   const recipesState = useMemo(() => ({
     research,
     recipes,
+    searchBarStatus,
     researchHandleChange,
     setDataBase,
     handleGetRecipes,
-  }), [research, recipes]);
+    searchBarOnOff,
+  }), [research, recipes, searchBarStatus]);
 
   return (
     <RecipesContext.Provider value={ recipesState }>
