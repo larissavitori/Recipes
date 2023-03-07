@@ -16,7 +16,7 @@ describe('Test Application Footer Component', () => {
       expect(categoriesButton.length).toBe(9);
     }, { timeout: 4000 });
   });
-
+  
   it('General tests', async () => {
     renderWithRouter(<Meals />);
     await waitFor(() => {

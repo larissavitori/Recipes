@@ -6,7 +6,7 @@ function Profile() {
   const history = useHistory();
 
   const userEmail = JSON.stringify(localStorage.getItem('user'));
-
+  
   return (
     <div>
       <Header hTitle="Profile" hSearchDisabled />
