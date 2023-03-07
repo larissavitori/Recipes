@@ -1,10 +1,11 @@
 import React from 'react';
-import { Header } from '../../components';
+import { Header, RecipesGrid } from '../../components';
 
 function Drinks() {
   return (
     <div>
       <Header hTitle="Drinks" />
+      <RecipesGrid />
     </div>
   );
 }
