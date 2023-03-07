@@ -1,0 +1,12 @@
+.recipes-grid {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin: 82px 10px;
+}
+
+.search-open {
+  margin-top: 246px;
+}
