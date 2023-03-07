@@ -20,7 +20,12 @@
   background-color: var(--secondary-color);
   display: flex;
   flex-direction: column;
+  left: 0;
   padding: 12px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .header-title {
