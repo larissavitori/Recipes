@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { RecipesContext } from '../../context';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import IconButton from '../buttons/IconButton';
@@ -9,12 +10,8 @@ import SearchForm from '../searchForm/SearchForm';
 import './header.css';
 
 function Header({ hTitle, hSearchDisabled = false }) {
+  const { searchBarStatus, searchBarOnOff } = useContext(RecipesContext);
   const history = useHistory();
-  const [openSearchBar, setOpenSearchBar] = useState(false);
-
-  const handleClick = () => {
-    setOpenSearchBar(!openSearchBar);
-  };
 
   return (
     <header className="header-component">
@@ -32,11 +29,11 @@ function Header({ hTitle, hSearchDisabled = false }) {
           hDataTestId="search-top-btn"
           hIconSrc={ searchIcon }
           hAltText="Search Button"
-          hOnClick={ handleClick }
+          hOnClick={ searchBarOnOff }
         />}
       </div>
 
-      {openSearchBar ? <SearchForm /> : ''}
+      {searchBarStatus ? <SearchForm /> : ''}
 
     </header>
   );
