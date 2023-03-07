@@ -6,9 +6,11 @@ import {
   getDrinksByFirstLetter,
   getDrinksByIngredient,
   getDrinksByName,
+  getDrinksByCategory,
   getMealsByFirstLetter,
   getMealsByIngredient,
   getMealsByName,
+  getMealsByCategory,
 } from '../service/api';
 
 function useSearchRecipes() {
@@ -70,6 +72,17 @@ function useSearchRecipes() {
     setRecipes(formatRecipeData(recipesData));
   };
 
+  const handleGetRecipesByCategory = async ({ target: { name: category } }) => {
+    const { dataBase } = research;
+    let recipesData = [];
+    if (dataBase === 'meals') {
+      recipesData = await getMealsByCategory(category);
+    } else {
+      recipesData = await getDrinksByCategory(category);
+    }
+    setRecipes(formatRecipeData(recipesData));
+  };
+
   const handleResearchRecipes = async (e) => {
     e.preventDefault();
     const { search, dataBase, searchOption } = research;
@@ -105,6 +118,7 @@ function useSearchRecipes() {
     setDataBase,
     handleResearchRecipes,
     handleGetRecipes,
+    handleGetRecipesByCategory,
   };
 }
 

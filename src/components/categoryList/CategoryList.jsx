@@ -7,7 +7,9 @@ import { RecipesContext } from '../../context';
 import './categoryList.css';
 
 function CategoryList() {
-  const { searchBarStatus } = useContext(RecipesContext);
+  const {
+    searchBarStatus, handleGetRecipesByCategory, handleGetRecipes,
+  } = useContext(RecipesContext);
   const { location: { pathname } } = useHistory();
   const [categories, setCategories] = useState([]);
 
@@ -38,12 +40,18 @@ function CategoryList() {
           <Button
             key={ index }
             bDataTestId={ `${strCategory}-category-filter` }
-            bHandleClick={ () => global.alert(`${strCategory} clicked...`) }
+            bHandleClick={ handleGetRecipesByCategory }
             bTitle={ strCategory }
             bClassName="category-btn"
           />
         ))
       }
+      <Button
+        bDataTestId="All-category-filter"
+        bHandleClick={ () => handleGetRecipes(pathname.slice(1)) }
+        bTitle="All"
+        bClassName="category-btn"
+      />
     </div>
   );
 }

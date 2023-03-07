@@ -35,6 +35,18 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
   return drinks.slice(0, TWELVE);
 };
 
+export const getDrinksByCategory = async (category) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  console.log(URL);
+  const { drinks } = await (await fetch(URL)).json();
+
+  if (drinks === null) {
+    return global.alert(MESSAGE_ERROR);
+  }
+
+  return drinks.slice(0, TWELVE);
+};
+
 export const getDrinksCategoryList = async () => {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const { drinks: categories } = await (await fetch(URL)).json();
@@ -66,6 +78,17 @@ export const getMealsByName = async (name = '') => {
 
 export const getMealsByFirstLetter = async (firstLetter) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+  const { meals } = await (await fetch(URL)).json();
+
+  if (meals === null) {
+    return global.alert(MESSAGE_ERROR);
+  }
+
+  return meals.slice(0, TWELVE);
+};
+
+export const getMealsByCategory = async (category) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
   const { meals } = await (await fetch(URL)).json();
 
   if (meals === null) {

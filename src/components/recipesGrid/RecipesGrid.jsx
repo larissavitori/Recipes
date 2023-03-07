@@ -7,13 +7,14 @@ import './recipesGrid.css';
 
 function RecipesGrid() {
   const {
-    recipes, handleGetRecipes,
+    recipes, handleGetRecipes, setDataBase,
   } = useContext(RecipesContext);
   const history = useHistory();
   const dbName = history.location.pathname.substring(1);
 
   useEffect(() => {
     handleGetRecipes(dbName);
+    setDataBase(dbName);
   }, [dbName]);
 
   return (
