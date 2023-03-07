@@ -95,9 +95,6 @@ function RecipesProvider({ children }) {
       if (dataBase === 'meals') history.push(`${dataBase}/${idMeal}`);
       else history.push(`${dataBase}/${idDrink}`);
     }
-    if (recipesData.length === 0) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
     if (recipesData.length > 1) setRecipes(formatRecipeData(recipesData));
   };
 
