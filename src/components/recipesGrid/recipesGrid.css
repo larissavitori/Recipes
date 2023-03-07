@@ -4,7 +4,9 @@
   flex-wrap: wrap;
   gap: 5px;
   justify-content: center;
+  margin: 0 10px;
   margin-top: 82px;
+  width: 100vw;
 }
 
 .search-open {
