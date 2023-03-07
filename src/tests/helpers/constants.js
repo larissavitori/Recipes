@@ -22,3 +22,8 @@ export const HEADER_COMPONENT_DATA = {
   searchFirstLetter: 'B',
   searchFirstLetterError: 'bc',
 };
+
+export const FOOTER_COMPONENT_DATA = {
+  mealsButtonDataTestId: 'meals-bottom-btn',
+  drinksButtonDataTestId: 'drinks-bottom-btn',
+};
