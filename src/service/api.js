@@ -12,7 +12,7 @@ export const getDrinksByIngredient = async (ingredient) => {
   return drinks.slice(0, TWELVE);
 };
 
-export const getDrinksByName = async (name) => {
+export const getDrinksByName = async (name = '') => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
   const { drinks } = await (await fetch(URL)).json();
 
@@ -52,7 +52,7 @@ export const getMealsByIngredient = async (ingredient) => {
   return meals.slice(0, TWELVE);
 };
 
-export const getMealsByName = async (name) => {
+export const getMealsByName = async (name = '') => {
   const URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
   const { meals } = await (await fetch(URL)).json();
 

@@ -22,3 +22,15 @@ export const HEADER_COMPONENT_DATA = {
   searchFirstLetter: 'B',
   searchFirstLetterError: 'bc',
 };
+
+export const FOOTER_COMPONENT_DATA = {
+  mealsButtonDataTestId: 'meals-bottom-btn',
+  drinksButtonDataTestId: 'drinks-bottom-btn',
+};
+
+export const PROFILE_PAGE_DATA = {
+  doneRecipesButtonDataTestId: 'profile-done-btn',
+  favoriteRecipesButtonDataTestId: 'profile-favorite-btn',
+  logoutButtonDataTestId: 'profile-logout-btn',
+  pathName: '/profile',
+};
