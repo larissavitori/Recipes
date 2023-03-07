@@ -82,6 +82,8 @@ describe('Test Application Header Component', () => {
 
     renderWithRouter(<App />);
 
+    logInTheApplication();
+
     const searchBtn = screen.getByTestId(searchBtnDataTestID);
     userEvent.click(searchBtn);
 
