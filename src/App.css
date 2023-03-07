@@ -13,3 +13,8 @@ main {
 .disabled {
   display: none;
 }
+
+.recipes-page {
+  height: 100%;
+  padding-bottom: 76px;
+}

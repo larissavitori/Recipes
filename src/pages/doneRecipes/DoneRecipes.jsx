@@ -4,7 +4,7 @@ import { Header } from '../../components';
 function DoneRecipes() {
   return (
     <div>
-      <Header hTitle="Done Recipes" />
+      <Header hTitle="Done Recipes" hSearchDisabled />
     </div>
   );
 }

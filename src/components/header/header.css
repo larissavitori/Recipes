@@ -9,15 +9,23 @@
   --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
-.header-component {
-  background-color: var(--secondary-color);
+.upper-header {
   display: flex;
   justify-content: space-between;
-  padding: 12px;
+  width: 100%;
 }
 
-.icon-btn {
-  cursor: pointer;
+.header-component {
+  align-items: center;
+  background-color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  padding: 12px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .header-title {

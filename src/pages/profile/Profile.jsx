@@ -6,12 +6,10 @@ function Profile() {
   const history = useHistory();
 
   const userEmail = JSON.stringify(localStorage.getItem('user'));
-  console.log(userEmail);
 
   return (
     <div>
-      <Header hTitle="Profile" />
-      <Footer />
+      <Header hTitle="Profile" hSearchDisabled />
       <div>
         <span
           data-testid="profile-email"
@@ -24,7 +22,6 @@ function Profile() {
           onClick={ () => history.push('/done-recipes') }
         >
           Done Recipes
-
         </button>
         <button
           data-testid="profile-favorite-btn"
@@ -32,7 +29,6 @@ function Profile() {
           onClick={ () => history.push('/favorite-recipes') }
         >
           Favorite Recipes
-
         </button>
         <button
           data-testid="profile-logout-btn"
@@ -44,10 +40,9 @@ function Profile() {
 
         >
           Logout
-
         </button>
-
       </div>
+      <Footer />
     </div>
   );
 }

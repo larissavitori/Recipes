@@ -20,19 +20,3 @@
   color: var(--fontColor-primary);
   font-size: 20px;
 }
-
-.btn-enter {
-  background-color: var(--primary-color);
-  border-radius: 5px;
-  box-shadow: 2px 2px 2px 1px var(--shadow-color);
-  color: var(--secondary-color);
-  cursor: pointer;
-  font-weight: 600;
-  padding: 6px 12px;
-  width: 85%;
-}
-
-.btn-enter:disabled {
-  cursor: default;
-  filter: contrast(0.6);
-}
