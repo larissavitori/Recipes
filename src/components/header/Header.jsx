@@ -10,7 +10,7 @@ import SearchForm from '../searchForm/SearchForm';
 import './header.css';
 
 function Header({ hTitle, hSearchDisabled = false }) {
-  const { searchBarStatus, searchBarOnOff } = useContext(RecipesContext);
+  const { searchBarStatus, handlerSearchBarOnOff } = useContext(RecipesContext);
   const history = useHistory();
 
   return (
@@ -29,7 +29,7 @@ function Header({ hTitle, hSearchDisabled = false }) {
           hDataTestId="search-top-btn"
           hIconSrc={ searchIcon }
           hAltText="Search Button"
-          hOnClick={ searchBarOnOff }
+          hOnClick={ handlerSearchBarOnOff }
         />}
       </div>
 

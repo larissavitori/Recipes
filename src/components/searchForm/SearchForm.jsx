@@ -27,7 +27,7 @@ function SearchForm() {
   ];
   const {
     research: { search, searchOption },
-    researchHandleChange, setDataBase, handleGetRecipes,
+    researchHandleChange, setDataBase, handleResearchRecipes,
   } = useContext(RecipesContext);
   const { location: { pathname } } = useHistory();
   const dataBase = pathname.slice(1);
@@ -51,7 +51,7 @@ function SearchForm() {
       <Button
         bDataTestId="exec-search-btn"
         bTitle="Search"
-        bHandleClick={ handleGetRecipes }
+        bHandleClick={ handleResearchRecipes }
       />
     </div>
   );
