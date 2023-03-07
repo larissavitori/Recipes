@@ -7,7 +7,6 @@ function Meals() {
   const [mealsCategories, setMealsCategories] = useState([]);
   const [mealCategorieFilter, setMealCategorieFilter] = useState([]);
   const [mealsByCategory, setMealsByCategory] = useState([]);
-
   useEffect(() => {
     const twelve = 12;
     const five = 5;

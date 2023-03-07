@@ -7,7 +7,6 @@ function Drinks() {
   const [drinksCategories, setDrinksCategories] = useState([]);
   const [drinkCategorieFilter, setDrinkCategorieFilter] = useState([]);
   const [drinksByCategory, setDrinksByCategory] = useState([]);
-
   useEffect(() => {
     const twelve = 12;
     const five = 5;
