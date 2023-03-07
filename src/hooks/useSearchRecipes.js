@@ -60,13 +60,12 @@ function useSearchRecipes() {
     return recipesData;
   };
 
-  const handleGetRecipes = () => {
-    const { dataBase } = research;
+  const handleGetRecipes = async (db) => {
     let recipesData = [];
-    if (dataBase === 'meals') {
-      recipesData = getMealsByName();
+    if (db === 'meals') {
+      recipesData = await getMealsByName();
     } else {
-      recipesData = getDrinksByName();
+      recipesData = await getDrinksByName();
     }
     setRecipes(formatRecipeData(recipesData));
   };
