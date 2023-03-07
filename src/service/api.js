@@ -1,4 +1,5 @@
 const TWELVE = 12;
+const FIVE = 5;
 const MESSAGE_ERROR = 'Sorry, we haven\'t found any recipes for these filters.';
 
 export const getDrinksByIngredient = async (ingredient) => {
@@ -38,7 +39,7 @@ export const getDrinksCategoryList = async () => {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const { drinks: categories } = await (await fetch(URL)).json();
 
-  return categories;
+  return categories.slice(0, FIVE);
 };
 
 export const getMealsByIngredient = async (ingredient) => {
@@ -75,8 +76,8 @@ export const getMealsByFirstLetter = async (firstLetter) => {
 };
 
 export const getMealsCategoryList = async () => {
-  const URL = 'https://www.themealdb.com/api/json/v1/1/categories.php';
-  const { categories } = await (await fetch(URL)).json();
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const { meals: categories } = await (await fetch(URL)).json();
 
-  return categories;
+  return categories.slice(0, FIVE);
 };

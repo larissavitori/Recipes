@@ -7,7 +7,7 @@ import './recipesGrid.css';
 
 function RecipesGrid() {
   const {
-    recipes, searchBarStatus, handleGetRecipes,
+    recipes, handleGetRecipes,
   } = useContext(RecipesContext);
   const history = useHistory();
   const dbName = history.location.pathname.substring(1);
@@ -17,7 +17,7 @@ function RecipesGrid() {
   }, [dbName]);
 
   return (
-    <div className={ searchBarStatus ? 'recipes-grid search-open' : 'recipes-grid' }>
+    <div className="recipes-grid">
       {
         recipes.map((recipeData, index) => (
           <RecipeCard index={ index } recipeData={ recipeData } key={ index } />

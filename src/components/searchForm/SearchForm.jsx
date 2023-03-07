@@ -52,6 +52,7 @@ function SearchForm() {
         bDataTestId="exec-search-btn"
         bTitle="Search"
         bHandleClick={ handleResearchRecipes }
+        bClassName="search-btn"
       />
     </div>
   );
