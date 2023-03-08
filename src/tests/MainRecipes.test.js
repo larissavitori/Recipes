@@ -3,8 +3,18 @@ import { fireEvent, screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import { logInTheApplication, navigateMealsToDrinks } from './helpers/helperFunctions';
+import mockCategory from './helpers/mockCategory.json';
+import mockFetch from './helpers/mockFetch';
 
 describe('Test Application Footer Component', () => {
+  beforeEach(() => {
+    mockFetch(mockCategory);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('General tests', async () => {
     renderWithRouter(<App />);
     logInTheApplication();

@@ -37,7 +37,6 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
 
 export const getDrinksByCategory = async (category) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
-  console.log(URL);
   const { drinks } = await (await fetch(URL)).json();
 
   if (drinks === null) {
