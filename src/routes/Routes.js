@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
-  Login, Meals, MealView, Drinks, DrinkView, Favorites, Profile, DoneRecipes,
+  Login, Meals, MealView, Drinks, DrinkView, Favorites, ProfilePage, DoneRecipes,
   RecipeInProgress,
 } from '../pages';
 
@@ -31,7 +31,7 @@ function Routes() {
         path="/drinks/:id/in-progress"
         render={ (props) => <RecipeInProgress { ...props } /> }
       />
-      <Route exact path="/profile" component={ Profile } />
+      <Route exact path="/profile" component={ ProfilePage } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ Favorites } />
     </Switch>
