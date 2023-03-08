@@ -1,13 +1,13 @@
 import LoginForm from './loginForm/LoginForm';
 import Header from './header/Header';
-import RecipesGrid from './recipesGrid/RecipesGrid';
+import Recipes from './recipes/Recipes';
 import Footer from './footer/Footer';
 import CategoryList from './categoryList/CategoryList';
 
 export {
   LoginForm,
   Header,
-  RecipesGrid,
+  Recipes,
   CategoryList,
   Footer,
 };

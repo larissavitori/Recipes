@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import RecipeCard from '../recipeCard/RecipeCard';
 import { RecipesContext } from '../../context';
 
-import './recipesGrid.css';
+import './recipes.css';
 
 function RecipesGrid() {
   const {
