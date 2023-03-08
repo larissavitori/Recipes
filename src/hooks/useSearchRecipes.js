@@ -18,6 +18,7 @@ function useSearchRecipes() {
     search: '',
     searchOption: 'byIngredient',
     dataBase: 'meals',
+    categoryFilter: 'all',
   });
   const [recipes, setRecipes] = useState([]);
   const [searchBarStatus, setSearchBarStatus] = useState(false);
@@ -73,14 +74,26 @@ function useSearchRecipes() {
   };
 
   const handleGetRecipesByCategory = async ({ target: { name: category } }) => {
-    const { dataBase } = research;
+    const { dataBase, categoryFilter } = research;
     let recipesData = [];
+    if (categoryFilter === category) {
+      await handleGetRecipes(dataBase);
+      setResearch({
+        ...research,
+        categoryFilter: 'all',
+      });
+      return;
+    }
     if (dataBase === 'meals') {
       recipesData = await getMealsByCategory(category);
     } else {
       recipesData = await getDrinksByCategory(category);
     }
     setRecipes(formatRecipeData(recipesData));
+    setResearch({
+      ...research,
+      categoryFilter: category,
+    });
   };
 
   const handleResearchRecipes = async (e) => {
