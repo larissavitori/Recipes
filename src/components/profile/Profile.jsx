@@ -4,15 +4,15 @@ import Button from '../buttons/Button';
 import './Profile.css';
 
 function Profile() {
-  const userEmail = JSON.stringify(localStorage.getItem('user'));
+  const { email } = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
   return (
-    <div className="profile">
+    <div className="profile-component">
       <div>
         <span
           data-testid="profile-email"
         >
-          {userEmail}
+          {email}
         </span>
         <Button
           bDataTestId="profile-done-btn"
