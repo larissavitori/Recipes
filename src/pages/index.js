@@ -3,7 +3,7 @@ import Meals from './meals/Meals';
 import MealView from './mealView/MealView';
 import Drinks from './drinks/Drinks';
 import DrinkView from './drinkView/DrinkView';
-import Profile from './profile/Profile';
+import ProfilePage from './profilePage/ProfilePage';
 import DoneRecipes from './doneRecipes/DoneRecipes';
 import Favorites from './favorites/Favorites';
 import RecipeInProgress from './recipeInProgress/RecipeInProgress';
@@ -14,7 +14,7 @@ export {
   MealView,
   Drinks,
   DrinkView,
-  Profile,
+  ProfilePage,
   DoneRecipes,
   Favorites,
   RecipeInProgress,
