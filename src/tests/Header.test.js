@@ -5,19 +5,18 @@ import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import { logInTheApplication, toBeInTheDocumentAll, navigateToProfile } from './helpers/helperFunctions';
 import { HEADER_COMPONENT_DATA } from './helpers/constants';
-import mockData from './helpers/mockData.json';
+import mockCategory from './helpers/mockCategory.json';
+import mockFetch from './helpers/mockFetch';
 
 describe('Test Application Header Component', () => {
-  afterEach(() => {
-    global.fetch.mockClear();
-  });
-
   beforeEach(() => {
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(mockData),
-    }));
+    mockFetch(mockCategory);
 
     jest.spyOn(window, 'alert').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('components elements exist', () => {
