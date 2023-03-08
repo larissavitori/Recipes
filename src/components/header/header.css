@@ -1,14 +1,3 @@
-:root {
-
-  --fontColor-primary: rgb(33, 37, 41);
-
-  --primary-color: rgb(65, 24, 127);
-
-  --secondary-color: rgb(252, 220, 54);
-
-  --shadow-color: rgba(0, 0, 0, 0.2);
-}
-
 .upper-header {
   display: flex;
   justify-content: space-between;
@@ -24,7 +13,7 @@
   padding: 12px;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   z-index: 9999;
 }
 

@@ -6,9 +6,11 @@ import {
   getDrinksByFirstLetter,
   getDrinksByIngredient,
   getDrinksByName,
+  getDrinksByCategory,
   getMealsByFirstLetter,
   getMealsByIngredient,
   getMealsByName,
+  getMealsByCategory,
 } from '../service/api';
 
 function useSearchRecipes() {
@@ -16,6 +18,7 @@ function useSearchRecipes() {
     search: '',
     searchOption: 'byIngredient',
     dataBase: 'meals',
+    categoryFilter: 'all',
   });
   const [recipes, setRecipes] = useState([]);
   const [searchBarStatus, setSearchBarStatus] = useState(false);
@@ -60,15 +63,37 @@ function useSearchRecipes() {
     return recipesData;
   };
 
-  const handleGetRecipes = () => {
-    const { dataBase } = research;
+  const handleGetRecipes = async (db) => {
     let recipesData = [];
-    if (dataBase === 'meals') {
-      recipesData = getMealsByName();
+    if (db === 'meals') {
+      recipesData = await getMealsByName();
     } else {
-      recipesData = getDrinksByName();
+      recipesData = await getDrinksByName();
     }
     setRecipes(formatRecipeData(recipesData));
+  };
+
+  const handleGetRecipesByCategory = async ({ target: { name: category } }) => {
+    const { dataBase, categoryFilter } = research;
+    let recipesData = [];
+    if (categoryFilter === category) {
+      await handleGetRecipes(dataBase);
+      setResearch({
+        ...research,
+        categoryFilter: 'all',
+      });
+      return;
+    }
+    if (dataBase === 'meals') {
+      recipesData = await getMealsByCategory(category);
+    } else {
+      recipesData = await getDrinksByCategory(category);
+    }
+    setRecipes(formatRecipeData(recipesData));
+    setResearch({
+      ...research,
+      categoryFilter: category,
+    });
   };
 
   const handleResearchRecipes = async (e) => {
@@ -106,6 +131,7 @@ function useSearchRecipes() {
     setDataBase,
     handleResearchRecipes,
     handleGetRecipes,
+    handleGetRecipesByCategory,
   };
 }
 

@@ -1,12 +1,12 @@
 .recipe-card {
   align-items: center;
-  border: 2px solid black;
-  border-radius: 5px;
+  border: 4px solid black;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 160px;
+  height: 40vw;
   justify-content: space-between;
-  width: 160px;
+  width: 40vw;
 }
 
 .recipe-image {
@@ -16,7 +16,7 @@
 }
 
 .recipe-name {
-  font-size: 14px;
+  font-size: 3vw;
   margin: auto;
   text-align: center;
 }

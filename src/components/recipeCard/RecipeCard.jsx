@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import './recipeCard.css';
 
 function RecipeCard({ recipeData, index }) {
   const { recipeId, recipeImgUrl, recipeName } = recipeData;
-  const { location: { pathname } } = useHistory();
+  const { location } = useHistory();
+  console.log(location);
   return (
-    <Link
-      to={ `/${pathname}/${recipeId}` }
+    <a
+      href={ `${location.pathname}/${recipeId}` }
       data-testid={ `${index}-recipe-card` }
       className="recipe-card"
     >
@@ -25,7 +26,7 @@ function RecipeCard({ recipeData, index }) {
       >
         {recipeName}
       </h2>
-    </Link>
+    </a>
   );
 }
 

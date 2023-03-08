@@ -13,6 +13,7 @@ function RecipesProvider({ children }) {
     handleResearchRecipes,
     researchHandleChange,
     handleGetRecipes,
+    handleGetRecipesByCategory,
   } = useSearchRecipes();
 
   const recipesState = useMemo(() => ({
@@ -24,6 +25,7 @@ function RecipesProvider({ children }) {
     handleResearchRecipes,
     handlerSearchBarOnOff,
     handleGetRecipes,
+    handleGetRecipesByCategory,
   }), [research, recipes, searchBarStatus]);
 
   return (

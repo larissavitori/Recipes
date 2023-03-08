@@ -3,18 +3,23 @@
 }
 
 .default-button {
-  background-color: var(--primary-color);
   border-radius: 5px;
   box-shadow: 2px 2px 2px 1px var(--shadow-color);
-  color: var(--secondary-color);
   cursor: pointer;
   font-weight: 600;
-  max-width: 300px;
   padding: 6px 12px;
+}
+
+.search-btn {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   width: 60%;
 }
 
 .btn-enter {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  max-width: 300px;
   width: 85%;
 }
 

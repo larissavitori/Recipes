@@ -14,6 +14,7 @@ function Button({
       data-testid={ bDataTestId }
       disabled={ bValidation }
       onClick={ bHandleClick }
+      name={ bTitle }
     >
       {bTitle}
     </button>

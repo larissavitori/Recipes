@@ -1,0 +1,13 @@
+.category-list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 82px;
+}
+
+.category-btn {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
