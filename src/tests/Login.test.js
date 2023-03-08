@@ -4,8 +4,19 @@ import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import { logInTheApplication, toBeInTheDocumentAll } from './helpers/helperFunctions';
 import { LOGIN_PAGE_DATA } from './helpers/constants';
+import mockCategory from './helpers/mockCategory.json';
+import mockData from './helpers/mockData.json';
+import mockFetch from './helpers/mockFetch';
 
 describe('Test Application Login', () => {
+  beforeEach(() => {
+    mockFetch(mockCategory, mockData);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('application opens in correct route', () => {
     const { history } = renderWithRouter(<App />);
 

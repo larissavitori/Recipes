@@ -3,12 +3,13 @@ import { fireEvent, screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import { logInTheApplication, navigateMealsToDrinks } from './helpers/helperFunctions';
+import mockData from './helpers/mockData.json';
 import mockCategory from './helpers/mockCategory.json';
 import mockFetch from './helpers/mockFetch';
 
 describe('Test Application Footer Component', () => {
   beforeEach(() => {
-    mockFetch(mockCategory);
+    mockFetch(mockCategory, mockData);
   });
 
   afterEach(() => {

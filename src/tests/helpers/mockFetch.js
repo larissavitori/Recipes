@@ -1,11 +1,9 @@
-import mockData from './mockData.json';
-
-function mockFetch(mockedResponses) {
+function mockFetch(mockedResponses, defaultResponse) {
   global.fetch = jest.fn((url) => {
     const response = mockedResponses[url];
     if (!response) {
       return Promise.resolve({
-        json: () => Promise.resolve(mockData),
+        json: () => Promise.resolve(defaultResponse),
       });
     }
     return Promise.resolve({

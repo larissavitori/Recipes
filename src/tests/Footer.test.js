@@ -5,8 +5,19 @@ import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import { logInTheApplication } from './helpers/helperFunctions';
 import { FOOTER_COMPONENT_DATA } from './helpers/constants';
+import mockCategory from './helpers/mockCategory.json';
+import mockData from './helpers/mockData.json';
+import mockFetch from './helpers/mockFetch';
 
 describe('Test Application Footer Component', () => {
+  beforeEach(() => {
+    mockFetch(mockCategory, mockData);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('General tests', () => {
     const { drinksButtonDataTestId, mealsButtonDataTestId } = FOOTER_COMPONENT_DATA;
     const { history } = renderWithRouter(<App />);
