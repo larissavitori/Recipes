@@ -1,12 +1,12 @@
 import React from 'react';
-import { Header, RecipesGrid, Footer, CategoryList } from '../../components';
+import { Header, Recipes, Footer, CategoryList } from '../../components';
 
 function Drinks() {
   return (
     <main className="recipes-page">
       <Header hTitle="Drinks" />
       <CategoryList />
-      <RecipesGrid />
+      <Recipes />
       <Footer />
     </main>
   );

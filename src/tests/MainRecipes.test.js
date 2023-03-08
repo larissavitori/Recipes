@@ -1,32 +1,43 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { Drinks, Meals } from '../pages';
+import { fireEvent, screen } from '@testing-library/react';
+import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
+import { logInTheApplication, navigateMealsToDrinks } from './helpers/helperFunctions';
+import mockData from './helpers/mockData.json';
+import mockCategory from './helpers/mockCategory.json';
+import mockFetch from './helpers/mockFetch';
 
 describe('Test Application Footer Component', () => {
-  it('General tests', async () => {
-    renderWithRouter(<Drinks />);
-    await waitFor(() => {
-      const categoriesButton = screen.getAllByRole('button');
-      expect(categoriesButton.length).toBe(10);
-      fireEvent.click(categoriesButton[2]);
-      fireEvent.click(categoriesButton[7]);
-      fireEvent.click(categoriesButton[2]);
-      fireEvent.click(categoriesButton[2]);
-      expect(categoriesButton.length).toBe(9);
-    }, { timeout: 4000 });
+  beforeEach(() => {
+    mockFetch(mockCategory, mockData);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('General tests', async () => {
-    renderWithRouter(<Meals />);
-    await waitFor(() => {
-      const categoriesButton = screen.getAllByRole('button');
-      expect(categoriesButton.length).toBe(10);
-      fireEvent.click(categoriesButton[2]);
-      fireEvent.click(categoriesButton[7]);
-      fireEvent.click(categoriesButton[2]);
-      fireEvent.click(categoriesButton[2]);
-      expect(categoriesButton.length).toBe(9);
-    }, { timeout: 4000 });
+    renderWithRouter(<App />);
+    logInTheApplication();
+
+    const beefCategory = await screen.findByTestId('Beef-category-filter');
+    const AllCategory = screen.getByTestId('All-category-filter');
+    fireEvent.click(beefCategory);
+    fireEvent.click(beefCategory);
+    fireEvent.click(beefCategory);
+    fireEvent.click(AllCategory);
+  });
+
+  it('General tests', async () => {
+    renderWithRouter(<App />);
+    logInTheApplication();
+    navigateMealsToDrinks();
+
+    const cocktailCategory = await screen.findByTestId('Cocktail-category-filter');
+    const AllCategory = screen.getByTestId('All-category-filter');
+    fireEvent.click(cocktailCategory);
+    fireEvent.click(cocktailCategory);
+    fireEvent.click(cocktailCategory);
+    fireEvent.click(AllCategory);
   });
 });

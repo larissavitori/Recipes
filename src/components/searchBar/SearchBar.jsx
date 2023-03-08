@@ -4,9 +4,9 @@ import RadioInputs from '../inputs/RadioInputs';
 import Button from '../buttons/Button';
 import { RecipesContext } from '../../context';
 
-import './searchForm.css';
+import './searchBar.css';
 
-function SearchForm() {
+function SearchBar() {
   const rData = [
     {
       rDataTestId: 'ingredient-search-radio',
@@ -51,4 +51,4 @@ function SearchForm() {
   );
 }
 
-export default SearchForm;
+export default SearchBar;

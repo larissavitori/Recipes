@@ -7,7 +7,6 @@ import './recipeCard.css';
 function RecipeCard({ recipeData, index }) {
   const { recipeId, recipeImgUrl, recipeName } = recipeData;
   const { location } = useHistory();
-  console.log(location);
   return (
     <a
       href={ `${location.pathname}/${recipeId}` }

@@ -19,6 +19,7 @@ export const HEADER_COMPONENT_DATA = {
 
   searchTextTest: 'test',
   searchBeef: 'beef',
+  searchGin: 'gin',
   searchFirstLetter: 'B',
   searchFirstLetterError: 'bc',
 };

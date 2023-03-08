@@ -5,7 +5,7 @@ import { RecipesContext } from '../../context';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import IconButton from '../buttons/IconButton';
-import SearchForm from '../searchForm/SearchForm';
+import SearchBar from '../searchBar/SearchBar';
 
 import './header.css';
 
@@ -33,7 +33,7 @@ function Header({ hTitle, hSearchDisabled = false }) {
         />}
       </div>
 
-      {searchBarStatus ? <SearchForm /> : ''}
+      {searchBarStatus ? <SearchBar /> : ''}
 
     </header>
   );

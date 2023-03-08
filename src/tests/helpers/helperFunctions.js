@@ -1,6 +1,10 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { LOGIN_PAGE_DATA, HEADER_COMPONENT_DATA } from './constants';
+import {
+  LOGIN_PAGE_DATA,
+  HEADER_COMPONENT_DATA,
+  FOOTER_COMPONENT_DATA,
+} from './constants';
 
 export function logInTheApplication() {
   const {
@@ -25,6 +29,22 @@ export function navigateToProfile() {
   const profileIcon = screen.getByTestId(profileIconDataTestID);
 
   userEvent.click(profileIcon);
+}
+
+export function navigateMealsToDrinks() {
+  const { drinksButtonDataTestId } = FOOTER_COMPONENT_DATA;
+
+  const drinksIcon = screen.getByTestId(drinksButtonDataTestId);
+
+  userEvent.click(drinksIcon);
+}
+
+export function navigateDrinksToMeals() {
+  const { mealsButtonDataTestId } = FOOTER_COMPONENT_DATA;
+
+  const mealsIcon = screen.getByTestId(mealsButtonDataTestId);
+
+  userEvent.click(mealsIcon);
 }
 
 export function toBeInTheDocumentAll(elements) {
