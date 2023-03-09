@@ -13,7 +13,7 @@ import {
   RecipeDetailsIngredients,
   RecipeDetailsInstructions,
 } from '../../components';
-import { RecipeContext } from '../../context';
+import { RecipeContext, ResearchRecipesContext } from '../../context';
 
 import './recipeDetails.css';
 
@@ -22,29 +22,18 @@ function RecipeDetails() {
   const { location: { pathname } } = useHistory();
   const dataBase = pathname.split('/')[1];
   const { handleGetRecipe } = useContext(RecipeContext);
+  const {
+    handleGetRecipes: handleGetRecommendedRecipes,
+  } = useContext(ResearchRecipesContext);
   useEffect(() => {
     handleGetRecipe(dataBase, id);
+    if (dataBase === 'meals') { handleGetRecommendedRecipes('drinks'); }
+    if (dataBase === 'drinks') { handleGetRecommendedRecipes('meals'); }
   }, [dataBase, id]);
 
-  // const [recommendDrinks, setRecommendDrinks] = useState([]);
-  // const [recommendMeals, setRecommendMeals] = useState([]);
   // const [copied, setCopied] = useState(false);
   // const [favorited, setFavorited] = useState(false);
   // const [fav, setFav] = useState([]);
-
-  // const six = 6;
-  // async function carouselDrinks() {
-  //   const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-  //   const data = await response.json();
-  //   const fetchDrinks = data.drinks.slice(0, six);
-  //   setRecommendDrinks(fetchDrinks);
-  // }
-  // async function carouselMeals() {
-  //   const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-  //   const data = await response.json();
-  //   const fetchMeals = data.meals.slice(0, six);
-  //   setRecommendMeals(fetchMeals);
-  // }
 
   // const recommendMealsOrDrink = () => {
   //   if (drinkOrMeal.includes('drinks')) {
