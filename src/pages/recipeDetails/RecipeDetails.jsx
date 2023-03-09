@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import './recipesDetails.css';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
