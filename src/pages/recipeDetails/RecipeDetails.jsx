@@ -1,12 +1,14 @@
 import React, {
   /* useCallback, */ useContext, useEffect, /* , useMemo, useState */
 } from 'react';
+import { BiDrink } from 'react-icons/bi';
+import { GiHotMeal } from 'react-icons/gi';
 import { useHistory, useParams } from 'react-router-dom';
 // import clipboardCopy from 'clipboard-copy';
 // import shareIcon from '../../images/shareIcon.svg';
 // import blackHeart from '../../images/blackHeartIcon.svg';
 // import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-
+import { VideoEmbed } from '../../components';
 import { RecipeContext } from '../../context';
 
 import './recipeDetails.css';
@@ -18,7 +20,7 @@ function RecipeDetails() {
   const { handleGetRecipe, recipeDetail } = useContext(RecipeContext);
   useEffect(() => {
     handleGetRecipe(dataBase, id);
-  }, [dataBase, id, handleGetRecipe]);
+  }, [dataBase, id]);
 
   // const [recommendDrinks, setRecommendDrinks] = useState([]);
   // const [recommendMeals, setRecommendMeals] = useState([]);
@@ -128,77 +130,79 @@ function RecipeDetails() {
   // };
 
   const {
+    strRecipeThumb,
     strRecipe,
     strCategory,
-    strRecipeThumb,
+    ingredientsAndMeasures: { ingredients, measures },
+    strInstructions,
+    strYoutube,
+    strAlcoholic,
+    strArea,
   } = recipeDetail;
 
   return (
-    <div>
-      {/* <div>
-        { recommendMealsOrDrink().map((e, index) => (
-          <div
-            key={ index }
-            data-testid={ `${index}-recommendation-card` }
-          >
-            <h5 data-testid={ `${index}-recommendation-title` }>
-              {e.strAlcoholic || e.strMeal }
-            </h5>
-          </div>
-        ))}
-      </div> */}
-      {/* <button type="button" onClick={ handleClickFavorite }>
+    <div className="recipe-details-page">
+      <div className="recipe-details-header">
         <img
-          data-testid="favorite-btn"
-          className="fixed-top"
-          src={ favorited ? blackHeart : whiteHeartIcon }
-          alt="blackHeartIcon"
-        />
-      </button> */}
-
-      <div>
-        <h3 data-testid="recipe-title">
-          {strRecipe}
-        </h3>
-        <h5 data-testid="recipe-category">
-          {strCategory}
-        </h5>
-        <img
+          className="background-header-image"
           data-testid="recipe-photo"
           src={ strRecipeThumb }
           alt={ `Imagem: ${strRecipe}` }
         />
-        {/* {mealWithoutEmptyValues[0].map((objeto, index) => (
-          <div key={ index }>
-            <p
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {objeto}
-            </p>
-          </div>
-        ))}
-        {mealWithoutEmptyValues[1].map((objeto, index) => (
-          <div key={ index }>
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>
-              {objeto}
-            </p>
-          </div>
-        ))} */}
-        {/* <p data-testid="instructions">
-          {e.strInstructions}
-        </p>
-        {(drinkOrMeal.includes('drinks')) ? ''
-          : (
-            <video controls src={ e.strYoutube } data-testid="video">
-              <source src={ e.strYoutube } />
-              <track
-                default
-                kind="captions"
-                srcLang="en"
+        <div className="details-and-options">
+          <div className="detail-category">
+            {
+              dataBase === 'meals' ? <GiHotMeal
+                className="category-icon"
+              /> : <BiDrink
+                className="category-icon"
               />
-            </video>
-          )}
+            }
+            <span data-testid="recipe-category" className="recipe-tags">
+              <p className="tag-item">{strCategory}</p>
+              <hr />
+              {strAlcoholic ? <p className="tag-item">{strAlcoholic}</p> : '' }
+              {strArea ? <p className="tag-item">{strArea}</p> : '' }
+            </span>
+          </div>
+          <div className="detail-options" />
+        </div>
+        <h1 data-testid="recipe-title">
+          {strRecipe}
+        </h1>
       </div>
+
+      <div className="details-ingredients-component">
+        <h2 className="details-sub-title">Ingredients</h2>
+        <ul className="ing-list">
+          {
+            ingredients.map((ing, index) => (
+              <li
+                key={ index }
+                className="ing-item"
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {ing}
+                {' - '}
+                {measures[index]}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div className="details-instructions-component">
+        <h2 className="details-sub-title">Instructions</h2>
+        <div className="instructions-item" data-testid="instructions">
+          {strInstructions}
+        </div>
+      </div>
+
+      {
+        dataBase === 'meals' ? <VideoEmbed videoSrc={ strYoutube } /> : ''
+      }
+
+      {/*
 
       <butdataton
         type="button"
@@ -220,7 +224,7 @@ function RecipeDetails() {
         {copied
           && 'Link copied!'}
       </p> */}
-      </div>
+
     </div>
   );
 }

@@ -12,6 +12,12 @@ function RecipeProvider({ children }) {
     strRecipeThumb: '',
     strArea: '',
     strAlcoholic: '',
+    ingredientsAndMeasures: {
+      ingredients: [],
+      measures: [],
+    },
+    strInstructions: '',
+    strYoutube: '',
   });
 
   const handleGetRecipe = async (dataBase, id) => {
