@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import { RecipeContext } from '../../context';
 
-function VideoEmbed({ videoSrc }) {
+function VideoEmbed() {
+  const { recipeDetail: {
+    strYoutube,
+  } } = useContext(RecipeContext);
+
   return (
     <div className="video-component">
-      {console.log(videoSrc)}
       <h2 className="details-sub-title">Video</h2>
       <video
         controls
@@ -13,7 +16,7 @@ function VideoEmbed({ videoSrc }) {
         data-testid="video"
         className="youtube-video"
       >
-        <source src={ videoSrc } type="application/x-shockwave-flash" />
+        <source src={ strYoutube } type="application/x-shockwave-flash" />
         <track
           default
           kind="captions"
@@ -23,9 +26,5 @@ function VideoEmbed({ videoSrc }) {
     </div>
   );
 }
-
-VideoEmbed.propTypes = {
-  videoSrc: PropTypes.string.isRequired,
-};
 
 export default VideoEmbed;

@@ -1,14 +1,18 @@
 import React, {
   /* useCallback, */ useContext, useEffect, /* , useMemo, useState */
 } from 'react';
-import { BiDrink } from 'react-icons/bi';
-import { GiHotMeal } from 'react-icons/gi';
+
 import { useHistory, useParams } from 'react-router-dom';
 // import clipboardCopy from 'clipboard-copy';
 // import shareIcon from '../../images/shareIcon.svg';
 // import blackHeart from '../../images/blackHeartIcon.svg';
 // import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import { VideoEmbed } from '../../components';
+import {
+  VideoEmbed,
+  RecipeDetailsHeader,
+  RecipeDetailsIngredients,
+  RecipeDetailsInstructions,
+} from '../../components';
 import { RecipeContext } from '../../context';
 
 import './recipeDetails.css';
@@ -17,7 +21,7 @@ function RecipeDetails() {
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
   const dataBase = pathname.split('/')[1];
-  const { handleGetRecipe, recipeDetail } = useContext(RecipeContext);
+  const { handleGetRecipe } = useContext(RecipeContext);
   useEffect(() => {
     handleGetRecipe(dataBase, id);
   }, [dataBase, id]);
@@ -129,77 +133,13 @@ function RecipeDetails() {
   //   setCopied(true);
   // };
 
-  const {
-    strRecipeThumb,
-    strRecipe,
-    strCategory,
-    ingredientsAndMeasures: { ingredients, measures },
-    strInstructions,
-    strYoutube,
-    strAlcoholic,
-    strArea,
-  } = recipeDetail;
-
   return (
     <div className="recipe-details-page">
-      <div className="recipe-details-header">
-        <img
-          className="background-header-image"
-          data-testid="recipe-photo"
-          src={ strRecipeThumb }
-          alt={ `Imagem: ${strRecipe}` }
-        />
-        <div className="details-and-options">
-          <div className="detail-category">
-            {
-              dataBase === 'meals' ? <GiHotMeal
-                className="category-icon"
-              /> : <BiDrink
-                className="category-icon"
-              />
-            }
-            <span data-testid="recipe-category" className="recipe-tags">
-              <p className="tag-item">{strCategory}</p>
-              <hr />
-              {strAlcoholic ? <p className="tag-item">{strAlcoholic}</p> : '' }
-              {strArea ? <p className="tag-item">{strArea}</p> : '' }
-            </span>
-          </div>
-          <div className="detail-options" />
-        </div>
-        <h1 data-testid="recipe-title">
-          {strRecipe}
-        </h1>
-      </div>
-
-      <div className="details-ingredients-component">
-        <h2 className="details-sub-title">Ingredients</h2>
-        <ul className="ing-list">
-          {
-            ingredients.map((ing, index) => (
-              <li
-                key={ index }
-                className="ing-item"
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {ing}
-                {' - '}
-                {measures[index]}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div className="details-instructions-component">
-        <h2 className="details-sub-title">Instructions</h2>
-        <div className="instructions-item" data-testid="instructions">
-          {strInstructions}
-        </div>
-      </div>
-
+      <RecipeDetailsHeader />
+      <RecipeDetailsIngredients />
+      <RecipeDetailsInstructions />
       {
-        dataBase === 'meals' ? <VideoEmbed videoSrc={ strYoutube } /> : ''
+        dataBase === 'meals' ? <VideoEmbed /> : ''
       }
 
       {/*
