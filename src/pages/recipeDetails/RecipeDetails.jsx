@@ -9,8 +9,8 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 function RecipeDetails() {
   const [mealDetail, setMealDetail] = useState([]);
   const [drinkDetail, setDrinkDetail] = useState([]);
-  const [recomendDrinks, setRecomendDrinks] = useState([]);
-  const [recomendMeals, setRecomendMeals] = useState([]);
+  const [recommendDrinks, setRecommendDrinks] = useState([]);
+  const [recommendMeals, setRecommendMeals] = useState([]);
   const [copied, setCopied] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const [fav, setFav] = useState([]);
@@ -39,14 +39,14 @@ function RecipeDetails() {
   async function carouselDrinks() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const data = await response.json();
-    const fetchdrinks = data.drinks.slice(0, six);
-    setRecomendDrinks(fetchdrinks);
+    const fetchDrinks = data.drinks.slice(0, six);
+    setRecommendDrinks(fetchDrinks);
   }
   async function carouselMeals() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const data = await response.json();
-    const fetchmeals = data.meals.slice(0, six);
-    setRecomendMeals(fetchmeals);
+    const fetchMeals = data.meals.slice(0, six);
+    setRecommendMeals(fetchMeals);
   }
 
   useEffect(() => {
@@ -65,11 +65,11 @@ function RecipeDetails() {
     }
     return mealDetail;
   };
-  const recomendMealsOrDrink = () => {
+  const recommendMealsOrDrink = () => {
     if (drinkOrMeal.includes('drinks')) {
-      return recomendMeals;
+      return recommendMeals;
     }
-    return recomendDrinks;
+    return recommendDrinks;
   };
 
   const mealWithoutEmptyValues = [];
@@ -155,7 +155,7 @@ function RecipeDetails() {
   return (
     <div>
       <div>
-        { recomendMealsOrDrink().map((e, index) => (
+        { recommendMealsOrDrink().map((e, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recommendation-card` }

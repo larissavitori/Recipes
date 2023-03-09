@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../buttons/Button';
 import { getDrinksCategoryList, getMealsCategoryList } from '../../service/api';
-import { RecipesContext } from '../../context';
+import { ResearchRecipesContext } from '../../context';
 
 import './categoryList.css';
 
 function CategoryList() {
   const {
     searchBarStatus, handleGetRecipesByCategory, handleGetRecipes,
-  } = useContext(RecipesContext);
+  } = useContext(ResearchRecipesContext);
   const { location: { pathname } } = useHistory();
   const [categories, setCategories] = useState([]);
 

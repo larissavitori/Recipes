@@ -1,11 +1,11 @@
 import LoginProvider from './loginContext/LoginProvider';
 import LoginContext from './loginContext/LoginContext';
-import RecipesContext from './recipesContext/RecipesContext';
-import RecipesProvider from './recipesContext/RecipesProvider';
+import ResearchRecipesContext from './researchContext/ResearchRecipesContext';
+import ResearchRecipesProvider from './researchContext/ResearchRecipesProvider';
 
 export {
   LoginProvider,
   LoginContext,
-  RecipesContext,
-  RecipesProvider,
+  ResearchRecipesContext,
+  ResearchRecipesProvider,
 };

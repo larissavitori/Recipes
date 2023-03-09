@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipeCard from '../recipeCard/RecipeCard';
-import { RecipesContext } from '../../context';
+import { ResearchRecipesContext } from '../../context';
 
 import './recipes.css';
 
 function RecipesGrid() {
   const {
     recipes, handleGetRecipes, setDataBase,
-  } = useContext(RecipesContext);
+  } = useContext(ResearchRecipesContext);
   const history = useHistory();
   const dbName = history.location.pathname.substring(1);
 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { RecipesContext } from '../../context';
+import { ResearchRecipesContext } from '../../context';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import IconButton from '../buttons/IconButton';
@@ -10,7 +10,7 @@ import SearchBar from '../searchBar/SearchBar';
 import './header.css';
 
 function Header({ hTitle, hSearchDisabled = false }) {
-  const { searchBarStatus, handlerSearchBarOnOff } = useContext(RecipesContext);
+  const { searchBarStatus, handlerSearchBarOnOff } = useContext(ResearchRecipesContext);
   const history = useHistory();
 
   return (

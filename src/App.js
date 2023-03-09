@@ -1,15 +1,15 @@
 import React from 'react';
 import Routes from './routes/Routes';
-import { RecipesProvider, LoginProvider } from './context';
+import { ResearchRecipesProvider, LoginProvider } from './context';
 
 import './App.css';
 
 function App() {
   return (
     <LoginProvider>
-      <RecipesProvider>
+      <ResearchRecipesProvider>
         <Routes />
-      </RecipesProvider>
+      </ResearchRecipesProvider>
     </LoginProvider>
   );
 }
