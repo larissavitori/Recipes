@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import './recipesDetails.css';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -13,8 +13,8 @@ function RecipeDetails() {
   const [recomendDrinks, setRecomendDrinks] = useState([]);
   const [recomendMeals, setRecomendMeals] = useState([]);
   const [copied, setCopied] = useState(false);
-  const [value, setValue] = useState('');
   const [favorited, setFavorited] = useState(false);
+  const [fav, setFav] = useState([]);
 
   const history = useHistory();
   const drinkOrMeal = history.location.pathname;
@@ -51,8 +51,6 @@ function RecipeDetails() {
   }
 
   useEffect(() => {
-    const url = `http://localhost:3000${drinkOrMeal}`;
-    setValue(url);
     if (drinkOrMeal.includes('drinks')) {
       fetchDrink();
       carouselMeals();
@@ -87,13 +85,15 @@ function RecipeDetails() {
     });
   };
   mealsDrink();
+
   const handleClick = () => {
     if (!inProgressRecipes.length > 0) {
       history.push(`${drinkOrMeal}/in-progress`);
     }
     return null;
   };
-  const newMeal = [{
+
+  const newMeal = useMemo(() => ({
     id: mealDetail.length > 0 ? mealDetail[0].idMeal : null,
     type: 'meal',
     nationality: mealDetail.length > 0 ? mealDetail[0].strArea : null,
@@ -101,8 +101,9 @@ function RecipeDetails() {
     alcoholicOrNot: '',
     name: mealDetail.length > 0 ? mealDetail[0].strMeal : null,
     image: mealDetail.length > 0 ? mealDetail[0].strMealThumb : null,
-  }];
-  const newDrink = [{
+  }), [mealDetail]);
+
+  const newDrink = useMemo(() => ({
     id: drinkDetail.length > 0 ? drinkDetail[0].idDrink : null,
     type: 'drink',
     nationality: '',
@@ -110,31 +111,48 @@ function RecipeDetails() {
     alcoholicOrNot: drinkDetail.length > 0 ? drinkDetail[0].strAlcoholic : null,
     name: drinkDetail.length > 0 ? drinkDetail[0].strDrink : null,
     image: drinkDetail.length > 0 ? drinkDetail[0].strDrinkThumb : null,
-  }];
-  const newDrinkOrMeal = () => {
+  }), [drinkDetail]);
+
+  const newDrinkOrMeal = useCallback(() => {
     if (drinkOrMeal.includes('drinks')) {
       return newDrink;
     }
     return newMeal;
-  };
-  const salvarNoLocalStorage = () => {
-    // pega o array armazenado no localStorage, se existir
+  }, [drinkOrMeal, newDrink, newMeal]);
+
+  const vitao = useCallback(() => {
     const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const index = bebidasSalvas.filter((item) => item.id === newDrinkOrMeal().id);
-    if (index) {
-      const updatedItens = bebidasSalvas
-        .filter((item) => item.id !== newDrinkOrMeal().id);
-      setFavorited(false);
+    const index = bebidasSalvas.some((item) => item.id === id);
+    setFav(bebidasSalvas);
+    setFavorited(index);
+  }, [id]);
+
+  useEffect(() => {
+    vitao();
+  }, [vitao]);
+
+  const salvarNoLocalStorage = useCallback(() => {
+    // const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (favorited) {
+      const updatedItens = fav
+        .filter((item) => item.id !== id);
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedItens));
     } else {
-      const FiltroDrinkOrMeals = [...bebidasSalvas, newDrinkOrMeal()];
-      setFavorited(true);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(FiltroDrinkOrMeals));
+      const filtroDrinkOrMeal = [...fav, newDrinkOrMeal()];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filtroDrinkOrMeal));
     }
-  };
+    setFavorited((prev) => !prev);
+  }, [favorited, newDrinkOrMeal, fav, id]);
+
   const handleClickFavorite = () => {
     salvarNoLocalStorage();
   };
+
+  const handleCopy = async () => {
+    await clipboardCopy(window.location.href);
+    setCopied(true);
+  };
+
   return (
     <div>
       <div>
@@ -149,6 +167,14 @@ function RecipeDetails() {
           </div>
         ))}
       </div>
+      <button type="button" onClick={ handleClickFavorite }>
+        <img
+          data-testid="favorite-btn"
+          className="fixed-top"
+          src={ favorited ? blackHeart : whiteHeartIcon }
+          alt="blackHeartIcon"
+        />
+      </button>
       <div>
         { mealsOrDrink().map((e) => (
           <div key={ e.idDrink || e.idMeal }>
@@ -163,7 +189,6 @@ function RecipeDetails() {
               src={ e.strDrinkThumb || e.strMealThumb }
               alt={ e.strDrink || e.strMeal }
             />
-            reci
             { mealWithoutEmptyValues[0].map((objeto, index) => (
               <div key={ index }>
                 <p
@@ -175,9 +200,7 @@ function RecipeDetails() {
             ))}
             { mealWithoutEmptyValues[1].map((objeto, index) => (
               <div key={ index }>
-                <p
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
+                <p data-testid={ `${index}-ingredient-name-and-measure` }>
                   {objeto}
                 </p>
               </div>
@@ -187,11 +210,7 @@ function RecipeDetails() {
             </p>
             {(drinkOrMeal.includes('drinks')) ? ''
               : (
-                <video
-                  controls
-                  src={ e.strYoutube }
-                  data-testid="video"
-                >
+                <video controls src={ e.strYoutube } data-testid="video">
                   <source src={ e.strYoutube } />
                   <track
                     default
@@ -203,43 +222,25 @@ function RecipeDetails() {
           </div>
         ))}
       </div>
-      <CopyToClipboard
-        text={ value }
-        onCopy={ () => {
-          setCopied(true);
-        } }
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleCopy }
       >
-        <button
-          type="button"
-          data-testid="share-btn"
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
+        <img src={ shareIcon } alt="share" />
+      </button>
 
-      </CopyToClipboard>
-      {/*   <button
+      <button
         type="button"
         data-testid="start-recipe-btn"
         className="startRecipe"
         onClick={ handleClick }
       >
         { !inProgressRecipes.length ? 'Continue Recipe' : 'Start Recipes' }
-      </button> */}
-      <button
-        type="button"
-        onClick={ handleClickFavorite }
-      >
-
-        <img
-          data-testid="favorite-btn"
-          src={ favorited ? blackHeart : whiteHeartIcon }
-          alt="blackHeartIcon"
-        />
-
       </button>
       <p>
         { copied
-          ? 'Link copied!' : null }
+          && 'Link copied!' }
       </p>
     </div>
   );
