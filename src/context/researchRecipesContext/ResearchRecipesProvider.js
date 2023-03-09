@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 import useSearchRecipes from '../../hooks/useSearchRecipes';
-import ResearchRecipesContext from './ResearchResearchRecipesContext';
+import ResearchRecipesContext from './ResearchRecipesContext';
 
 function ResearchRecipesProvider({ children }) {
   const {

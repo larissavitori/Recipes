@@ -1,4 +1,4 @@
-const formatRecipeData = (recipesData) => recipesData.map(({
+const formatRecipeList = (recipesData) => recipesData.map(({
   idMeal,
   idDrink,
   strMeal,
@@ -11,4 +11,4 @@ const formatRecipeData = (recipesData) => recipesData.map(({
   recipeImgUrl: strMealThumb || strDrinkThumb,
 }));
 
-export default formatRecipeData;
+export default formatRecipeList;
