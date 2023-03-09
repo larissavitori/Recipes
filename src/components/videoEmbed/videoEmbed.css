@@ -1,0 +1,12 @@
+.video-component {
+  margin-bottom: 25px;
+  padding: 0 4vw;
+}
+
+.youtube-video {
+  background-color: var(--color-gray);
+  border-radius: 20px;
+  height: auto;
+  padding: 10px 5vw;
+  width: 100%;
+}

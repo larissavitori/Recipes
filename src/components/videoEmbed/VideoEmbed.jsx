@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { RecipeContext } from '../../context';
 
+import './videoEmbed.css';
+
 function VideoEmbed() {
   const { recipeDetail: {
     strYoutube,
@@ -16,7 +18,7 @@ function VideoEmbed() {
         data-testid="video"
         className="youtube-video"
       >
-        <source src={ strYoutube } type="application/x-shockwave-flash" />
+        <source src={ strYoutube } type="" />
         <track
           default
           kind="captions"

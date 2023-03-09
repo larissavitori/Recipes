@@ -4,6 +4,8 @@ import { BiDrink } from 'react-icons/bi';
 import { GiHotMeal } from 'react-icons/gi';
 import { RecipeContext } from '../../context';
 
+import './recipeDetailsHeader.css';
+
 function RecipeDetailsHeader() {
   const { recipeDetail: {
     strRecipeThumb,
@@ -34,14 +36,14 @@ function RecipeDetailsHeader() {
           }
           <span data-testid="recipe-category" className="recipe-tags">
             <p className="tag-item">{strCategory}</p>
-            <hr />
+            <hr className="horizontal-line" />
             {strAlcoholic ? <p className="tag-item">{strAlcoholic}</p> : '' }
             {strArea ? <p className="tag-item">{strArea}</p> : '' }
           </span>
         </div>
         <div className="detail-options" />
       </div>
-      <h1 data-testid="recipe-title">
+      <h1 className="recipe-title" data-testid="recipe-title">
         {strRecipe}
       </h1>
     </div>

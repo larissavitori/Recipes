@@ -1,0 +1,17 @@
+.details-ingredients-component {
+  margin-bottom: 25px;
+  padding: 0 4vw;
+}
+
+.details-sub-title {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.ing-list {
+  border: solid 2px var(--color-gray);
+  border-radius: 8px;
+  list-style-position: inside;
+  list-style-type: circle;
+  padding: 10px;
+}

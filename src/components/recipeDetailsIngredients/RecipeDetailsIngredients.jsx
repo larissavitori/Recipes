@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { RecipeContext } from '../../context';
 
+import './recipeDetailsIngredients.css';
+
 function RecipeDetailsIngredients() {
   const { recipeDetail: {
     ingredientsAndMeasures: { ingredients, measures },
