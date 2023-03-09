@@ -1,160 +1,141 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import './recipesDetails.css';
-import clipboardCopy from 'clipboard-copy';
-import shareIcon from '../../images/shareIcon.svg';
-import blackHeart from '../../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import React, {
+  /* useCallback, */ useContext, useEffect, /* , useMemo, useState */
+} from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+// import clipboardCopy from 'clipboard-copy';
+// import shareIcon from '../../images/shareIcon.svg';
+// import blackHeart from '../../images/blackHeartIcon.svg';
+// import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+
+import { RecipeContext } from '../../context';
+
+import './recipeDetails.css';
 
 function RecipeDetails() {
-  const [mealDetail, setMealDetail] = useState([]);
-  const [drinkDetail, setDrinkDetail] = useState([]);
-  const [recommendDrinks, setRecommendDrinks] = useState([]);
-  const [recommendMeals, setRecommendMeals] = useState([]);
-  const [copied, setCopied] = useState(false);
-  const [favorited, setFavorited] = useState(false);
-  const [fav, setFav] = useState([]);
-
-  const history = useHistory();
-  const drinkOrMeal = history.location.pathname;
-  const id = drinkOrMeal.split('/')[2];
-
-  const inProgressRecipes = {
-    drinks: {
-      52771: [],
-    },
-  };
-
-  async function fetchMeal() {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const data = await response.json();
-    setMealDetail(data.meals);
-  }
-  async function fetchDrink() {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const data = await response.json();
-    setDrinkDetail(data.drinks);
-  }
-  const six = 6;
-  async function carouselDrinks() {
-    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    const data = await response.json();
-    const fetchDrinks = data.drinks.slice(0, six);
-    setRecommendDrinks(fetchDrinks);
-  }
-  async function carouselMeals() {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    const data = await response.json();
-    const fetchMeals = data.meals.slice(0, six);
-    setRecommendMeals(fetchMeals);
-  }
-
+  const { id } = useParams();
+  const { location: { pathname } } = useHistory();
+  const dataBase = pathname.split('/')[1];
+  const { handleGetRecipe, recipeDetail } = useContext(RecipeContext);
   useEffect(() => {
-    if (drinkOrMeal.includes('drinks')) {
-      fetchDrink();
-      carouselMeals();
-    } else {
-      fetchMeal();
-      carouselDrinks();
-    }
-  }, []);
+    handleGetRecipe(dataBase, id);
+  }, [dataBase, id, handleGetRecipe]);
 
-  const mealsOrDrink = () => {
-    if (drinkOrMeal.includes('drinks')) {
-      return drinkDetail;
-    }
-    return mealDetail;
-  };
-  const recommendMealsOrDrink = () => {
-    if (drinkOrMeal.includes('drinks')) {
-      return recommendMeals;
-    }
-    return recommendDrinks;
-  };
+  // const [recommendDrinks, setRecommendDrinks] = useState([]);
+  // const [recommendMeals, setRecommendMeals] = useState([]);
+  // const [copied, setCopied] = useState(false);
+  // const [favorited, setFavorited] = useState(false);
+  // const [fav, setFav] = useState([]);
 
-  const mealWithoutEmptyValues = [];
-  const mealsDrink = () => {
-    mealsOrDrink().forEach((recipe) => {
-      const ingredients = Object.keys(recipe).filter((el) => el
-        .includes('strIngredient')).map((el) => recipe[el]);
-      const measures = Object.keys(recipe).filter((el) => el
-        .includes('strMeasure')).map((el) => recipe[el]);
-      mealWithoutEmptyValues.push(ingredients, measures);
-      return mealWithoutEmptyValues;
-    });
-  };
-  mealsDrink();
+  // const six = 6;
+  // async function carouselDrinks() {
+  //   const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  //   const data = await response.json();
+  //   const fetchDrinks = data.drinks.slice(0, six);
+  //   setRecommendDrinks(fetchDrinks);
+  // }
+  // async function carouselMeals() {
+  //   const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  //   const data = await response.json();
+  //   const fetchMeals = data.meals.slice(0, six);
+  //   setRecommendMeals(fetchMeals);
+  // }
 
-  const handleClick = () => {
-    if (!inProgressRecipes.length > 0) {
-      history.push(`${drinkOrMeal}/in-progress`);
-    }
-    return null;
-  };
+  // const recommendMealsOrDrink = () => {
+  //   if (drinkOrMeal.includes('drinks')) {
+  //     return recommendMeals;
+  //   }
+  //   return recommendDrinks;
+  // };
 
-  const newMeal = useMemo(() => ({
-    id: mealDetail.length > 0 ? mealDetail[0].idMeal : null,
-    type: 'meal',
-    nationality: mealDetail.length > 0 ? mealDetail[0].strArea : null,
-    category: mealDetail.length > 0 ? mealDetail[0].strCategory : null,
-    alcoholicOrNot: '',
-    name: mealDetail.length > 0 ? mealDetail[0].strMeal : null,
-    image: mealDetail.length > 0 ? mealDetail[0].strMealThumb : null,
-  }), [mealDetail]);
+  // const mealWithoutEmptyValues = [];
+  // const mealsDrink = () => {
+  //   mealsOrDrink().forEach((recipe) => {
+  //     const ingredients = Object.keys(recipe).filter((el) => el
+  //       .includes('strIngredient')).map((el) => recipe[el]);
+  //     const measures = Object.keys(recipe).filter((el) => el
+  //       .includes('strMeasure')).map((el) => recipe[el]);
+  //     mealWithoutEmptyValues.push(ingredients, measures);
+  //     return mealWithoutEmptyValues;
+  //   });
+  // };
+  // mealsDrink();
 
-  const newDrink = useMemo(() => ({
-    id: drinkDetail.length > 0 ? drinkDetail[0].idDrink : null,
-    type: 'drink',
-    nationality: '',
-    category: drinkDetail.length > 0 ? drinkDetail[0].strCategory : null,
-    alcoholicOrNot: drinkDetail.length > 0 ? drinkDetail[0].strAlcoholic : null,
-    name: drinkDetail.length > 0 ? drinkDetail[0].strDrink : null,
-    image: drinkDetail.length > 0 ? drinkDetail[0].strDrinkThumb : null,
-  }), [drinkDetail]);
+  // const handleClick = () => {
+  //   if (!inProgressRecipes.length > 0) {
+  //     history.push(`${drinkOrMeal}/in-progress`);
+  //   }
+  //   return null;
+  // };
 
-  const newDrinkOrMeal = useCallback(() => {
-    if (drinkOrMeal.includes('drinks')) {
-      return newDrink;
-    }
-    return newMeal;
-  }, [drinkOrMeal, newDrink, newMeal]);
+  // const newMeal = useMemo(() => ({
+  //   id: mealDetail.length > 0 ? mealDetail[0].idMeal : null,
+  //   type: 'meal',
+  //   nationality: mealDetail.length > 0 ? mealDetail[0].strArea : null,
+  //   category: mealDetail.length > 0 ? mealDetail[0].strCategory : null,
+  //   alcoholicOrNot: '',
+  //   name: mealDetail.length > 0 ? mealDetail[0].strMeal : null,
+  //   image: mealDetail.length > 0 ? mealDetail[0].strMealThumb : null,
+  // }), [mealDetail]);
 
-  const vitao = useCallback(() => {
-    const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const index = bebidasSalvas.some((item) => item.id === id);
-    setFav(bebidasSalvas);
-    setFavorited(index);
-  }, [id]);
+  // const newDrink = useMemo(() => ({
+  //   id: drinkDetail.length > 0 ? drinkDetail[0].idDrink : null,
+  //   type: 'drink',
+  //   nationality: '',
+  //   category: drinkDetail.length > 0 ? drinkDetail[0].strCategory : null,
+  //   alcoholicOrNot: drinkDetail.length > 0 ? drinkDetail[0].strAlcoholic : null,
+  //   name: drinkDetail.length > 0 ? drinkDetail[0].strDrink : null,
+  //   image: drinkDetail.length > 0 ? drinkDetail[0].strDrinkThumb : null,
+  // }), [drinkDetail]);
 
-  useEffect(() => {
-    vitao();
-  }, [vitao]);
+  // const newDrinkOrMeal = useCallback(() => {
+  //   if (drinkOrMeal.includes('drinks')) {
+  //     return newDrink;
+  //   }
+  //   return newMeal;
+  // }, [drinkOrMeal, newDrink, newMeal]);
 
-  const salvarNoLocalStorage = useCallback(() => {
-    // const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    if (favorited) {
-      const updatedItens = fav
-        .filter((item) => item.id !== id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedItens));
-    } else {
-      const filtroDrinkOrMeal = [...fav, newDrinkOrMeal()];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(filtroDrinkOrMeal));
-    }
-    setFavorited((prev) => !prev);
-  }, [favorited, newDrinkOrMeal, fav, id]);
+  // const vitao = useCallback(() => {
+  //   const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  //   const index = bebidasSalvas.some((item) => item.id === id);
+  //   setFav(bebidasSalvas);
+  //   setFavorited(index);
+  // }, [id]);
 
-  const handleClickFavorite = () => {
-    salvarNoLocalStorage();
-  };
+  // useEffect(() => {
+  //   vitao();
+  // }, [vitao]);
 
-  const handleCopy = async () => {
-    await clipboardCopy(window.location.href);
-    setCopied(true);
-  };
+  // const salvarNoLocalStorage = useCallback(() => {
+  //   // const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  //   if (favorited) {
+  //     const updatedItens = fav
+  //       .filter((item) => item.id !== id);
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify(updatedItens));
+  //   } else {
+  //     const filtroDrinkOrMeal = [...fav, newDrinkOrMeal()];
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify(filtroDrinkOrMeal));
+  //   }
+  //   setFavorited((prev) => !prev);
+  // }, [favorited, newDrinkOrMeal, fav, id]);
+
+  // const handleClickFavorite = () => {
+  //   salvarNoLocalStorage();
+  // };
+
+  // const handleCopy = async () => {
+  //   await clipboardCopy(window.location.href);
+  //   setCopied(true);
+  // };
+
+  const {
+    strRecipe,
+    strCategory,
+    strRecipeThumb,
+  } = recipeDetail;
 
   return (
     <div>
-      <div>
+      {/* <div>
         { recommendMealsOrDrink().map((e, index) => (
           <div
             key={ index }
@@ -165,69 +146,67 @@ function RecipeDetails() {
             </h5>
           </div>
         ))}
-      </div>
-      <button type="button" onClick={ handleClickFavorite }>
+      </div> */}
+      {/* <button type="button" onClick={ handleClickFavorite }>
         <img
           data-testid="favorite-btn"
           className="fixed-top"
           src={ favorited ? blackHeart : whiteHeartIcon }
           alt="blackHeartIcon"
         />
-      </button>
+      </button> */}
+
       <div>
-        { mealsOrDrink().map((e) => (
-          <div key={ e.idDrink || e.idMeal }>
-            <h3 data-testid="recipe-title">
-              { e.strDrink || e.strMeal }
-            </h3>
-            <h5 data-testid="recipe-category">
-              { e.strAlcoholic || e.strCategory }
-            </h5>
-            <img
-              data-testid="recipe-photo"
-              src={ e.strDrinkThumb || e.strMealThumb }
-              alt={ e.strDrink || e.strMeal }
-            />
-            { mealWithoutEmptyValues[0].map((objeto, index) => (
-              <div key={ index }>
-                <p
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {objeto}
-                </p>
-              </div>
-            ))}
-            { mealWithoutEmptyValues[1].map((objeto, index) => (
-              <div key={ index }>
-                <p data-testid={ `${index}-ingredient-name-and-measure` }>
-                  {objeto}
-                </p>
-              </div>
-            ))}
-            <p data-testid="instructions">
-              {e.strInstructions }
+        <h3 data-testid="recipe-title">
+          {strRecipe}
+        </h3>
+        <h5 data-testid="recipe-category">
+          {strCategory}
+        </h5>
+        <img
+          data-testid="recipe-photo"
+          src={ strRecipeThumb }
+          alt={ `Imagem: ${strRecipe}` }
+        />
+        {/* {mealWithoutEmptyValues[0].map((objeto, index) => (
+          <div key={ index }>
+            <p
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {objeto}
             </p>
-            {(drinkOrMeal.includes('drinks')) ? ''
-              : (
-                <video controls src={ e.strYoutube } data-testid="video">
-                  <source src={ e.strYoutube } />
-                  <track
-                    default
-                    kind="captions"
-                    srcLang="en"
-                  />
-                </video>
-              )}
           </div>
         ))}
+        {mealWithoutEmptyValues[1].map((objeto, index) => (
+          <div key={ index }>
+            <p data-testid={ `${index}-ingredient-name-and-measure` }>
+              {objeto}
+            </p>
+          </div>
+        ))} */}
+        {/* <p data-testid="instructions">
+          {e.strInstructions}
+        </p>
+        {(drinkOrMeal.includes('drinks')) ? ''
+          : (
+            <video controls src={ e.strYoutube } data-testid="video">
+              <source src={ e.strYoutube } />
+              <track
+                default
+                kind="captions"
+                srcLang="en"
+              />
+            </video>
+          )}
       </div>
-      <button
+
+      <butdataton
         type="button"
         data-testid="share-btn"
         onClick={ handleCopy }
       >
         <img src={ shareIcon } alt="share" />
-      </button>
+      </butdataton>
 
       <button
         type="button"
@@ -235,12 +214,13 @@ function RecipeDetails() {
         className="startRecipe"
         onClick={ handleClick }
       >
-        { !inProgressRecipes.length ? 'Continue Recipe' : 'Start Recipes' }
+        {!inProgressRecipes.length ? 'Continue Recipe' : 'Start Recipes'}
       </button>
       <p>
-        { copied
-          && 'Link copied!' }
-      </p>
+        {copied
+          && 'Link copied!'}
+      </p> */}
+      </div>
     </div>
   );
 }
