@@ -4,9 +4,7 @@
 }
 
 .youtube-video {
-  background-color: var(--color-gray);
-  border-radius: 20px;
-  height: auto;
-  padding: 10px 5vw;
-  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }

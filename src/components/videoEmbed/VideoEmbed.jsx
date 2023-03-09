@@ -1,30 +1,45 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import YouTube from 'react-youtube';
 import { RecipeContext } from '../../context';
-
 import './videoEmbed.css';
 
 function VideoEmbed() {
+  const [youtubeId, setYoutubeId] = useState('');
   const { recipeDetail: {
     strYoutube,
+    // strMeal,
   } } = useContext(RecipeContext);
+
+  useEffect(() => {
+    if (strYoutube) {
+      const videoId = strYoutube.split('=')[1];
+      console.log(videoId);
+      setYoutubeId(videoId);
+    }
+  }, [strYoutube]);
+
+  const opts = {
+    height: 180,
+    width: 320,
+    playerVars: {
+      autoplay: 0,
+    },
+  };
+
+  const onReady = ({ target }) => {
+    target.pauseVideo();
+  };
 
   return (
     <div className="video-component">
       <h2 className="details-sub-title">Video</h2>
-      <video
-        controls
-        width="320"
-        height="240"
-        data-testid="video"
-        className="youtube-video"
-      >
-        <source src={ strYoutube } type="" />
-        <track
-          default
-          kind="captions"
-          srcLang="en"
+      <div className="youtube-video">
+        <YouTube
+          videoId={ youtubeId }
+          opts={ opts }
+          onReady={ onReady }
         />
-      </video>
+      </div>
     </div>
   );
 }
