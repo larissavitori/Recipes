@@ -7,20 +7,18 @@ function VideoEmbed() {
   const [youtubeId, setYoutubeId] = useState('');
   const { recipeDetail: {
     strYoutube,
-    // strMeal,
   } } = useContext(RecipeContext);
 
   useEffect(() => {
     if (strYoutube) {
       const videoId = strYoutube.split('=')[1];
-      console.log(videoId);
       setYoutubeId(videoId);
     }
   }, [strYoutube]);
 
   const opts = {
-    height: 180,
-    width: 320,
+    height: 360,
+    width: 640,
     playerVars: {
       autoplay: 0,
     },
