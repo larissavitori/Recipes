@@ -54,6 +54,13 @@ export const getDrinksCategoryList = async () => {
   return categories.slice(0, FIVE);
 };
 
+export const getDrinkDetails = async (id) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { drinks: drink } = await (await fetch(URL)).json();
+
+  return drink[0];
+};
+
 export const getMealsByIngredient = async (ingredient) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const { meals } = await (await fetch(URL)).json();
@@ -103,4 +110,11 @@ export const getMealsCategoryList = async () => {
   const { meals: categories } = await (await fetch(URL)).json();
 
   return categories.slice(0, FIVE);
+};
+
+export const getMealDetails = async (id) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { meals: meal } = await (await fetch(URL)).json();
+
+  return meal[0];
 };
