@@ -31,9 +31,8 @@ function VideoEmbed() {
   return (
     <div className="video-component">
       <h2 className="details-sub-title">Video</h2>
-      <div className="youtube-video">
+      <div data-testid="video" className="youtube-video">
         <YouTube
-          data-testid="video"
           videoId={ youtubeId }
           opts={ opts }
           onReady={ onReady }
