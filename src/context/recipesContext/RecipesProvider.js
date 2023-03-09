@@ -1,10 +1,35 @@
 import PropTypes from 'prop-types';
-
+import React, { useMemo } from 'react';
+import useSearchRecipes from '../../hooks/useSearchRecipes';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
+  const {
+    recipes,
+    research,
+    searchBarStatus,
+    handlerSearchBarOnOff,
+    setDataBase,
+    handleResearchRecipes,
+    researchHandleChange,
+    handleGetRecipes,
+    handleGetRecipesByCategory,
+  } = useSearchRecipes();
+
+  const recipesState = useMemo(() => ({
+    research,
+    recipes,
+    searchBarStatus,
+    researchHandleChange,
+    setDataBase,
+    handleResearchRecipes,
+    handlerSearchBarOnOff,
+    handleGetRecipes,
+    handleGetRecipesByCategory,
+  }), [research, recipes, searchBarStatus]);
+
   return (
-    <RecipesContext.Provider>
+    <RecipesContext.Provider value={ recipesState }>
       {children}
     </RecipesContext.Provider>
   );

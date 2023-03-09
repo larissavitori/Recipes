@@ -1,0 +1,9 @@
+.recipes-grid {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin: 0 10px;
+  margin-top: 20px;
+}

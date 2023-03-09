@@ -1,15 +1,32 @@
 :root {
 
+  --fontColor-primary: rgb(33, 37, 41);
+
+  --primary-color: rgb(65, 24, 127);
+
+  --secondary-color: rgb(252, 220, 54);
+
+  --shadow-color: rgba(0, 0, 0, 0.2);
+
   --color-background: rgb(248, 249, 250);
+
+  --background-login: rgb(237, 242, 251);
 
 }
 
 main {
   background-color: var(--color-background);
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
 }
 
 .disabled {
   display: none;
+}
+
+.recipes-page {
+  padding-bottom: 76px;
+}
+
+.search-open {
+  margin-top: 246px;
 }

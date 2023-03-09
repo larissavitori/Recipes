@@ -1,6 +1,10 @@
-footer {
-  background-color: yellow;
+.footer-component {
+  background-color: var(--secondary-color);
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
   position: fixed;
-  width: 100%;
+  width: 100vw;
+  z-index: 9999;
 }

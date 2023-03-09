@@ -3,7 +3,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { AiOutlineLock } from 'react-icons/ai';
 import Input from '../inputs/Input';
 import { LoginContext } from '../../context';
-
+import Button from '../buttons/Button';
 import './loginForm.css';
 
 function LoginForm() {
@@ -36,14 +36,13 @@ function LoginForm() {
       >
         <AiOutlineLock className="i-icon" />
       </Input>
-      <button
-        className="btn-enter"
-        data-testid="login-submit-btn"
-        disabled={ !validation }
-        onClick={ loginHandleClick }
-      >
-        Enter
-      </button>
+      <Button
+        bClassName="btn-enter"
+        bDataTestId="login-submit-btn"
+        bValidation={ !validation }
+        bHandleClick={ loginHandleClick }
+        bTitle="Enter"
+      />
     </div>
   );
 }
