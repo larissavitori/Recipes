@@ -1,12 +1,7 @@
 import React, {
-  /* useCallback, */ useContext, useEffect, /* , useMemo, */ useState,
+  useContext, useEffect,
 } from 'react';
-
 import { useHistory, useParams } from 'react-router-dom';
-// import clipboardCopy from 'clipboard-copy';
-// import shareIcon from '../../images/shareIcon.svg';
-// import blackHeart from '../../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import {
   VideoEmbed,
   RecipeDetailsHeader,
@@ -24,13 +19,13 @@ function RecipeDetails() {
   const { id } = useParams();
   const {
     handleGetRecipe,
-    recipeDetail: { strYoutube, idRecipe },
+    recipeDetail: { strYoutube },
+    isInProgressRecipes,
+    isDoneRecipe,
   } = useContext(RecipeContext);
   const {
     handleGetRecipes: handleGetRecommendedRecipes,
   } = useContext(ResearchRecipesContext);
-  const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
-  const [isDoneRecipe, setIsDoneRecipe] = useState(false);
 
   useEffect(() => {
     const dataBase = history.location.pathname.split('/')[1];
@@ -44,57 +39,8 @@ function RecipeDetails() {
     history.push(`${pathname}/in-progress`);
   };
 
-  useEffect(() => {
-    const dataBase = history.location.pathname.split('/')[1];
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      meals: {},
-      drinks: {},
-    };
-    doneRecipes.forEach((recipe) => {
-      if (recipe.id === idRecipe) {
-        setIsDoneRecipe(true);
-      }
-    });
-    const { meals, drinks } = inProgressRecipes;
-    if (dataBase === 'meals') {
-      if (meals[idRecipe]) {
-        setIsInProgressRecipes(true);
-      }
-    } else if (drinks[idRecipe]) {
-      setIsInProgressRecipes(true);
-    }
-  }, [history.location.pathname, idRecipe]);
-  // const [copied, setCopied] = useState(false);
   // const [favorited, setFavorited] = useState(false);
   // const [fav, setFav] = useState([]);
-
-  // const recommendMealsOrDrink = () => {
-  //   if (drinkOrMeal.includes('drinks')) {
-  //     return recommendMeals;
-  //   }
-  //   return recommendDrinks;
-  // };
-
-  // const mealWithoutEmptyValues = [];
-  // const mealsDrink = () => {
-  //   mealsOrDrink().forEach((recipe) => {
-  //     const ingredients = Object.keys(recipe).filter((el) => el
-  //       .includes('strIngredient')).map((el) => recipe[el]);
-  //     const measures = Object.keys(recipe).filter((el) => el
-  //       .includes('strMeasure')).map((el) => recipe[el]);
-  //     mealWithoutEmptyValues.push(ingredients, measures);
-  //     return mealWithoutEmptyValues;
-  //   });
-  // };
-  // mealsDrink();
-
-  // const handleClick = () => {
-  //   if (!inProgressRecipes.length > 0) {
-  //     history.push(`${drinkOrMeal}/in-progress`);
-  //   }
-  //   return null;
-  // };
 
   // const newMeal = useMemo(() => ({
   //   id: mealDetail.length > 0 ? mealDetail[0].idMeal : null,
@@ -149,11 +95,6 @@ function RecipeDetails() {
 
   // const handleClickFavorite = () => {
   //   salvarNoLocalStorage();
-  // };
-
-  // const handleCopy = async () => {
-  //   await clipboardCopy(window.location.href);
-  //   setCopied(true);
   // };
 
   return (
