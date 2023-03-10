@@ -29,6 +29,7 @@ function RecipeDetails() {
   const {
     handleGetRecipes: handleGetRecommendedRecipes,
   } = useContext(ResearchRecipesContext);
+  const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
 
   useEffect(() => {
@@ -44,13 +45,26 @@ function RecipeDetails() {
   };
 
   useEffect(() => {
+    const dataBase = history.location.pathname.split('/')[1];
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      meals: {},
+      drinks: {},
+    };
     doneRecipes.forEach((recipe) => {
       if (recipe.id === idRecipe) {
         setIsDoneRecipe(true);
       }
     });
-  });
+    const { meals, drinks } = inProgressRecipes;
+    if (dataBase === 'meals') {
+      if (meals[idRecipe]) {
+        setIsInProgressRecipes(true);
+      }
+    } else if (drinks[idRecipe]) {
+      setIsInProgressRecipes(true);
+    }
+  }, [history.location.pathname, idRecipe]);
   // const [copied, setCopied] = useState(false);
   // const [favorited, setFavorited] = useState(false);
   // const [fav, setFav] = useState([]);
@@ -147,20 +161,14 @@ function RecipeDetails() {
       <RecipeDetailsHeader />
       <RecipeDetailsIngredients />
       <RecipeDetailsInstructions />
-      {
-        strYoutube ? <VideoEmbed /> : ''
-      }
+      { strYoutube ? <VideoEmbed /> : '' }
       <RecommendedRecipes />
-
-      {
-        isDoneRecipe ? '' : <Button
-          bDataTestId="start-recipe-btn"
-          bHandleClick={ handleClickToStartRecipe }
-          bTitle="Start Recipe"
-          bClassName="start-recipe-btn"
-        />
-      }
-
+      { isDoneRecipe ? '' : <Button
+        bDataTestId="start-recipe-btn"
+        bHandleClick={ handleClickToStartRecipe }
+        bTitle={ isInProgressRecipes ? 'Continue Recipe' : 'Start Recipe' }
+        bClassName="start-recipe-btn"
+      />}
     </div>
   );
 }
