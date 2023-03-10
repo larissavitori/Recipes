@@ -18,10 +18,10 @@ function RecipeDetails() {
   const history = useHistory();
   const { id } = useParams();
   const {
-    handleGetRecipe,
     recipeDetail: { strYoutube },
     isInProgressRecipes,
     isDoneRecipe,
+    handleGetRecipe,
   } = useContext(RecipeContext);
   const {
     handleGetRecipes: handleGetRecommendedRecipes,

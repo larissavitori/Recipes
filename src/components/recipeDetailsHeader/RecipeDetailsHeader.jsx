@@ -1,23 +1,28 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BiDrink, BiShareAlt } from 'react-icons/bi';
-import { AiTwotoneHeart } from 'react-icons/ai';
 import { GiHotMeal } from 'react-icons/gi';
 import clipboardCopy from 'clipboard-copy';
 import { RecipeContext } from '../../context';
+import NotificationAlert from '../notificationAlert/NotificationAlert';
+import FavoriteBtn from '../buttons/FavoriteBtn';
 
 import './recipeDetailsHeader.css';
-import NotificationAlert from '../notificationAlert/NotificationAlert';
 
 function RecipeDetailsHeader() {
   const [isShare, setIsShare] = useState(false);
-  const { recipeDetail: {
-    strRecipeThumb,
-    strRecipe,
-    strCategory,
-    strAlcoholic,
-    strArea,
-  } } = useContext(RecipeContext);
+  const {
+    recipeDetail: {
+      strRecipeThumb,
+      strRecipe,
+      strCategory,
+      strAlcoholic,
+      strArea,
+    },
+    isFavorite,
+    handleFavorite,
+    handleUnfavorite,
+  } = useContext(RecipeContext);
   const { location: { pathname } } = useHistory();
   const dataBase = pathname.split('/')[1];
 
@@ -65,12 +70,15 @@ function RecipeDetailsHeader() {
           >
             <BiShareAlt className="option-icon" />
           </button>
-          <button
-            data-testid="favorite-btn"
-            className="option-btn"
-          >
-            <AiTwotoneHeart className="option-icon" />
-          </button>
+          {
+            isFavorite ? <FavoriteBtn
+              fHandleClick={ handleUnfavorite }
+              isFavorite={ isFavorite }
+            /> : <FavoriteBtn
+              fHandleClick={ handleFavorite }
+              isFavorite={ isFavorite }
+            />
+          }
         </div>
       </div>
       <h1 className="recipe-title" data-testid="recipe-title">

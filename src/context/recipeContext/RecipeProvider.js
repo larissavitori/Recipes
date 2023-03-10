@@ -23,6 +23,7 @@ function RecipeProvider({ children }) {
   });
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleGetRecipe = async (dataBase, id) => {
     let recipe = {};
@@ -33,6 +34,44 @@ function RecipeProvider({ children }) {
     }
     setRecipeDetail(recipe);
   };
+
+  const handleFavorite = () => {
+    const dataBase = pathname.split('/')[1];
+    const {
+      idRecipe, strArea, strCategory, strAlcoholic, strRecipe, strRecipeThumb,
+    } = recipeDetail;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const favoriteData = {
+      id: idRecipe,
+      type: dataBase === 'meals' ? 'meal' : 'drink',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strRecipe,
+      image: strRecipeThumb,
+    };
+    localStorage.setItem('favoriteRecipes', JSON.stringify([
+      ...favoriteRecipes,
+      favoriteData,
+    ]));
+    setIsFavorite(true);
+  };
+
+  const handleUnfavorite = () => {
+    const { idRecipe } = recipeDetail;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const filteredFavorites = favoriteRecipes.filter(
+      (recipe) => (recipe.id !== idRecipe),
+    );
+    localStorage.setItem('favoriteRecipes', JSON.stringify([...filteredFavorites]));
+    setIsFavorite(false);
+  };
+
+  useEffect(() => {
+    const { idRecipe } = recipeDetail;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setIsFavorite(favoriteRecipes.some((recipe) => recipe.id === idRecipe));
+  }, [recipeDetail]);
 
   useEffect(() => {
     const { idRecipe } = recipeDetail;
@@ -61,8 +100,11 @@ function RecipeProvider({ children }) {
     recipeDetail,
     isInProgressRecipes,
     isDoneRecipe,
+    isFavorite,
     handleGetRecipe,
-  }), [recipeDetail, isInProgressRecipes, isDoneRecipe]);
+    handleFavorite,
+    handleUnfavorite,
+  }), [recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite]);
 
   return (
     <RecipeContext.Provider value={ recipeState }>
