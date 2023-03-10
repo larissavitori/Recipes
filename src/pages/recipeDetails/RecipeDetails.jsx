@@ -14,12 +14,13 @@ import {
   RecipeDetailsInstructions,
   RecommendedRecipes,
 } from '../../components';
+import Button from '../../components/buttons/Button';
 import { RecipeContext, ResearchRecipesContext } from '../../context';
 
 import './recipeDetails.css';
 
 function RecipeDetails() {
-  const { location: { pathname } } = useHistory();
+  const history = useHistory();
   const { id } = useParams();
   const { handleGetRecipe, recipeDetail: { strYoutube } } = useContext(RecipeContext);
   const {
@@ -27,12 +28,16 @@ function RecipeDetails() {
   } = useContext(ResearchRecipesContext);
 
   useEffect(() => {
-    const dataBase = pathname.split('/')[1];
+    const dataBase = history.location.pathname.split('/')[1];
     handleGetRecipe(dataBase, id);
     if (dataBase === 'meals') { handleGetRecommendedRecipes('drinks'); }
     if (dataBase === 'drinks') { handleGetRecommendedRecipes('meals'); }
-  }, [pathname, id]);
+  }, [history.location.pathname, id]);
 
+  const handleClickToStartRecipe = () => {
+    const { pathname } = history.location;
+    history.push(`${pathname}/in-progress`);
+  };
   // const [copied, setCopied] = useState(false);
   // const [favorited, setFavorited] = useState(false);
   // const [fav, setFav] = useState([]);
@@ -134,28 +139,14 @@ function RecipeDetails() {
       }
       <RecommendedRecipes />
 
-      {/*
-
-      <butdataton
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleCopy }
-      >
-        <img src={ shareIcon } alt="share" />
-      </butdataton>
-
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="startRecipe"
-        onClick={ handleClick }
-      >
-        {!inProgressRecipes.length ? 'Continue Recipe' : 'Start Recipes'}
-      </button>
-      <p>
-        {copied
-          && 'Link copied!'}
-      </p> */}
+      <div className="recipe-details-footer">
+        <Button
+          bDataTestId="start-recipe-btn"
+          bHandleClick={ handleClickToStartRecipe }
+          bTitle="Start Recipe"
+          bClassName="start-recipe-btn"
+        />
+      </div>
 
     </div>
   );
