@@ -19,18 +19,19 @@ import { RecipeContext, ResearchRecipesContext } from '../../context';
 import './recipeDetails.css';
 
 function RecipeDetails() {
-  const { id } = useParams();
   const { location: { pathname } } = useHistory();
-  const dataBase = pathname.split('/')[1];
-  const { handleGetRecipe } = useContext(RecipeContext);
+  const { id } = useParams();
+  const { handleGetRecipe, recipeDetail: { strYoutube } } = useContext(RecipeContext);
   const {
     handleGetRecipes: handleGetRecommendedRecipes,
   } = useContext(ResearchRecipesContext);
+
   useEffect(() => {
+    const dataBase = pathname.split('/')[1];
     handleGetRecipe(dataBase, id);
     if (dataBase === 'meals') { handleGetRecommendedRecipes('drinks'); }
     if (dataBase === 'drinks') { handleGetRecommendedRecipes('meals'); }
-  }, [dataBase, id]);
+  }, [pathname, id]);
 
   // const [copied, setCopied] = useState(false);
   // const [favorited, setFavorited] = useState(false);
@@ -129,7 +130,7 @@ function RecipeDetails() {
       <RecipeDetailsIngredients />
       <RecipeDetailsInstructions />
       {
-        dataBase === 'meals' ? <VideoEmbed /> : ''
+        strYoutube ? <VideoEmbed /> : ''
       }
       <RecommendedRecipes />
 

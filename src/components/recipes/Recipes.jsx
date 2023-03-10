@@ -9,8 +9,8 @@ function RecipesGrid() {
   const {
     recipes, handleGetRecipes, setDataBase,
   } = useContext(ResearchRecipesContext);
-  const history = useHistory();
-  const dbName = history.location.pathname.substring(1);
+  const { location: { pathname } } = useHistory();
+  const dbName = pathname.substring(1);
 
   useEffect(() => {
     handleGetRecipes(dbName);
@@ -21,7 +21,11 @@ function RecipesGrid() {
     <div className="recipes-grid">
       {
         recipes.map((recipeData, index) => (
-          <RecipeCard index={ index } recipeData={ recipeData } key={ index } />
+          <RecipeCard
+            index={ index }
+            recipeData={ recipeData }
+            key={ index }
+          />
         ))
       }
     </div>

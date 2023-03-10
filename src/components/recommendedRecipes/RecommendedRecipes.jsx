@@ -10,6 +10,7 @@ function RecommendedRecipes() {
   const {
     recipes,
   } = useContext(ResearchRecipesContext);
+
   useEffect(() => {
     setRecommendedRecipes(recipes.slice(0, WIDTH_SIX));
   }, [recipes]);

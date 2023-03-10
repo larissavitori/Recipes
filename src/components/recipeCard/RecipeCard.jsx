@@ -8,13 +8,13 @@ function RecipeCard({
   recipeData, index, altTestIdCard = '-recipe-card', altTestIdTitle = '-card-name',
   altClass = '',
 }) {
-  const { recipeId, recipeImgUrl, recipeName } = recipeData;
-  const { location } = useHistory();
+  const { recipePath, recipeImgUrl, recipeName } = recipeData;
+  const history = useHistory();
   return (
-    <a
-      href={ `${location.pathname}/${recipeId}` }
+    <button
       data-testid={ `${index}${altTestIdCard}` }
       className={ `recipe-card ${altClass}` }
+      onClick={ () => history.push(recipePath) }
     >
       <img
         data-testid={ `${index}-card-img` }
@@ -28,13 +28,13 @@ function RecipeCard({
       >
         {recipeName}
       </h2>
-    </a>
+    </button>
   );
 }
 
 RecipeCard.propTypes = {
   recipeData: PropTypes.shape({
-    recipeId: PropTypes.string.isRequired,
+    recipePath: PropTypes.string.isRequired,
     recipeImgUrl: PropTypes.string.isRequired,
     recipeName: PropTypes.string.isRequired,
   }).isRequired,

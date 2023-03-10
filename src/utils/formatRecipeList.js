@@ -1,4 +1,4 @@
-const formatRecipeList = (recipesData) => recipesData.map(({
+const formatRecipeList = (recipesData, dataBase) => recipesData.map(({
   idMeal,
   idDrink,
   strMeal,
@@ -9,6 +9,7 @@ const formatRecipeList = (recipesData) => recipesData.map(({
   recipeId: idMeal || idDrink,
   recipeName: strMeal || strDrink,
   recipeImgUrl: strMealThumb || strDrinkThumb,
+  recipePath: `/${dataBase}/${idMeal || idDrink}`,
 }));
 
 export default formatRecipeList;
