@@ -1,5 +1,5 @@
 import React, {
-  /* useCallback, */ useContext, useEffect, /* , useMemo, useState */
+  /* useCallback, */ useContext, useEffect, /* , useMemo, */ useState,
 } from 'react';
 
 import { useHistory, useParams } from 'react-router-dom';
@@ -22,10 +22,14 @@ import './recipeDetails.css';
 function RecipeDetails() {
   const history = useHistory();
   const { id } = useParams();
-  const { handleGetRecipe, recipeDetail: { strYoutube } } = useContext(RecipeContext);
+  const {
+    handleGetRecipe,
+    recipeDetail: { strYoutube, idRecipe },
+  } = useContext(RecipeContext);
   const {
     handleGetRecipes: handleGetRecommendedRecipes,
   } = useContext(ResearchRecipesContext);
+  const [isDoneRecipe, setIsDoneRecipe] = useState(false);
 
   useEffect(() => {
     const dataBase = history.location.pathname.split('/')[1];
@@ -38,6 +42,15 @@ function RecipeDetails() {
     const { pathname } = history.location;
     history.push(`${pathname}/in-progress`);
   };
+
+  useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    doneRecipes.forEach((recipe) => {
+      if (recipe.id === idRecipe) {
+        setIsDoneRecipe(true);
+      }
+    });
+  });
   // const [copied, setCopied] = useState(false);
   // const [favorited, setFavorited] = useState(false);
   // const [fav, setFav] = useState([]);
@@ -139,14 +152,14 @@ function RecipeDetails() {
       }
       <RecommendedRecipes />
 
-      <div className="recipe-details-footer">
-        <Button
+      {
+        isDoneRecipe ? '' : <Button
           bDataTestId="start-recipe-btn"
           bHandleClick={ handleClickToStartRecipe }
           bTitle="Start Recipe"
           bClassName="start-recipe-btn"
         />
-      </div>
+      }
 
     </div>
   );
