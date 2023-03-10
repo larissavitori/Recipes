@@ -43,6 +43,21 @@
   padding: 5px;
 }
 
+.option-btn {
+  cursor: pointer;
+}
+
+.detail-options {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.option-icon {
+  color: var(--secondary-color);
+  font-size: 50px;
+}
+
 .tag-item {
   color: var(--secondary-color);
   font-weight: 600;

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { BiDrink } from 'react-icons/bi';
+import { BiDrink, BiShareAlt } from 'react-icons/bi';
+import { AiTwotoneHeart } from 'react-icons/ai';
 import { GiHotMeal } from 'react-icons/gi';
 import { RecipeContext } from '../../context';
 
@@ -41,7 +42,20 @@ function RecipeDetailsHeader() {
             {strArea ? <p className="tag-item">{strArea}</p> : '' }
           </span>
         </div>
-        <div className="detail-options" />
+        <div className="detail-options">
+          <button
+            data-testid="share-btn"
+            className="option-btn"
+          >
+            <BiShareAlt className="option-icon" />
+          </button>
+          <button
+            data-testid="favorite-btn"
+            className="option-btn"
+          >
+            <AiTwotoneHeart className="option-icon" />
+          </button>
+        </div>
       </div>
       <h1 className="recipe-title" data-testid="recipe-title">
         {strRecipe}
