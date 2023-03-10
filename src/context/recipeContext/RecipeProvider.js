@@ -23,6 +23,8 @@ function RecipeProvider({ children }) {
   });
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
+  const [isDoneRecipe, setIsDoneRecipe] = useState(false);
 
   const handleGetRecipe = async (dataBase, id) => {
     let recipe = {};
@@ -98,10 +100,12 @@ function RecipeProvider({ children }) {
   const recipeState = useMemo(() => ({
     recipeDetail,
     isFavorite,
+    isInProgressRecipes,
+    isDoneRecipe,
     handleGetRecipe,
     handleFavorite,
     handleUnfavorite,
-  }), [recipeDetail, isFavorite]);
+  }), [recipeDetail, isFavorite, isInProgressRecipes, isDoneRecipe]);
 
   return (
     <RecipeContext.Provider value={ recipeState }>

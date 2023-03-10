@@ -19,6 +19,8 @@ function RecipeDetails() {
   const { id } = useParams();
   const {
     recipeDetail: { strYoutube },
+    isDoneRecipe,
+    isInProgressRecipes,
     handleGetRecipe,
   } = useContext(RecipeContext);
   const {

@@ -13,7 +13,7 @@ export const getDrinksByIngredient = async (ingredient) => {
     return [];
   }
 
-  return formatRecipeList(drinks.slice(0, TWELVE));
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksByName = async (name = '') => {
@@ -25,7 +25,7 @@ export const getDrinksByName = async (name = '') => {
     return [];
   }
 
-  return formatRecipeList(drinks.slice(0, TWELVE));
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksByFirstLetter = async (firstLetter) => {
@@ -37,7 +37,7 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
     return [];
   }
 
-  return formatRecipeList(drinks.slice(0, TWELVE));
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksByCategory = async (category) => {
@@ -50,7 +50,7 @@ export const getDrinksByCategory = async (category) => {
     return [];
   }
 
-  return formatRecipeList(drinks.slice(0, TWELVE));
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksCategoryList = async () => {
@@ -76,7 +76,7 @@ export const getMealsByIngredient = async (ingredient) => {
     return [];
   }
 
-  return formatRecipeList(meals.slice(0, TWELVE));
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsByName = async (name = '') => {
@@ -88,7 +88,7 @@ export const getMealsByName = async (name = '') => {
     return [];
   }
 
-  return formatRecipeList(meals.slice(0, TWELVE));
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsByFirstLetter = async (firstLetter) => {
@@ -100,7 +100,7 @@ export const getMealsByFirstLetter = async (firstLetter) => {
     return [];
   }
 
-  return formatRecipeList(meals.slice(0, TWELVE));
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsByCategory = async (category) => {
@@ -112,7 +112,7 @@ export const getMealsByCategory = async (category) => {
     return [];
   }
 
-  return formatRecipeList(meals.slice(0, TWELVE));
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsCategoryList = async () => {
