@@ -4,7 +4,10 @@ import { RecipeContext } from '../../context';
 import './videoEmbed.css';
 
 function VideoEmbed() {
+  const WIDTH_TAX = 0.8;
+  const HEIGHT_TAX = 0.5625;
   const [youtubeId, setYoutubeId] = useState('');
+
   const { recipeDetail: {
     strYoutube,
   } } = useContext(RecipeContext);
@@ -16,16 +19,16 @@ function VideoEmbed() {
     }
   }, [strYoutube]);
 
-  const opts = {
-    height: 360,
-    width: 640,
+  const onReady = ({ target }) => {
+    target.pauseVideo();
+  };
+
+  const youtubeOpt = {
+    height: window.innerWidth * WIDTH_TAX * HEIGHT_TAX,
+    width: window.innerWidth * WIDTH_TAX,
     playerVars: {
       autoplay: 0,
     },
-  };
-
-  const onReady = ({ target }) => {
-    target.pauseVideo();
   };
 
   return (
@@ -34,7 +37,7 @@ function VideoEmbed() {
       <div data-testid="video" className="youtube-video">
         <YouTube
           videoId={ youtubeId }
-          opts={ opts }
+          opts={ youtubeOpt }
           onReady={ onReady }
         />
       </div>
