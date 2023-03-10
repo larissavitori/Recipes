@@ -6,10 +6,9 @@ import Profile from '../../components/profile/Profile';
 function ProfilePage() {
   return (
     <div>
-      <Header hTitle="Profile" />
+      <Header hTitle="Profile" hSearchDisabled />
       <Profile />
       <Footer />
-
     </div>
   );
 }
