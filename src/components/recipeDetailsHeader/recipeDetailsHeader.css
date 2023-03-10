@@ -63,7 +63,8 @@
 
 .option-icon {
   color: var(--secondary-color);
-  font-size: 50px;
+  height: 50px;
+  width: 50px;
 }
 
 .tag-item {

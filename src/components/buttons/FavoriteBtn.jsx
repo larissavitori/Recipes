@@ -1,18 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AiTwotoneHeart, AiOutlineHeart } from 'react-icons/ai';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 function FavoriteBtn({ isFavorite, fHandleClick }) {
   return (
     <button
-      data-testid="favorite-btn"
       className="option-btn"
       onClick={ fHandleClick }
     >
       {
-        isFavorite ? <AiTwotoneHeart
+        isFavorite ? <img
+          src={ blackHeartIcon }
+          alt="Favorited Icon"
           className="option-icon"
-        /> : <AiOutlineHeart className="option-icon" />
+          data-testid="favorite-btn"
+        /> : <img
+          className="option-icon"
+          src={ whiteHeartIcon }
+          alt="Unfavorite Icon"
+          data-testid="favorite-btn"
+        />
       }
     </button>
   );
