@@ -21,9 +21,10 @@ function RecipeProvider({ children }) {
     strInstructions: '',
     strYoutube: '',
   });
+
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleGetRecipe = async (dataBase, id) => {
     let recipe = {};
@@ -88,23 +89,23 @@ function RecipeProvider({ children }) {
     });
     const { meals, drinks } = inProgressRecipes;
     if (dataBase === 'meals') {
-      if (meals[idRecipe]) {
+      if (meals && meals[idRecipe]) {
         setIsInProgressRecipes(true);
       }
-    } else if (drinks[idRecipe]) {
+    } else if (drinks && drinks[idRecipe]) {
       setIsInProgressRecipes(true);
     }
   }, [pathname, recipeDetail.idRecipe]);
 
   const recipeState = useMemo(() => ({
     recipeDetail,
+    isFavorite,
     isInProgressRecipes,
     isDoneRecipe,
-    isFavorite,
     handleGetRecipe,
     handleFavorite,
     handleUnfavorite,
-  }), [recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite]);
+  }), [recipeDetail, isFavorite, isInProgressRecipes, isDoneRecipe]);
 
   return (
     <RecipeContext.Provider value={ recipeState }>
