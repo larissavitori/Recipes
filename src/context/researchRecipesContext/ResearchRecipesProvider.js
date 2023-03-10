@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 import useSearchRecipes from '../../hooks/useSearchRecipes';
-import RecipesContext from './RecipesContext';
+import ResearchRecipesContext from './ResearchRecipesContext';
 
-function RecipesProvider({ children }) {
+function ResearchRecipesProvider({ children }) {
   const {
     recipes,
     research,
@@ -29,17 +29,17 @@ function RecipesProvider({ children }) {
   }), [research, recipes, searchBarStatus]);
 
   return (
-    <RecipesContext.Provider value={ recipesState }>
+    <ResearchRecipesContext.Provider value={ recipesState }>
       {children}
-    </RecipesContext.Provider>
+    </ResearchRecipesContext.Provider>
   );
 }
 
-RecipesProvider.propTypes = {
+ResearchRecipesProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
 };
 
-export default RecipesProvider;
+export default ResearchRecipesProvider;

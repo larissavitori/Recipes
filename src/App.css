@@ -10,7 +10,13 @@
 
   --color-background: rgb(248, 249, 250);
 
+  --transparent-background: rgba(248, 249, 250, 0.4);
+
+  --transparent-border: rgba(248, 249, 250, 0.8);
+
   --background-login: rgb(237, 242, 251);
+
+  --color-gray: rgb(177, 177, 177);
 
 }
 

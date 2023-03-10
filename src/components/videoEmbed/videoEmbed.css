@@ -1,0 +1,10 @@
+.video-component {
+  margin-bottom: 25px;
+  padding: 0 4vw;
+}
+
+.youtube-video {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}

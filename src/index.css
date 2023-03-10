@@ -4,8 +4,14 @@
 
 * {
   margin: 0;
-  color: black;
+  padding: 0;
   text-decoration: none;
+}
+
+hr {
+  height: 0;
+  border: none;
+  background-color: transparent;
 }
 
 body {

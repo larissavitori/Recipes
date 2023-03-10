@@ -1,0 +1,10 @@
+.details-instructions-component {
+  margin-bottom: 25px;
+  padding: 0 4vw;
+}
+
+.instructions-item {
+  border: solid 2px var(--color-gray);
+  border-radius: 8px;
+  padding: 10px;
+}

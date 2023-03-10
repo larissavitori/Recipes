@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
-  Login, Meals, MealView, Drinks, DrinkView, Favorites, ProfilePage, DoneRecipes,
+  Login, Meals, RecipeDetails, Drinks, Favorites, ProfilePage, DoneRecipes,
   RecipeInProgress,
 } from '../pages';
 
@@ -13,7 +13,7 @@ function Routes() {
       <Route
         exact
         path="/meals/:id"
-        render={ (props) => <MealView { ...props } /> }
+        render={ (props) => <RecipeDetails { ...props } /> }
       />
       <Route
         exact
@@ -24,7 +24,7 @@ function Routes() {
       <Route
         exact
         path="/drinks/:id"
-        render={ (props) => <DrinkView { ...props } /> }
+        render={ (props) => <RecipeDetails { ...props } /> }
       />
       <Route
         exact

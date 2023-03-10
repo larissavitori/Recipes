@@ -1,3 +1,4 @@
-import formatRecipeData from './formatRecipeData';
+import formatRecipeList from './formatRecipeList';
+import formatRecipeDetail from './formatRecipeDetail';
 
-export { formatRecipeData };
+export { formatRecipeList, formatRecipeDetail };

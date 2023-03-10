@@ -1,16 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipeCard from '../recipeCard/RecipeCard';
-import { RecipesContext } from '../../context';
+import { ResearchRecipesContext } from '../../context';
 
 import './recipes.css';
 
 function RecipesGrid() {
   const {
     recipes, handleGetRecipes, setDataBase,
-  } = useContext(RecipesContext);
-  const history = useHistory();
-  const dbName = history.location.pathname.substring(1);
+  } = useContext(ResearchRecipesContext);
+  const { location: { pathname } } = useHistory();
+  const dbName = pathname.substring(1);
 
   useEffect(() => {
     handleGetRecipes(dbName);
@@ -21,7 +21,11 @@ function RecipesGrid() {
     <div className="recipes-grid">
       {
         recipes.map((recipeData, index) => (
-          <RecipeCard index={ index } recipeData={ recipeData } key={ index } />
+          <RecipeCard
+            index={ index }
+            recipeData={ recipeData }
+            key={ index }
+          />
         ))
       }
     </div>

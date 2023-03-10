@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import SearchInput from '../inputs/SearchInput';
 import RadioInputs from '../inputs/RadioInputs';
 import Button from '../buttons/Button';
-import { RecipesContext } from '../../context';
+import { ResearchRecipesContext } from '../../context';
 
 import './searchBar.css';
 
@@ -27,7 +27,7 @@ function SearchBar() {
   const {
     research: { search, searchOption },
     researchHandleChange, handleResearchRecipes,
-  } = useContext(RecipesContext);
+  } = useContext(ResearchRecipesContext);
 
   return (
     <div className="research-form">
