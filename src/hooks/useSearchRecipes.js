@@ -69,7 +69,7 @@ function useSearchRecipes() {
     } else {
       recipesData = await getDrinksByName();
     }
-    if (recipesData) setRecipes(recipesData, db);
+    if (recipesData.length !== 0) setRecipes(recipesData, db);
   };
 
   const handleGetRecipesByCategory = async ({ target: { name: category } }) => {
@@ -88,7 +88,7 @@ function useSearchRecipes() {
     } else {
       recipesData = await getDrinksByCategory(category);
     }
-    if (recipesData) setRecipes(recipesData, dataBase);
+    if (recipesData.length !== 0) setRecipes(recipesData, dataBase);
     setResearch({
       ...research,
       categoryFilter: category,
@@ -114,9 +114,8 @@ function useSearchRecipes() {
     }
     if (recipesData.length === 0) return;
     if (recipesData.length === 1) {
-      const { idMeal, idDrink } = recipesData[0];
-      if (dataBase === 'meals') history.push(`${dataBase}/${idMeal}`);
-      else history.push(`${dataBase}/${idDrink}`);
+      const { recipeId } = recipesData[0];
+      history.push(`${dataBase}/${recipeId}`);
     }
     setRecipes(recipesData, dataBase);
   };
