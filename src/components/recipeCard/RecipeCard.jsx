@@ -4,14 +4,17 @@ import { useHistory } from 'react-router-dom';
 
 import './recipeCard.css';
 
-function RecipeCard({ recipeData, index }) {
+function RecipeCard({
+  recipeData, index, altTestIdCard = '-recipe-card', altTestIdTitle = '-card-name',
+  altClass = '',
+}) {
   const { recipeId, recipeImgUrl, recipeName } = recipeData;
   const { location } = useHistory();
   return (
     <a
       href={ `${location.pathname}/${recipeId}` }
-      data-testid={ `${index}-recipe-card` }
-      className="recipe-card"
+      data-testid={ `${index}${altTestIdCard}` }
+      className={ `recipe-card ${altClass}` }
     >
       <img
         data-testid={ `${index}-card-img` }
@@ -20,7 +23,7 @@ function RecipeCard({ recipeData, index }) {
         className="recipe-image"
       />
       <h2
-        data-testid={ `${index}-card-name` }
+        data-testid={ `${index}${altTestIdTitle}` }
         className="recipe-name"
       >
         {recipeName}
@@ -36,6 +39,9 @@ RecipeCard.propTypes = {
     recipeName: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  altTestIdCard: PropTypes.string,
+  altTestIdTitle: PropTypes.string,
+  altClass: PropTypes.string,
 };
 
 export default RecipeCard;

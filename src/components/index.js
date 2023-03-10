@@ -9,6 +9,7 @@ import RecipeDetailsIngredients
   from './recipeDetailsIngredients/RecipeDetailsIngredients';
 import RecipeDetailsInstructions
   from './recipeDetailsInstructions/RecipeDetailsInstructions';
+import RecommendedRecipes from './recommendedRecipes/RecommendedRecipes';
 
 export {
   LoginForm,
@@ -20,4 +21,5 @@ export {
   RecipeDetailsHeader,
   RecipeDetailsIngredients,
   RecipeDetailsInstructions,
+  RecommendedRecipes,
 };

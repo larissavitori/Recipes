@@ -12,6 +12,7 @@ import {
   RecipeDetailsHeader,
   RecipeDetailsIngredients,
   RecipeDetailsInstructions,
+  RecommendedRecipes,
 } from '../../components';
 import { RecipeContext, ResearchRecipesContext } from '../../context';
 
@@ -130,6 +131,7 @@ function RecipeDetails() {
       {
         dataBase === 'meals' ? <VideoEmbed /> : ''
       }
+      <RecommendedRecipes />
 
       {/*
 

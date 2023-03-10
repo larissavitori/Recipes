@@ -1,8 +1,4 @@
-.startRecipe {
-  bottom: 0;
-  position: fixed;
-}
-
-.test2 {
-  margin-bottom: 200px;
+.recipe-details-page {
+  background-color: var(--color-background);
+  padding-bottom: 50px;
 }
