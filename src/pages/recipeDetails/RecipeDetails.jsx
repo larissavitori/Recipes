@@ -17,10 +17,10 @@ import './recipeDetails.css';
 function RecipeDetails() {
   const history = useHistory();
   const { id } = useParams();
+  const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
+  const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const {
     recipeDetail: { strYoutube },
-    isInProgressRecipes,
-    isDoneRecipe,
     handleGetRecipe,
   } = useContext(RecipeContext);
   const {
@@ -38,6 +38,28 @@ function RecipeDetails() {
     const { pathname } = history.location;
     history.push(`${pathname}/in-progress`);
   };
+
+  useEffect(() => {
+    const dataBase = history.location.pathname.split('/')[1];
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      meals: {},
+      drinks: {},
+    };
+    doneRecipes.forEach((recipe) => {
+      if (recipe.id === idRecipe) {
+        setIsDoneRecipe(true);
+      }
+    });
+    const { meals, drinks } = inProgressRecipes;
+    if (dataBase === 'meals') {
+      if (meals[idRecipe]) {
+        setIsInProgressRecipes(true);
+      }
+    } else if (drinks[idRecipe]) {
+      setIsInProgressRecipes(true);
+    }
+  }, [history.location.pathname, idRecipe]);
 
   // const [favorited, setFavorited] = useState(false);
   // const [fav, setFav] = useState([]);

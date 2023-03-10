@@ -21,8 +21,7 @@ function RecipeProvider({ children }) {
     strInstructions: '',
     strYoutube: '',
   });
-  const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
-  const [isDoneRecipe, setIsDoneRecipe] = useState(false);
+
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleGetRecipe = async (dataBase, id) => {
@@ -73,38 +72,13 @@ function RecipeProvider({ children }) {
     setIsFavorite(favoriteRecipes.some((recipe) => recipe.id === idRecipe));
   }, [recipeDetail]);
 
-  useEffect(() => {
-    const { idRecipe } = recipeDetail;
-    const dataBase = pathname.split('/')[1];
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      meals: {},
-      drinks: {},
-    };
-    doneRecipes.forEach((recipe) => {
-      if (recipe.id === idRecipe) {
-        setIsDoneRecipe(true);
-      }
-    });
-    const { meals, drinks } = inProgressRecipes;
-    if (dataBase === 'meals') {
-      if (meals[idRecipe]) {
-        setIsInProgressRecipes(true);
-      }
-    } else if (drinks[idRecipe]) {
-      setIsInProgressRecipes(true);
-    }
-  }, [pathname, recipeDetail.idRecipe]);
-
   const recipeState = useMemo(() => ({
     recipeDetail,
-    isInProgressRecipes,
-    isDoneRecipe,
     isFavorite,
     handleGetRecipe,
     handleFavorite,
     handleUnfavorite,
-  }), [recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite]);
+  }), [recipeDetail, isFavorite]);
 
   return (
     <RecipeContext.Provider value={ recipeState }>
