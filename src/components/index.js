@@ -10,11 +10,8 @@ import RecipeDetailsIngredients
 import RecipeDetailsInstructions
   from './recipeDetailsInstructions/RecipeDetailsInstructions';
 import RecommendedRecipes from './recommendedRecipes/RecommendedRecipes';
-import RecipeInProgressHeader from './recipeInProgressHeader/RecipeInProgressHeader';
 import RecipeInProgressIngredients
   from './recipeInProgressIngredients/RecipeInProgressIngredients';
-import RecipeInProgressInstructions
-  from './recipeInProgressInstruictions/RecipeInProgressInstruictions';
 
 export {
   LoginForm,
@@ -27,7 +24,5 @@ export {
   RecipeDetailsIngredients,
   RecipeDetailsInstructions,
   RecommendedRecipes,
-  RecipeInProgressHeader,
   RecipeInProgressIngredients,
-  RecipeInProgressInstructions,
 };
