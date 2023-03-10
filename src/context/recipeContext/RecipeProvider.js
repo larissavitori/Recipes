@@ -72,6 +72,29 @@ function RecipeProvider({ children }) {
     setIsFavorite(favoriteRecipes.some((recipe) => recipe.id === idRecipe));
   }, [recipeDetail]);
 
+  useEffect(() => {
+    const { idRecipe } = recipeDetail;
+    const dataBase = pathname.split('/')[1];
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      meals: {},
+      drinks: {},
+    };
+    doneRecipes.forEach((recipe) => {
+      if (recipe.id === idRecipe) {
+        setIsDoneRecipe(true);
+      }
+    });
+    const { meals, drinks } = inProgressRecipes;
+    if (dataBase === 'meals') {
+      if (meals && meals[idRecipe]) {
+        setIsInProgressRecipes(true);
+      }
+    } else if (drinks && drinks[idRecipe]) {
+      setIsInProgressRecipes(true);
+    }
+  }, [pathname, recipeDetail.idRecipe]);
+
   const recipeState = useMemo(() => ({
     recipeDetail,
     isFavorite,
