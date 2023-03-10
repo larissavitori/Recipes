@@ -43,6 +43,14 @@
   padding: 5px;
 }
 
+.notification-alert {
+  background-color: var(--transparent-background);
+  border: 2px dashed var(--transparent-border);
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 12px 24px;
+}
+
 .option-btn {
   cursor: pointer;
 }
