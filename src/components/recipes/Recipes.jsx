@@ -20,7 +20,7 @@ function RecipesGrid() {
   return (
     <div className="recipes-grid">
       {
-        recipes.map((recipeData, index) => (
+        recipes?.map((recipeData, index) => (
           <RecipeCard
             index={ index }
             recipeData={ recipeData }

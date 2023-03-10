@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { formatRecipeList } from '../utils';
 import {
   getDrinksByFirstLetter,
   getDrinksByIngredient,
@@ -70,7 +69,7 @@ function useSearchRecipes() {
     } else {
       recipesData = await getDrinksByName();
     }
-    setRecipes(formatRecipeList(recipesData, db));
+    if (recipesData) setRecipes(recipesData, db);
   };
 
   const handleGetRecipesByCategory = async ({ target: { name: category } }) => {
@@ -89,7 +88,7 @@ function useSearchRecipes() {
     } else {
       recipesData = await getDrinksByCategory(category);
     }
-    setRecipes(formatRecipeList(recipesData, dataBase));
+    if (recipesData) setRecipes(recipesData, dataBase);
     setResearch({
       ...research,
       categoryFilter: category,
@@ -113,13 +112,13 @@ function useSearchRecipes() {
         search,
       );
     }
-    if (!recipesData || recipesData.length === 0) return;
+    if (recipesData.length === 0) return;
     if (recipesData.length === 1) {
       const { idMeal, idDrink } = recipesData[0];
       if (dataBase === 'meals') history.push(`${dataBase}/${idMeal}`);
       else history.push(`${dataBase}/${idDrink}`);
     }
-    setRecipes(formatRecipeList(recipesData, dataBase));
+    setRecipes(recipesData, dataBase);
   };
 
   return {

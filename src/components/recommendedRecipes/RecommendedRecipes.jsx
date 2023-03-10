@@ -19,7 +19,7 @@ function RecommendedRecipes() {
     <div className="recommended-component">
       <h2 className="details-sub-title">Recommended Recipes</h2>
       <div className="recommended-recipes">
-        {recommendedRecipes.map((recipe, id) => (
+        {recommendedRecipes?.map((recipe, id) => (
           <RecipeCard
             key={ id }
             recipeData={ recipe }
