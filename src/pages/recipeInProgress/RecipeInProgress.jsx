@@ -3,34 +3,29 @@ import React, {
 } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import {
-  RecipeDetailsHeader,
+  RecipeHeader,
   RecipeInProgressIngredients,
-  RecipeDetailsInstructions,
+  RecipeInstructions,
 } from '../../components';
-import { RecipeContext, ResearchRecipesContext } from '../../context';
+import { RecipeContext } from '../../context';
 
 function RecipeInProgress() {
-  const history = useHistory();
+  const { location: { pathname } } = useHistory();
   const { id } = useParams();
   const {
     handleGetRecipe,
   } = useContext(RecipeContext);
-  const {
-    handleGetRecipes: handleGetRecommendedRecipes,
-  } = useContext(ResearchRecipesContext);
 
   useEffect(() => {
-    const dataBase = history.location.pathname.split('/')[1];
+    const dataBase = pathname.split('/')[1];
     handleGetRecipe(dataBase, id);
-    if (dataBase === 'meals') { handleGetRecommendedRecipes('drinks'); }
-    if (dataBase === 'drinks') { handleGetRecommendedRecipes('meals'); }
-  }, [history.location.pathname, id]);
+  }, [pathname, id]);
 
   return (
     <div>
-      <RecipeDetailsHeader />
+      <RecipeHeader />
       <RecipeInProgressIngredients />
-      <RecipeDetailsInstructions />
+      <RecipeInstructions />
       <button data-testid="finish-recipe-btn">Finish</button>
     </div>
   );

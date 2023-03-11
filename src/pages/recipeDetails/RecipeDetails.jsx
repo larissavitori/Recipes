@@ -4,9 +4,9 @@ import React, {
 import { useHistory, useParams } from 'react-router-dom';
 import {
   VideoEmbed,
-  RecipeDetailsHeader,
-  RecipeDetailsIngredients,
-  RecipeDetailsInstructions,
+  RecipeHeader,
+  RecipeIngredientsList,
+  RecipeInstructions,
   RecommendedRecipes,
 } from '../../components';
 import Button from '../../components/buttons/Button';
@@ -99,9 +99,9 @@ function RecipeDetails() {
 
   return (
     <div className="recipe-details-page">
-      <RecipeDetailsHeader />
-      <RecipeDetailsIngredients />
-      <RecipeDetailsInstructions />
+      <RecipeHeader />
+      <RecipeIngredientsList />
+      <RecipeInstructions />
       { strYoutube ? <VideoEmbed /> : '' }
       <RecommendedRecipes />
       { isDoneRecipe ? '' : <Button

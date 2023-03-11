@@ -7,9 +7,9 @@ import { RecipeContext } from '../../context';
 import NotificationAlert from '../notificationAlert/NotificationAlert';
 import FavoriteBtn from '../buttons/FavoriteBtn';
 
-import './recipeDetailsHeader.css';
+import './recipeHeader.css';
 
-function RecipeDetailsHeader() {
+function RecipeHeader() {
   const [isShare, setIsShare] = useState(false);
   const {
     recipeDetail: {
@@ -88,4 +88,4 @@ function RecipeDetailsHeader() {
   );
 }
 
-export default RecipeDetailsHeader;
+export default RecipeHeader;

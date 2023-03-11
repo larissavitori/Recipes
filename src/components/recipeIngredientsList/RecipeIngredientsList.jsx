@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { RecipeContext } from '../../context';
 
-import './recipeDetailsIngredients.css';
+import './recipeIngredientsList.css';
 
-function RecipeDetailsIngredients() {
+function RecipeIngredientsList() {
   const { recipeDetail: {
     ingredientsAndMeasures: { ingredients, measures },
   } } = useContext(RecipeContext);
@@ -30,4 +30,4 @@ function RecipeDetailsIngredients() {
   );
 }
 
-export default RecipeDetailsIngredients;
+export default RecipeIngredientsList;
