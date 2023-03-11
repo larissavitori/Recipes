@@ -30,32 +30,25 @@ function RecipeProvider({ children }) {
     const dataBase = pathname.split('/')[1];
     const inProgressRecipes = await JSON.parse(
       localStorage.getItem('inProgressRecipes'),
-    ) || {
-      meals: {},
-      drinks: {},
-    };
-    if (dataBase === 'meals') {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        meals: {
-          ...inProgressRecipes.meals,
-          [recipeId]: usedIngredients,
-        },
-      }));
-    }
-    if (dataBase === 'drinks') {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        drinks: {
-          ...inProgressRecipes.drinks,
-          [recipeId]: usedIngredients,
-        },
-      }));
-    }
+    );
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [dataBase]: {
+        ...inProgressRecipes[dataBase],
+        [recipeId]: usedIngredients,
+      },
+    }));
   };
 
-  const handleCheckBox = ({ target: { name } }) => {
-    setUsedIngredients((prev) => ([...prev, name]));
+  const handleCheckBox = ({ target: { name, checked } }) => {
+    if (checked) {
+      setUsedIngredients((prev) => ([...prev, name]));
+    } else {
+      setUsedIngredients((prev) => {
+        const filtered = prev.filter((item) => item !== name);
+        return filtered;
+      });
+    }
   };
 
   const handleGetRecipe = async (dataBase, id) => {
@@ -101,16 +94,36 @@ function RecipeProvider({ children }) {
   };
 
   useEffect(() => {
-    if (isInProgressRecipes) {
-      const dataBase = pathname.split('/')[1];
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!inProgressRecipes) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        meals: {},
+        drinks: {},
+      }));
+    }
+    if (!favoriteRecipes) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    if (!doneRecipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pathname.split('/')[3] === 'in-progress') {
       const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      setUsedIngredients(inProgressRecipes[dataBase][recipeDetail.idRecipe]);
+      const dataBase = pathname.split('/')[1];
+      setUsedIngredients(inProgressRecipes[dataBase][recipeDetail.idRecipe] || []);
     }
   }, [isInProgressRecipes, recipeDetail.idRecipe, pathname]);
 
   useEffect(() => {
-    if (isInProgressRecipes) { saveIngredientsInDatabase(recipeDetail.idRecipe); }
-  }, [usedIngredients, recipeDetail.idRecipe, isInProgressRecipes]);
+    if (pathname.split('/')[3] === 'in-progress') {
+      saveIngredientsInDatabase(recipeDetail.idRecipe);
+    }
+  }, [usedIngredients, recipeDetail.idRecipe, pathname]);
 
   useEffect(() => {
     const { idRecipe } = recipeDetail;
@@ -121,11 +134,8 @@ function RecipeProvider({ children }) {
   useEffect(() => {
     const { idRecipe } = recipeDetail;
     const dataBase = pathname.split('/')[1];
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      meals: {},
-      drinks: {},
-    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     doneRecipes.forEach((recipe) => {
       if (recipe.id === idRecipe) {
         setIsDoneRecipe(true);
