@@ -8,6 +8,7 @@ const formatRecipeDetail = (recipeData) => {
     strAlcoholic, // drink
     strInstructions, // both
     strYoutube, // meal
+    strTags,
   } = recipeData;
 
   const dataIngredientKeys = Object.keys(recipeData).filter(
@@ -27,6 +28,9 @@ const formatRecipeDetail = (recipeData) => {
     ), []),
   };
 
+  const arrTags = strTags ? strTags
+    .split(',').filter((i) => i !== '').map((str) => str.trim()) : [];
+
   return {
     idRecipe: idMeal || idDrink,
     strRecipe: strMeal || strDrink,
@@ -37,6 +41,7 @@ const formatRecipeDetail = (recipeData) => {
     ingredientsAndMeasures,
     strInstructions,
     strYoutube: strYoutube || '',
+    strTags: arrTags,
   };
 };
 

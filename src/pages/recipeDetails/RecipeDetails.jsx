@@ -4,9 +4,9 @@ import React, {
 import { useHistory, useParams } from 'react-router-dom';
 import {
   VideoEmbed,
-  RecipeDetailsHeader,
-  RecipeDetailsIngredients,
-  RecipeDetailsInstructions,
+  RecipeHeader,
+  RecipeIngredients,
+  RecipeInstructions,
   RecommendedRecipes,
 } from '../../components';
 import Button from '../../components/buttons/Button';
@@ -22,28 +22,32 @@ function RecipeDetails() {
     isDoneRecipe,
     isInProgressRecipes,
     handleGetRecipe,
+    saveIngredientsInDatabase,
   } = useContext(RecipeContext);
   const {
     handleGetRecipes: handleGetRecommendedRecipes,
   } = useContext(ResearchRecipesContext);
+  const dataBase = history.location.pathname.split('/')[1];
 
   useEffect(() => {
-    const dataBase = history.location.pathname.split('/')[1];
     handleGetRecipe(dataBase, id);
     if (dataBase === 'meals') { handleGetRecommendedRecipes('drinks'); }
     if (dataBase === 'drinks') { handleGetRecommendedRecipes('meals'); }
-  }, [history.location.pathname, id]);
+  }, [dataBase, id]);
 
   const handleClickToStartRecipe = () => {
     const { pathname } = history.location;
+    if (!isInProgressRecipes) {
+      saveIngredientsInDatabase(id);
+    }
     history.push(`${pathname}/in-progress`);
   };
 
   return (
     <div className="recipe-details-page">
-      <RecipeDetailsHeader />
-      <RecipeDetailsIngredients />
-      <RecipeDetailsInstructions />
+      <RecipeHeader />
+      <RecipeIngredients />
+      <RecipeInstructions />
       { strYoutube ? <VideoEmbed /> : '' }
       <RecommendedRecipes />
       { isDoneRecipe ? '' : <Button

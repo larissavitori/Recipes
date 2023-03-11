@@ -4,11 +4,11 @@ import Recipes from './recipes/Recipes';
 import Footer from './footer/Footer';
 import CategoryList from './categoryList/CategoryList';
 import VideoEmbed from './videoEmbed/VideoEmbed';
-import RecipeDetailsHeader from './recipeDetailsHeader/RecipeDetailsHeader';
-import RecipeDetailsIngredients
-  from './recipeDetailsIngredients/RecipeDetailsIngredients';
-import RecipeDetailsInstructions
-  from './recipeDetailsInstructions/RecipeDetailsInstructions';
+import RecipeHeader from './recipeHeader/RecipeHeader';
+import RecipeIngredients
+  from './recipeIngredients/RecipeIngredients';
+import RecipeInstructions
+  from './recipeInstructions/RecipeInstructions';
 import RecommendedRecipes from './recommendedRecipes/RecommendedRecipes';
 
 export {
@@ -18,8 +18,8 @@ export {
   CategoryList,
   Footer,
   VideoEmbed,
-  RecipeDetailsHeader,
-  RecipeDetailsIngredients,
-  RecipeDetailsInstructions,
+  RecipeHeader,
+  RecipeIngredients,
+  RecipeInstructions,
   RecommendedRecipes,
 };

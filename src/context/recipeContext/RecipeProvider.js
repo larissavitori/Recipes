@@ -1,12 +1,13 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import RecipeContext from './RecipeContext';
 import { getMealDetails, getDrinkDetails } from '../../service/api';
 import { formatRecipeDetail } from '../../utils';
 
 function RecipeProvider({ children }) {
-  const { location: { pathname } } = useHistory();
+  const { pathname } = useLocation();
+  const { push } = useHistory();
   const [recipeDetail, setRecipeDetail] = useState({
     idRecipe: '',
     strRecipe: '',
@@ -20,11 +21,70 @@ function RecipeProvider({ children }) {
     },
     strInstructions: '',
     strYoutube: '',
+    strTags: [],
   });
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isAproveToDone, setIsAproveToDone] = useState(false);
+  const [usedIngredients, setUsedIngredients] = useState([]);
+
+  const saveIngredientsInDatabase = (recipeId) => {
+    const dataBase = pathname.split('/')[1];
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [dataBase]: {
+        ...inProgressRecipes[dataBase],
+        [recipeId]: usedIngredients,
+      },
+    }));
+  };
+
+  const handleDoneRecipe = () => {
+    const dataBase = pathname.split('/')[1];
+    const {
+      idRecipe,
+      strArea,
+      strCategory,
+      strAlcoholic,
+      strRecipe,
+      strRecipeThumb,
+      strTags,
+    } = recipeDetail;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    localStorage.setItem('doneRecipes', JSON.stringify([
+      ...doneRecipes,
+      {
+        id: idRecipe,
+        type: dataBase === 'meals' ? 'meal' : 'drink',
+        nationality: strArea,
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strRecipe,
+        image: strRecipeThumb,
+        doneDate: new Date(),
+        tags: strTags,
+      },
+    ]));
+
+    push('/done-recipes');
+  };
+
+  const handleCheckBox = ({ target: { name, checked } }) => {
+    if (checked) {
+      setUsedIngredients((prev) => ([...prev, name]));
+    } else {
+      setUsedIngredients((prev) => {
+        const filtered = prev.filter((item) => item !== name);
+        return filtered;
+      });
+    }
+  };
 
   const handleGetRecipe = async (dataBase, id) => {
     let recipe = {};
@@ -69,19 +129,47 @@ function RecipeProvider({ children }) {
   };
 
   useEffect(() => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!inProgressRecipes) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        meals: {},
+        drinks: {},
+      }));
+    }
+    if (!favoriteRecipes) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    if (!doneRecipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pathname.split('/')[3] === 'in-progress') {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const dataBase = pathname.split('/')[1];
+      setUsedIngredients(inProgressRecipes[dataBase][recipeDetail.idRecipe] || []);
+    }
+  }, [isInProgressRecipes, recipeDetail.idRecipe, pathname]);
+
+  useEffect(() => {
     const { idRecipe } = recipeDetail;
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     setIsFavorite(favoriteRecipes.some((recipe) => recipe.id === idRecipe));
   }, [recipeDetail]);
 
   useEffect(() => {
+    const { ingredients } = recipeDetail.ingredientsAndMeasures;
+    setIsAproveToDone(usedIngredients.length === ingredients.length);
+  }, [recipeDetail.ingredientsAndMeasures, usedIngredients]);
+
+  useEffect(() => {
     const { idRecipe } = recipeDetail;
     const dataBase = pathname.split('/')[1];
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      meals: {},
-      drinks: {},
-    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     doneRecipes.forEach((recipe) => {
       if (recipe.id === idRecipe) {
         setIsDoneRecipe(true);
@@ -102,10 +190,19 @@ function RecipeProvider({ children }) {
     isFavorite,
     isInProgressRecipes,
     isDoneRecipe,
+    isFavorite,
+    isAproveToDone,
+    usedIngredients,
     handleGetRecipe,
     handleFavorite,
     handleUnfavorite,
-  }), [recipeDetail, isFavorite, isInProgressRecipes, isDoneRecipe]);
+    handleCheckBox,
+    handleDoneRecipe,
+    saveIngredientsInDatabase,
+  }), [
+    recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite, usedIngredients,
+    isAproveToDone,
+  ]);
 
   return (
     <RecipeContext.Provider value={ recipeState }>
