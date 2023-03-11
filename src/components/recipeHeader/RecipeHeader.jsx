@@ -27,7 +27,11 @@ function RecipeHeader() {
   const dataBase = pathname.split('/')[1];
 
   const handleShare = async () => {
-    await clipboardCopy(window.location.href);
+    let url = window.location.href;
+    if (url.includes('/in-progress')) {
+      url = url.replace('/in-progress', '');
+    }
+    await clipboardCopy(url);
     setIsShare(true);
   };
 
