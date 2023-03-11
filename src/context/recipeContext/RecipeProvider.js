@@ -24,6 +24,7 @@ function RecipeProvider({ children }) {
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isAproveToDone, setIsAproveToDone] = useState(false);
   const [usedIngredients, setUsedIngredients] = useState([]);
 
   const saveIngredientsInDatabase = async (recipeId) => {
@@ -120,16 +121,15 @@ function RecipeProvider({ children }) {
   }, [isInProgressRecipes, recipeDetail.idRecipe, pathname]);
 
   useEffect(() => {
-    if (pathname.split('/')[3] === 'in-progress') {
-      saveIngredientsInDatabase(recipeDetail.idRecipe);
-    }
-  }, [usedIngredients, recipeDetail.idRecipe, pathname]);
-
-  useEffect(() => {
     const { idRecipe } = recipeDetail;
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     setIsFavorite(favoriteRecipes.some((recipe) => recipe.id === idRecipe));
   }, [recipeDetail]);
+
+  useEffect(() => {
+    const { ingredients } = recipeDetail.ingredientsAndMeasures;
+    setIsAproveToDone(usedIngredients.length === ingredients.length);
+  }, [recipeDetail.ingredientsAndMeasures, usedIngredients]);
 
   useEffect(() => {
     const { idRecipe } = recipeDetail;
@@ -156,13 +156,17 @@ function RecipeProvider({ children }) {
     isInProgressRecipes,
     isDoneRecipe,
     isFavorite,
+    isAproveToDone,
     usedIngredients,
     handleGetRecipe,
     handleFavorite,
     handleUnfavorite,
     handleCheckBox,
     saveIngredientsInDatabase,
-  }), [recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite, usedIngredients]);
+  }), [
+    recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite, usedIngredients,
+    isAproveToDone,
+  ]);
 
   return (
     <RecipeContext.Provider value={ recipeState }>

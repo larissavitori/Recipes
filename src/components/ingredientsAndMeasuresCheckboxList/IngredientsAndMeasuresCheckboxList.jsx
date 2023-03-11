@@ -1,11 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { RecipeContext } from '../../context';
 
 import './ingredientsAndMeasuresCheckboxList.css';
 
 function IngredientsAndMeasuresCheckboxList({ ingredients, measures }) {
-  const { usedIngredients, handleCheckBox } = useContext(RecipeContext);
+  const {
+    recipeDetail: { idRecipe },
+    saveIngredientsInDatabase, usedIngredients, handleCheckBox,
+  } = useContext(RecipeContext);
+
+  useEffect(() => {
+    saveIngredientsInDatabase(idRecipe);
+  }, [usedIngredients, idRecipe]);
 
   return (
     <ul className="ing-list list-style-none">

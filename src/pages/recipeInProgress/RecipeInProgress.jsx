@@ -7,13 +7,17 @@ import {
   RecipeIngredients,
   RecipeInstructions,
 } from '../../components';
+import Button from '../../components/buttons/Button';
 import { RecipeContext } from '../../context';
+
+import './recipeInProgress.css';
 
 function RecipeInProgress() {
   const { location: { pathname } } = useHistory();
   const { id } = useParams();
   const {
     handleGetRecipe,
+    isAproveToDone: isDisable,
   } = useContext(RecipeContext);
 
   useEffect(() => {
@@ -22,11 +26,17 @@ function RecipeInProgress() {
   }, [pathname, id]);
 
   return (
-    <div>
+    <div className="recipe-inProgress-page">
       <RecipeHeader />
       <RecipeIngredients />
       <RecipeInstructions />
-      <button data-testid="finish-recipe-btn">Finish</button>
+      <Button
+        bDataTestId="finish-recipe-btn"
+        bHandleClick={ () => global.alert('Finished') }
+        bTitle="Finish Recipe"
+        bClassName="finish-recipe-btn"
+        bValidation={ !isDisable }
+      />
     </div>
   );
 }
