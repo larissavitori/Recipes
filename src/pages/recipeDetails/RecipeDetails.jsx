@@ -19,8 +19,8 @@ function RecipeDetails() {
   const { id } = useParams();
   const {
     recipeDetail: { strYoutube },
-    isInProgressRecipes,
     isDoneRecipe,
+    isInProgressRecipes,
     handleGetRecipe,
     saveIngredientsInDatabase,
   } = useContext(RecipeContext);
@@ -42,64 +42,6 @@ function RecipeDetails() {
     }
     history.push(`${pathname}/in-progress`);
   };
-
-  // const [favorited, setFavorited] = useState(false);
-  // const [fav, setFav] = useState([]);
-
-  // const newMeal = useMemo(() => ({
-  //   id: mealDetail.length > 0 ? mealDetail[0].idMeal : null,
-  //   type: 'meal',
-  //   nationality: mealDetail.length > 0 ? mealDetail[0].strArea : null,
-  //   category: mealDetail.length > 0 ? mealDetail[0].strCategory : null,
-  //   alcoholicOrNot: '',
-  //   name: mealDetail.length > 0 ? mealDetail[0].strMeal : null,
-  //   image: mealDetail.length > 0 ? mealDetail[0].strMealThumb : null,
-  // }), [mealDetail]);
-
-  // const newDrink = useMemo(() => ({
-  //   id: drinkDetail.length > 0 ? drinkDetail[0].idDrink : null,
-  //   type: 'drink',
-  //   nationality: '',
-  //   category: drinkDetail.length > 0 ? drinkDetail[0].strCategory : null,
-  //   alcoholicOrNot: drinkDetail.length > 0 ? drinkDetail[0].strAlcoholic : null,
-  //   name: drinkDetail.length > 0 ? drinkDetail[0].strDrink : null,
-  //   image: drinkDetail.length > 0 ? drinkDetail[0].strDrinkThumb : null,
-  // }), [drinkDetail]);
-
-  // const newDrinkOrMeal = useCallback(() => {
-  //   if (drinkOrMeal.includes('drinks')) {
-  //     return newDrink;
-  //   }
-  //   return newMeal;
-  // }, [drinkOrMeal, newDrink, newMeal]);
-
-  // const vitao = useCallback(() => {
-  //   const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  //   const index = bebidasSalvas.some((item) => item.id === id);
-  //   setFav(bebidasSalvas);
-  //   setFavorited(index);
-  // }, [id]);
-
-  // useEffect(() => {
-  //   vitao();
-  // }, [vitao]);
-
-  // const salvarNoLocalStorage = useCallback(() => {
-  //   // const bebidasSalvas = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  //   if (favorited) {
-  //     const updatedItens = fav
-  //       .filter((item) => item.id !== id);
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify(updatedItens));
-  //   } else {
-  //     const filtroDrinkOrMeal = [...fav, newDrinkOrMeal()];
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify(filtroDrinkOrMeal));
-  //   }
-  //   setFavorited((prev) => !prev);
-  // }, [favorited, newDrinkOrMeal, fav, id]);
-
-  // const handleClickFavorite = () => {
-  //   salvarNoLocalStorage();
-  // };
 
   return (
     <div className="recipe-details-page">

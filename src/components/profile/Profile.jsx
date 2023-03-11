@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../buttons/Button';
 import './Profile.css';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState({
+    email: '',
+  });
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
+
   const history = useHistory();
   return (
     <div className="profile-component">
@@ -12,7 +19,7 @@ function Profile() {
         <span
           data-testid="profile-email"
         >
-          {email}
+          {user?.email}
         </span>
         <Button
           bDataTestId="profile-done-btn"

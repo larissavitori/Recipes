@@ -23,15 +23,17 @@ function RecipeProvider({ children }) {
     strYoutube: '',
     strTags: [],
   });
+
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAproveToDone, setIsAproveToDone] = useState(false);
   const [usedIngredients, setUsedIngredients] = useState([]);
 
-  const saveIngredientsInDatabase = async (recipeId) => {
+  const saveIngredientsInDatabase = (recipeId) => {
     const dataBase = pathname.split('/')[1];
-    const inProgressRecipes = await JSON.parse(
+    const inProgressRecipes = JSON.parse(
       localStorage.getItem('inProgressRecipes'),
     );
     localStorage.setItem('inProgressRecipes', JSON.stringify({
@@ -175,16 +177,17 @@ function RecipeProvider({ children }) {
     });
     const { meals, drinks } = inProgressRecipes;
     if (dataBase === 'meals') {
-      if (meals[idRecipe]) {
+      if (meals && meals[idRecipe]) {
         setIsInProgressRecipes(true);
       }
-    } else if (drinks[idRecipe]) {
+    } else if (drinks && drinks[idRecipe]) {
       setIsInProgressRecipes(true);
     }
   }, [pathname, recipeDetail.idRecipe]);
 
   const recipeState = useMemo(() => ({
     recipeDetail,
+    isFavorite,
     isInProgressRecipes,
     isDoneRecipe,
     isFavorite,
