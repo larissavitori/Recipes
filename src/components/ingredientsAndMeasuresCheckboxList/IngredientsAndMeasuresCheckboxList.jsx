@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import './ingredientsAndMeasuresCheckboxList.css';
 
 function IngredientsAndMeasuresCheckboxList({ ingredients, measures }) {
-  const [isChecked, setIsChecked] = useState({});
+  const [isChecked, setIsChecked] = useState([]);
   console.log(isChecked);
 
-  const handleCheckBox = ({ target: { name, checked } }) => {
-    setIsChecked((prev) => ({
-      ...prev,
-      [name]: checked,
-    }));
+  const handleCheckBox = ({ target: { name } }) => {
+    setIsChecked((prev) => ([...prev, name]));
   };
 
   return (
@@ -22,14 +19,15 @@ function IngredientsAndMeasuresCheckboxList({ ingredients, measures }) {
             <label
               data-testid={ `${index}-ingredient-step` }
               className={
-                isChecked[`${index}-${ingredient}`] ? 'list-line scratched' : 'list-line'
+                isChecked.includes(ingredient) ? 'list-line scratched' : 'list-line'
               }
             >
               <input
                 id={ index }
-                name={ `${index}-${ingredient}` }
+                name={ ingredient }
                 onChange={ handleCheckBox }
                 type="checkbox"
+                checked={ isChecked.includes(ingredient) }
               />
               {ingredient}
               {' - '}
