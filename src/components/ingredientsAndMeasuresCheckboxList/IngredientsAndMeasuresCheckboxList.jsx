@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { RecipeContext } from '../../context';
 
 import './ingredientsAndMeasuresCheckboxList.css';
 
 function IngredientsAndMeasuresCheckboxList({ ingredients, measures }) {
-  const [isChecked, setIsChecked] = useState([]);
-  console.log(isChecked);
-
-  const handleCheckBox = ({ target: { name } }) => {
-    setIsChecked((prev) => ([...prev, name]));
-  };
+  const { usedIngredients, handleCheckBox } = useContext(RecipeContext);
 
   return (
     <ul className="ing-list list-style-none">
@@ -19,7 +15,7 @@ function IngredientsAndMeasuresCheckboxList({ ingredients, measures }) {
             <label
               data-testid={ `${index}-ingredient-step` }
               className={
-                isChecked.includes(ingredient) ? 'list-line scratched' : 'list-line'
+                usedIngredients.includes(ingredient) ? 'list-line scratched' : 'list-line'
               }
             >
               <input
@@ -27,7 +23,7 @@ function IngredientsAndMeasuresCheckboxList({ ingredients, measures }) {
                 name={ ingredient }
                 onChange={ handleCheckBox }
                 type="checkbox"
-                checked={ isChecked.includes(ingredient) }
+                checked={ usedIngredients.includes(ingredient) }
               />
               {ingredient}
               {' - '}

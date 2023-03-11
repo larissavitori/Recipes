@@ -24,6 +24,39 @@ function RecipeProvider({ children }) {
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [usedIngredients, setUsedIngredients] = useState([]);
+
+  const saveIngredientsInDatabase = async (recipeId) => {
+    const dataBase = pathname.split('/')[1];
+    const inProgressRecipes = await JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    ) || {
+      meals: {},
+      drinks: {},
+    };
+    if (dataBase === 'meals') {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        meals: {
+          ...inProgressRecipes.meals,
+          [recipeId]: usedIngredients,
+        },
+      }));
+    }
+    if (dataBase === 'drinks') {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        drinks: {
+          ...inProgressRecipes.drinks,
+          [recipeId]: usedIngredients,
+        },
+      }));
+    }
+  };
+
+  const handleCheckBox = ({ target: { name } }) => {
+    setUsedIngredients((prev) => ([...prev, name]));
+  };
 
   const handleGetRecipe = async (dataBase, id) => {
     let recipe = {};
@@ -68,6 +101,18 @@ function RecipeProvider({ children }) {
   };
 
   useEffect(() => {
+    if (isInProgressRecipes) {
+      const dataBase = pathname.split('/')[1];
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      setUsedIngredients(inProgressRecipes[dataBase][recipeDetail.idRecipe]);
+    }
+  }, [isInProgressRecipes, recipeDetail.idRecipe, pathname]);
+
+  useEffect(() => {
+    if (isInProgressRecipes) { saveIngredientsInDatabase(recipeDetail.idRecipe); }
+  }, [usedIngredients, recipeDetail.idRecipe, isInProgressRecipes]);
+
+  useEffect(() => {
     const { idRecipe } = recipeDetail;
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     setIsFavorite(favoriteRecipes.some((recipe) => recipe.id === idRecipe));
@@ -101,10 +146,13 @@ function RecipeProvider({ children }) {
     isInProgressRecipes,
     isDoneRecipe,
     isFavorite,
+    usedIngredients,
     handleGetRecipe,
     handleFavorite,
     handleUnfavorite,
-  }), [recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite]);
+    handleCheckBox,
+    saveIngredientsInDatabase,
+  }), [recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite, usedIngredients]);
 
   return (
     <RecipeContext.Provider value={ recipeState }>

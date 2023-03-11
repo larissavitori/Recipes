@@ -22,20 +22,24 @@ function RecipeDetails() {
     isInProgressRecipes,
     isDoneRecipe,
     handleGetRecipe,
+    saveIngredientsInDatabase,
   } = useContext(RecipeContext);
   const {
     handleGetRecipes: handleGetRecommendedRecipes,
   } = useContext(ResearchRecipesContext);
+  const dataBase = history.location.pathname.split('/')[1];
 
   useEffect(() => {
-    const dataBase = history.location.pathname.split('/')[1];
     handleGetRecipe(dataBase, id);
     if (dataBase === 'meals') { handleGetRecommendedRecipes('drinks'); }
     if (dataBase === 'drinks') { handleGetRecommendedRecipes('meals'); }
-  }, [history.location.pathname, id]);
+  }, [dataBase, id]);
 
   const handleClickToStartRecipe = () => {
     const { pathname } = history.location;
+    if (!isInProgressRecipes) {
+      saveIngredientsInDatabase(id);
+    }
     history.push(`${pathname}/in-progress`);
   };
 
