@@ -4,7 +4,7 @@ import React, {
 import { useHistory, useParams } from 'react-router-dom';
 import {
   RecipeHeader,
-  RecipeInProgressIngredients,
+  RecipeIngredients,
   RecipeInstructions,
 } from '../../components';
 import { RecipeContext } from '../../context';
@@ -24,7 +24,7 @@ function RecipeInProgress() {
   return (
     <div>
       <RecipeHeader />
-      <RecipeInProgressIngredients />
+      <RecipeIngredients />
       <RecipeInstructions />
       <button data-testid="finish-recipe-btn">Finish</button>
     </div>

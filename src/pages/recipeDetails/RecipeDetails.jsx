@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import {
   VideoEmbed,
   RecipeHeader,
-  RecipeIngredientsList,
+  RecipeIngredients,
   RecipeInstructions,
   RecommendedRecipes,
 } from '../../components';
@@ -100,7 +100,7 @@ function RecipeDetails() {
   return (
     <div className="recipe-details-page">
       <RecipeHeader />
-      <RecipeIngredientsList />
+      <RecipeIngredients />
       <RecipeInstructions />
       { strYoutube ? <VideoEmbed /> : '' }
       <RecommendedRecipes />

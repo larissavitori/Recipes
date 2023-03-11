@@ -5,13 +5,11 @@ import Footer from './footer/Footer';
 import CategoryList from './categoryList/CategoryList';
 import VideoEmbed from './videoEmbed/VideoEmbed';
 import RecipeHeader from './recipeHeader/RecipeHeader';
-import RecipeIngredientsList
-  from './recipeIngredientsList/RecipeIngredientsList';
+import RecipeIngredients
+  from './recipeIngredients/RecipeIngredients';
 import RecipeInstructions
   from './recipeInstructions/RecipeInstructions';
 import RecommendedRecipes from './recommendedRecipes/RecommendedRecipes';
-import RecipeInProgressIngredients
-  from './recipeInProgressIngredients/RecipeInProgressIngredients';
 
 export {
   LoginForm,
@@ -21,8 +19,7 @@ export {
   Footer,
   VideoEmbed,
   RecipeHeader,
-  RecipeIngredientsList,
+  RecipeIngredients,
   RecipeInstructions,
   RecommendedRecipes,
-  RecipeInProgressIngredients,
 };
