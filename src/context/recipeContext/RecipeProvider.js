@@ -1,12 +1,13 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import RecipeContext from './RecipeContext';
 import { getMealDetails, getDrinkDetails } from '../../service/api';
 import { formatRecipeDetail } from '../../utils';
 
 function RecipeProvider({ children }) {
-  const { location: { pathname } } = useHistory();
+  const { pathname } = useLocation();
+  const { push } = useHistory();
   const [recipeDetail, setRecipeDetail] = useState({
     idRecipe: '',
     strRecipe: '',
@@ -20,6 +21,7 @@ function RecipeProvider({ children }) {
     },
     strInstructions: '',
     strYoutube: '',
+    strTags: [],
   });
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
@@ -39,6 +41,36 @@ function RecipeProvider({ children }) {
         [recipeId]: usedIngredients,
       },
     }));
+  };
+
+  const handleDoneRecipe = () => {
+    const dataBase = pathname.split('/')[1];
+    const {
+      idRecipe,
+      strArea,
+      strCategory,
+      strAlcoholic,
+      strRecipe,
+      strRecipeThumb,
+      strTags,
+    } = recipeDetail;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    localStorage.setItem('doneRecipes', JSON.stringify([
+      ...doneRecipes,
+      {
+        id: idRecipe,
+        type: dataBase === 'meals' ? 'meal' : 'drink',
+        nationality: strArea,
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strRecipe,
+        image: strRecipeThumb,
+        doneDate: new Date(),
+        tags: strTags,
+      },
+    ]));
+
+    push('/done-recipes');
   };
 
   const handleCheckBox = ({ target: { name, checked } }) => {
@@ -162,6 +194,7 @@ function RecipeProvider({ children }) {
     handleFavorite,
     handleUnfavorite,
     handleCheckBox,
+    handleDoneRecipe,
     saveIngredientsInDatabase,
   }), [
     recipeDetail, isInProgressRecipes, isDoneRecipe, isFavorite, usedIngredients,

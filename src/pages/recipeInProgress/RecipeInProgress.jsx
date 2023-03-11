@@ -18,6 +18,7 @@ function RecipeInProgress() {
   const {
     handleGetRecipe,
     isAproveToDone: isDisable,
+    handleDoneRecipe,
   } = useContext(RecipeContext);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function RecipeInProgress() {
       <RecipeInstructions />
       <Button
         bDataTestId="finish-recipe-btn"
-        bHandleClick={ () => global.alert('Finished') }
+        bHandleClick={ handleDoneRecipe }
         bTitle="Finish Recipe"
         bClassName="finish-recipe-btn"
         bValidation={ !isDisable }
