@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
 import FavoriteBtn from '../buttons/FavoriteBtn';
+import NotificationAlert from '../notificationAlert/NotificationAlert';
 
 function DoneRecipeCard({ recipeData, index }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isShare, setIsShare] = useState(false);
 
   const handleShare = async () => {
     let url = window.location.href;
@@ -14,6 +17,11 @@ function DoneRecipeCard({ recipeData, index }) {
     url = url.replace('done-recipes', urlParms);
 
     await clipboardCopy(url);
+    setIsShare(true);
+  };
+
+  const closeAlert = async () => {
+    setIsShare(false);
   };
 
   const handleFavorite = () => {
@@ -66,6 +74,9 @@ function DoneRecipeCard({ recipeData, index }) {
         src={ recipeData.image }
         alt={ `${recipeData.name}` }
       />
+      {
+        isShare ? <NotificationAlert aOnClick={ closeAlert } /> : ''
+      }
       <div className="detail-options">
         <button
           className="option-btn"
