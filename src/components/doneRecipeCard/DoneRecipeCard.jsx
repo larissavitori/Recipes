@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import { BiShareAlt } from 'react-icons/bi';
+import React, { useEffect, useState } from 'react';
+import shareIcon from '../../images/shareIcon.svg';
 import FavoriteBtn from '../buttons/FavoriteBtn';
 
 function DoneRecipeCard({ recipeData, index }) {
@@ -68,11 +68,14 @@ function DoneRecipeCard({ recipeData, index }) {
       />
       <div className="detail-options">
         <button
-          data-testid={ `${index}-horizontal-share-btn` }
           className="option-btn"
           onClick={ handleShare }
         >
-          <BiShareAlt className="option-icon" />
+          <img
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            alt="Share Icon"
+          />
         </button>
         {
           isFavorite ? <FavoriteBtn
@@ -88,6 +91,10 @@ function DoneRecipeCard({ recipeData, index }) {
         data-testid={ `${index}-horizontal-top-text` }
         className="recipe-category"
       >
+        {
+          recipeData.type === 'meal' ? recipeData.nationality : recipeData.alcoholicOrNot
+        }
+        {' - '}
         {recipeData.category}
       </span>
       <span
@@ -108,7 +115,7 @@ function DoneRecipeCard({ recipeData, index }) {
           recipeData.tags.map((tag, id) => (
             <span
               key={ id }
-              data-testid={ `${index}-${tag}-horizontal-done-date` }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
             >
               {tag}
             </span>
