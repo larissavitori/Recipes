@@ -11,25 +11,25 @@ function DoneRecipes() {
     setDoneRecipes(doneRecipesData);
   };
 
-  const handleGetDoneRecipesByCategory = (category) => {
-    const filterTerm = category.replace('s', '');
-    if (filteredBy === filterTerm) {
+  const handleGetDoneRecipesByCategory = ({ target: { name: category } }) => {
+    if (filteredBy === category) {
       handleGetDoneRecipes();
       setFilteredBy('all');
       return;
     }
     const doneRecipesData = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    console.log(category);
     const filteredByTermRecipes = doneRecipesData.filter(
-      (recipe) => recipe.type === filterTerm,
+      (recipe) => recipe.type === category,
     );
     setDoneRecipes(filteredByTermRecipes);
-    setFilteredBy(filterTerm);
+    setFilteredBy(category);
   };
 
   useEffect(() => {
     setCategories([
-      { strCategory: 'meals', categoryTestId: 'filter-by-meal-btn' },
-      { strCategory: 'drinks', categoryTestId: 'filter-by-drink-btn' },
+      { strCategory: 'meal', categoryTestId: 'filter-by-meal-btn' },
+      { strCategory: 'drink', categoryTestId: 'filter-by-drink-btn' },
     ]);
     handleGetDoneRecipes();
   }, []);
