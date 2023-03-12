@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
+import { useHistory } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 import FavoriteBtn from '../buttons/FavoriteBtn';
 import NotificationAlert from '../notificationAlert/NotificationAlert';
@@ -8,6 +9,12 @@ import NotificationAlert from '../notificationAlert/NotificationAlert';
 function DoneRecipeCard({ recipeData, index }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isShare, setIsShare] = useState(false);
+  const { push } = useHistory();
+
+  const handleRedirectToDetail = () => {
+    const { id, type } = recipeData;
+    push(`/${type}s/${id}`);
+  };
 
   const handleShare = async () => {
     let url = window.location.href;
@@ -68,12 +75,14 @@ function DoneRecipeCard({ recipeData, index }) {
 
   return (
     <div className="done-recipe-card">
-      <img
-        data-testid={ `${index}-horizontal-image` }
-        className="done-recipe-image"
-        src={ recipeData.image }
-        alt={ `${recipeData.name}` }
-      />
+      <button onClick={ handleRedirectToDetail }>
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          className="done-recipe-image"
+          src={ recipeData.image }
+          alt={ `${recipeData.name}` }
+        />
+      </button>
       {
         isShare ? <NotificationAlert aOnClick={ closeAlert } /> : ''
       }
@@ -108,12 +117,14 @@ function DoneRecipeCard({ recipeData, index }) {
         {' - '}
         {recipeData.category}
       </span>
-      <span
-        data-testid={ `${index}-horizontal-name` }
-        className="done-recipe-name"
-      >
-        {recipeData.name}
-      </span>
+      <button onClick={ handleRedirectToDetail }>
+        <span
+          data-testid={ `${index}-horizontal-name` }
+          className="done-recipe-name"
+        >
+          {recipeData.name}
+        </span>
+      </button>
       <p
         className="done-recipe-date"
         data-testid={ `${index}-horizontal-done-date` }
