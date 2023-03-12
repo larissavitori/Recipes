@@ -24,7 +24,6 @@ function RecipeProvider({ children }) {
     strTags: [],
   });
 
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isInProgressRecipes, setIsInProgressRecipes] = useState(false);
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -190,7 +189,6 @@ function RecipeProvider({ children }) {
     isFavorite,
     isInProgressRecipes,
     isDoneRecipe,
-    isFavorite,
     isAproveToDone,
     usedIngredients,
     handleGetRecipe,
