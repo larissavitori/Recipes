@@ -18,7 +18,6 @@ function DoneRecipes() {
       return;
     }
     const doneRecipesData = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    console.log(category);
     const filteredByTermRecipes = doneRecipesData.filter(
       (recipe) => recipe.type === category,
     );

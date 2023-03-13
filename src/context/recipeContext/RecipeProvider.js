@@ -35,13 +35,15 @@ function RecipeProvider({ children }) {
     const inProgressRecipes = JSON.parse(
       localStorage.getItem('inProgressRecipes'),
     );
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      ...inProgressRecipes,
-      [dataBase]: {
-        ...inProgressRecipes[dataBase],
-        [recipeId]: usedIngredients,
-      },
-    }));
+    if (recipeId) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        [dataBase]: {
+          ...inProgressRecipes[dataBase],
+          [recipeId]: usedIngredients,
+        },
+      }));
+    }
   };
 
   const handleDoneRecipe = () => {
@@ -146,12 +148,20 @@ function RecipeProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (pathname.split('/')[3] === 'in-progress') {
+    const { idRecipe } = recipeDetail;
+    if (pathname.split('/')[3] === 'in-progress' && idRecipe) {
       const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       const dataBase = pathname.split('/')[1];
       setUsedIngredients(inProgressRecipes[dataBase][recipeDetail.idRecipe] || []);
     }
-  }, [isInProgressRecipes, recipeDetail.idRecipe, pathname]);
+  }, [recipeDetail, pathname]);
+
+  useEffect(() => {
+    const { idRecipe } = recipeDetail;
+    if (pathname.split('/')[3] === 'in-progress' && idRecipe) {
+      saveIngredientsInDatabase(idRecipe);
+    }
+  }, [usedIngredients, recipeDetail, pathname]);
 
   useEffect(() => {
     const { idRecipe } = recipeDetail;
