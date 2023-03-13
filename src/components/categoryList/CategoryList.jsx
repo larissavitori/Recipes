@@ -1,59 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import Button from '../buttons/Button';
-import { getDrinksCategoryList, getMealsCategoryList } from '../../service/api';
 import { ResearchRecipesContext } from '../../context';
 
 import './categoryList.css';
 
-function CategoryList() {
-  const {
-    searchBarStatus, handleGetRecipesByCategory, handleGetRecipes,
-  } = useContext(ResearchRecipesContext);
-  const { location: { pathname } } = useHistory();
-  const [categories, setCategories] = useState([]);
-
-  const handleSetCategory = (categoryList) => {
-    setCategories(categoryList);
-  };
-
-  useEffect(() => {
-    async function fetchMealsCategoriesList() {
-      const fetchData = await getMealsCategoryList();
-      handleSetCategory(fetchData);
-    }
-
-    async function fetchDrinksCategoriesList() {
-      const fetchData = await getDrinksCategoryList();
-      handleSetCategory(fetchData);
-    }
-
-    if (pathname === '/meals') {
-      fetchMealsCategoriesList();
-    } else fetchDrinksCategoriesList();
-  }, [pathname]);
+function CategoryList({
+  categoriesList, handleGetAll, handleGetByCategory, allCategoryTestId = null,
+}) {
+  const { searchBarStatus } = useContext(ResearchRecipesContext);
 
   return (
     <div className={ searchBarStatus ? 'category-list search-open' : 'category-list' }>
       {
-        categories.map(({ strCategory }, index) => (
+        categoriesList.map(({ strCategory, categoryTestId }, index) => (
           <Button
             key={ index }
-            bDataTestId={ `${strCategory}-category-filter` }
-            bHandleClick={ handleGetRecipesByCategory }
+            bDataTestId={ categoryTestId || `${strCategory}-category-filter` }
+            bHandleClick={ handleGetByCategory }
             bTitle={ strCategory }
             bClassName="category-btn"
           />
         ))
       }
       <Button
-        bDataTestId="All-category-filter"
-        bHandleClick={ () => handleGetRecipes(pathname.slice(1)) }
+        bDataTestId={ allCategoryTestId || 'All-category-filter' }
+        bHandleClick={ handleGetAll }
         bTitle="All"
         bClassName="category-btn"
       />
     </div>
   );
 }
+
+CategoryList.propTypes = {
+  categoriesList: PropTypes.arrayOf(PropTypes.shape({
+    strCategory: PropTypes.string.isRequired,
+    categoryTestId: PropTypes.string,
+  }).isRequired).isRequired,
+  handleGetByCategory: PropTypes.func.isRequired,
+  handleGetAll: PropTypes.func.isRequired,
+  allCategoryTestId: PropTypes.string,
+};
 
 export default CategoryList;

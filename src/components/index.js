@@ -10,6 +10,7 @@ import RecipeIngredients
 import RecipeInstructions
   from './recipeInstructions/RecipeInstructions';
 import RecommendedRecipes from './recommendedRecipes/RecommendedRecipes';
+import DoneRecipeCard from './doneRecipeCard/DoneRecipeCard';
 
 export {
   LoginForm,
@@ -22,4 +23,5 @@ export {
   RecipeIngredients,
   RecipeInstructions,
   RecommendedRecipes,
+  DoneRecipeCard,
 };
