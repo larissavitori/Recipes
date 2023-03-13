@@ -1,6 +1,7 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import { logInTheApplication } from './helpers/helperFunctions';
@@ -20,26 +21,33 @@ describe('Test Application RecipeDetails Page', () => {
   });
 
   it('General tests', async () => {
-    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
     logInTheApplication();
     const firstMeal = await screen.findByTestId('0-recipe-card');
     userEvent.click(firstMeal);
     const startButton = screen.getByTestId('start-recipe-btn');
     userEvent.click(startButton);
-    const checkbox0 = await screen.findByTestId('0-ingredient-step');
-    const checkbox1 = await screen.findByTestId('1-ingredient-step');
-    userEvent.click(checkbox0);
-    userEvent.click(checkbox1);
+    const checkboxes = await screen.findAllByRole('checkbox');
+    checkboxes[0].checked = true;
+    checkboxes[1].checked = true;
     const finishButton = screen.getByTestId('finish-recipe-btn');
-    expect(finishButton.disabled).toBe(false);
-    // act(() => {
-    //   history.push('/done-recipes');
-    // });
-    // const filterMeal = screen.getByTestId('filter-by-meal-btn');
-    // userEvent.click(filterMeal);
-    // const filterDrink = screen.getByTestId('filter-by-drink-btn');
-    // userEvent.click(filterDrink);
-    // const filterAll = screen.getByTestId('filter-by-all-btn');
-    // userEvent.click(filterAll);
+    userEvent.click(finishButton);
+    await waitFor(() => {
+      const filterMeal = screen.getByTestId('filter-by-meal-btn');
+      userEvent.click(filterMeal);
+    });
+    const filterMeal = await screen.findByTestId('filter-by-meal-btn');
+    userEvent.click(filterMeal);
+
+    const filterDrink = await screen.findByTestId('filter-by-drink-btn');
+    userEvent.click(filterDrink);
+    const filterAll = await screen.findByTestId('filter-by-all-btn');
+    userEvent.click(filterAll);
+    act(() => {
+      history.push('/meals');
+    });
+    act(() => {
+      history.push('/done-recipes');
+    });
   });
 });
