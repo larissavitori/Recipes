@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Header, Recipes, Footer, CategoryList } from '../../components';
 import { getMealsCategoryList } from '../../service/api';

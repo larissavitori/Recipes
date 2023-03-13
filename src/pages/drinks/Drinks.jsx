@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Header, Recipes, Footer, CategoryList } from '../../components';
 import { getDrinksCategoryList } from '../../service/api';
 import { ResearchRecipesContext } from '../../context';
