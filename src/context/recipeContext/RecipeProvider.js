@@ -77,10 +77,13 @@ function RecipeProvider({ children }) {
     const { idRecipe } = recipeDetail;
     const dataBase = pathname.split('/')[1];
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    console.log('doneRecipes', doneRecipes);
+    console.log('dataBase', dataBase);
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
       meals: {},
       drinks: {},
     };
+    console.log('inProgress', inProgressRecipes);
     doneRecipes.forEach((recipe) => {
       if (recipe.id === idRecipe) {
         setIsDoneRecipe(true);
