@@ -1,0 +1,12 @@
+.recipe-inProgress-page {
+  background-color: var(--color-background);
+  padding-bottom: 76px;
+}
+
+.finish-recipe-btn {
+  bottom: 0;
+  margin: 20px;
+  padding: 16px 0;
+  position: fixed;
+  width: calc(100% - 40px);
+}

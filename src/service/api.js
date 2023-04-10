@@ -1,3 +1,5 @@
+import { formatRecipeList } from '../utils';
+
 const TWELVE = 12;
 const FIVE = 5;
 const MESSAGE_ERROR = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -7,10 +9,11 @@ export const getDrinksByIngredient = async (ingredient) => {
   const { drinks } = await (await fetch(URL)).json();
 
   if (drinks === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return drinks.slice(0, TWELVE);
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksByName = async (name = '') => {
@@ -18,10 +21,11 @@ export const getDrinksByName = async (name = '') => {
   const { drinks } = await (await fetch(URL)).json();
 
   if (drinks === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return drinks.slice(0, TWELVE);
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksByFirstLetter = async (firstLetter) => {
@@ -29,22 +33,23 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
   const { drinks } = await (await fetch(URL)).json();
 
   if (drinks === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return drinks.slice(0, TWELVE);
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksByCategory = async (category) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
   const { drinks } = await (await fetch(URL)).json();
 
-  console.log(drinks);
   if (drinks === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return drinks.slice(0, TWELVE);
+  return formatRecipeList(drinks.slice(0, TWELVE), 'drinks');
 };
 
 export const getDrinksCategoryList = async () => {
@@ -66,10 +71,11 @@ export const getMealsByIngredient = async (ingredient) => {
   const { meals } = await (await fetch(URL)).json();
 
   if (meals === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return meals.slice(0, TWELVE);
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsByName = async (name = '') => {
@@ -77,10 +83,11 @@ export const getMealsByName = async (name = '') => {
   const { meals } = await (await fetch(URL)).json();
 
   if (meals === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return meals.slice(0, TWELVE);
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsByFirstLetter = async (firstLetter) => {
@@ -88,10 +95,11 @@ export const getMealsByFirstLetter = async (firstLetter) => {
   const { meals } = await (await fetch(URL)).json();
 
   if (meals === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return meals.slice(0, TWELVE);
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsByCategory = async (category) => {
@@ -99,10 +107,11 @@ export const getMealsByCategory = async (category) => {
   const { meals } = await (await fetch(URL)).json();
 
   if (meals === null) {
-    return global.alert(MESSAGE_ERROR);
+    global.alert(MESSAGE_ERROR);
+    return [];
   }
 
-  return meals.slice(0, TWELVE);
+  return formatRecipeList(meals.slice(0, TWELVE), 'meals');
 };
 
 export const getMealsCategoryList = async () => {

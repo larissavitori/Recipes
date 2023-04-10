@@ -1,0 +1,14 @@
+.list-style-none {
+  list-style: none;
+}
+
+.list-line {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.scratched {
+  text-decoration: line-through solid black;
+}
